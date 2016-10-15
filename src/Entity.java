@@ -526,75 +526,75 @@ public class Entity implements Serializable {
         Random random = TerraFrame.getRandom();
         if (name == "blue_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)97));
+                dropList.add((short) 97);
             }
         }
         if (name == "green_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)98));
+                dropList.add((short) 98);
             }
         }
         if (name == "red_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)99));
+                dropList.add((short) 99);
             }
         }
         if (name == "yellow_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)100));
+                dropList.add((short) 100);
             }
         }
         if (name == "black_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)101));
+                dropList.add((short) 101);
             }
         }
         if (name == "white_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)102));
+                dropList.add((short) 102);
             }
         }
         if (name == "shooting_star") {
             for (i=0; i<random.nextInt(2); i++) {
-                dropList.add(new Short((short)103));
+                dropList.add((short) 103);
             }
         }
         if (name == "zombie") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)104));
+                dropList.add((short) 104);
             }
         }
         if (name == "armored_zombie") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)104));
+                dropList.add((short) 104);
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)109));
+                dropList.add((short) 109);
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)110));
+                dropList.add((short) 110);
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)111));
+                dropList.add((short) 111);
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)112));
+                dropList.add((short) 112);
             }
         }
         if (name == "sandbot") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)74));
+                dropList.add((short) 74);
             }
             if (random.nextInt(2) == 0) {
-                dropList.add(new Short((short)44));
+                dropList.add((short) 44);
             }
             if (random.nextInt(6) == 0) {
-                dropList.add(new Short((short)45));
+                dropList.add((short) 45);
             }
         }
         if (name == "snowman") {
             for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)75));
+                dropList.add((short) 75);
             }
         }
         return dropList;

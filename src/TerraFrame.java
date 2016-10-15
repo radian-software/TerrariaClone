@@ -894,7 +894,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             itemImgs = new HashMap<Short,BufferedImage>();
 
             for (i=1; i<items.length; i++) {
-                itemImgs.put(new Short((short)i), loadImage("items/" + items[i] + ".png"));
+                itemImgs.put((short) i, loadImage("items/" + items[i] + ".png"));
                 if (itemImgs.get((short)i) == null) {
                     System.out.println("[ERROR] Could not load item graphic '" + items[i] + "'.");
                 }
@@ -1103,7 +1103,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
 
             for (i=0; i<blocktools.length; i++) {
                 for (j=0; j<blocktools[i].length; j++) {
-                    blocktools[i][j] = new Short((short)blocktools[i][j]);
+                    blocktools[i][j] = (short) blocktools[i][j];
                 }
             }
 
@@ -1114,93 +1114,93 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             TOOLSPEED = new HashMap<Short,Double>();
 
             for (i=1; i<items.length; i++) {
-                TOOLSPEED.put(new Short((short)i), 0.175);
+                TOOLSPEED.put((short) i, 0.175);
             }
 
-            TOOLSPEED.put(new Short((short)154), 0.100);// wood:   P100 S100
-            TOOLSPEED.put(new Short((short)155), 0.100);
-            TOOLSPEED.put(new Short((short)156), 0.100);
-            TOOLSPEED.put(new Short((short)157), 0.110);// stone:  P110 S105
-            TOOLSPEED.put(new Short((short)158), 0.110);
-            TOOLSPEED.put(new Short((short)159), 0.105);
-            TOOLSPEED.put(new Short((short)7), 0.120);  // copper: P120 S110
-            TOOLSPEED.put(new Short((short)11), 0.120);
-            TOOLSPEED.put(new Short((short)16), 0.110);
-            TOOLSPEED.put(new Short((short)8), 0.130);  // iron:   P130 S115
-            TOOLSPEED.put(new Short((short)12), 0.130);
-            TOOLSPEED.put(new Short((short)17), 0.115);
-            TOOLSPEED.put(new Short((short)9), 0.140);  // silver: P140 S120
-            TOOLSPEED.put(new Short((short)13), 0.140);
-            TOOLSPEED.put(new Short((short)18), 0.120);
-            TOOLSPEED.put(new Short((short)10), 0.150); // gold:   P150 S125
-            TOOLSPEED.put(new Short((short)14), 0.150);
-            TOOLSPEED.put(new Short((short)19), 0.125);
-            TOOLSPEED.put(new Short((short)51), 0.160); // zinc:   P160 S130
-            TOOLSPEED.put(new Short((short)52), 0.160);
-            TOOLSPEED.put(new Short((short)53), 0.130);
-            TOOLSPEED.put(new Short((short)54), 0.170); // rhyme:  P170 S135
-            TOOLSPEED.put(new Short((short)55), 0.170);
-            TOOLSPEED.put(new Short((short)56), 0.135);
-            TOOLSPEED.put(new Short((short)57), 0.180); // obdur:  P180 S140
-            TOOLSPEED.put(new Short((short)58), 0.180);
-            TOOLSPEED.put(new Short((short)59), 0.140);
-            TOOLSPEED.put(new Short((short)145), 0.350);// alumin: P250 S175
-            TOOLSPEED.put(new Short((short)146), 0.350);
-            TOOLSPEED.put(new Short((short)147), 0.245);
-            TOOLSPEED.put(new Short((short)148), 0.130);// lead:   P130 S115
-            TOOLSPEED.put(new Short((short)149), 0.130);
-            TOOLSPEED.put(new Short((short)150), 0.115);
-            TOOLSPEED.put(new Short((short)169), 0.250); // magne:  P350 S245
-            TOOLSPEED.put(new Short((short)170), 0.250);
-            TOOLSPEED.put(new Short((short)171), 0.175);
-            TOOLSPEED.put(new Short((short)172), 0.350); // irrad:  P350 S245
-            TOOLSPEED.put(new Short((short)173), 0.350);
-            TOOLSPEED.put(new Short((short)174), 0.245);
+            TOOLSPEED.put((short) 154, 0.100);// wood:   P100 S100
+            TOOLSPEED.put((short) 155, 0.100);
+            TOOLSPEED.put((short) 156, 0.100);
+            TOOLSPEED.put((short) 157, 0.110);// stone:  P110 S105
+            TOOLSPEED.put((short) 158, 0.110);
+            TOOLSPEED.put((short) 159, 0.105);
+            TOOLSPEED.put((short) 7, 0.120);  // copper: P120 S110
+            TOOLSPEED.put((short) 11, 0.120);
+            TOOLSPEED.put((short) 16, 0.110);
+            TOOLSPEED.put((short) 8, 0.130);  // iron:   P130 S115
+            TOOLSPEED.put((short) 12, 0.130);
+            TOOLSPEED.put((short) 17, 0.115);
+            TOOLSPEED.put((short) 9, 0.140);  // silver: P140 S120
+            TOOLSPEED.put((short) 13, 0.140);
+            TOOLSPEED.put((short) 18, 0.120);
+            TOOLSPEED.put((short) 10, 0.150); // gold:   P150 S125
+            TOOLSPEED.put((short) 14, 0.150);
+            TOOLSPEED.put((short) 19, 0.125);
+            TOOLSPEED.put((short) 51, 0.160); // zinc:   P160 S130
+            TOOLSPEED.put((short) 52, 0.160);
+            TOOLSPEED.put((short) 53, 0.130);
+            TOOLSPEED.put((short) 54, 0.170); // rhyme:  P170 S135
+            TOOLSPEED.put((short) 55, 0.170);
+            TOOLSPEED.put((short) 56, 0.135);
+            TOOLSPEED.put((short) 57, 0.180); // obdur:  P180 S140
+            TOOLSPEED.put((short) 58, 0.180);
+            TOOLSPEED.put((short) 59, 0.140);
+            TOOLSPEED.put((short) 145, 0.350);// alumin: P250 S175
+            TOOLSPEED.put((short) 146, 0.350);
+            TOOLSPEED.put((short) 147, 0.245);
+            TOOLSPEED.put((short) 148, 0.130);// lead:   P130 S115
+            TOOLSPEED.put((short) 149, 0.130);
+            TOOLSPEED.put((short) 150, 0.115);
+            TOOLSPEED.put((short) 169, 0.250); // magne:  P350 S245
+            TOOLSPEED.put((short) 170, 0.250);
+            TOOLSPEED.put((short) 171, 0.175);
+            TOOLSPEED.put((short) 172, 0.350); // irrad:  P350 S245
+            TOOLSPEED.put((short) 173, 0.350);
+            TOOLSPEED.put((short) 174, 0.245);
 
-            TOOLSPEED.put(new Short((short)33), 0.125); // stone lighter
+            TOOLSPEED.put((short) 33, 0.125); // stone lighter
 
             TOOLDAMAGE = new HashMap<Short,Integer>();
 
             for (i=0; i<items.length; i++) {
-                TOOLDAMAGE.put(new Short((short)i), 1);
+                TOOLDAMAGE.put((short) i, 1);
             }
 
-            TOOLDAMAGE.put(new Short((short)7), 2);
-            TOOLDAMAGE.put(new Short((short)8), 3);
-            TOOLDAMAGE.put(new Short((short)9), 3);
-            TOOLDAMAGE.put(new Short((short)10), 4);
-            TOOLDAMAGE.put(new Short((short)11), 3);
-            TOOLDAMAGE.put(new Short((short)12), 4);
-            TOOLDAMAGE.put(new Short((short)13), 5);
-            TOOLDAMAGE.put(new Short((short)14), 6);
-            TOOLDAMAGE.put(new Short((short)16), 5);
-            TOOLDAMAGE.put(new Short((short)17), 8);
-            TOOLDAMAGE.put(new Short((short)18), 13);
-            TOOLDAMAGE.put(new Short((short)19), 18);
-            TOOLDAMAGE.put(new Short((short)51), 6);
-            TOOLDAMAGE.put(new Short((short)52), 9);
-            TOOLDAMAGE.put(new Short((short)53), 24);
-            TOOLDAMAGE.put(new Short((short)54), 8);
-            TOOLDAMAGE.put(new Short((short)55), 11);
-            TOOLDAMAGE.put(new Short((short)56), 30);
-            TOOLDAMAGE.put(new Short((short)57), 10);
-            TOOLDAMAGE.put(new Short((short)58), 15);
-            TOOLDAMAGE.put(new Short((short)59), 38);
-            TOOLDAMAGE.put(new Short((short)145), 7);
-            TOOLDAMAGE.put(new Short((short)146), 10);
-            TOOLDAMAGE.put(new Short((short)147), 27);
-            TOOLDAMAGE.put(new Short((short)148), 4);
-            TOOLDAMAGE.put(new Short((short)149), 5);
-            TOOLDAMAGE.put(new Short((short)150), 9);
-            TOOLDAMAGE.put(new Short((short)154), 1);
-            TOOLDAMAGE.put(new Short((short)155), 1);
-            TOOLDAMAGE.put(new Short((short)156), 3);
-            TOOLDAMAGE.put(new Short((short)157), 1);
-            TOOLDAMAGE.put(new Short((short)158), 2);
-            TOOLDAMAGE.put(new Short((short)159), 4);
-            TOOLDAMAGE.put(new Short((short)57), 20);
-            TOOLDAMAGE.put(new Short((short)58), 30);
-            TOOLDAMAGE.put(new Short((short)59), 75);
+            TOOLDAMAGE.put((short) 7, 2);
+            TOOLDAMAGE.put((short) 8, 3);
+            TOOLDAMAGE.put((short) 9, 3);
+            TOOLDAMAGE.put((short) 10, 4);
+            TOOLDAMAGE.put((short) 11, 3);
+            TOOLDAMAGE.put((short) 12, 4);
+            TOOLDAMAGE.put((short) 13, 5);
+            TOOLDAMAGE.put((short) 14, 6);
+            TOOLDAMAGE.put((short) 16, 5);
+            TOOLDAMAGE.put((short) 17, 8);
+            TOOLDAMAGE.put((short) 18, 13);
+            TOOLDAMAGE.put((short) 19, 18);
+            TOOLDAMAGE.put((short) 51, 6);
+            TOOLDAMAGE.put((short) 52, 9);
+            TOOLDAMAGE.put((short) 53, 24);
+            TOOLDAMAGE.put((short) 54, 8);
+            TOOLDAMAGE.put((short) 55, 11);
+            TOOLDAMAGE.put((short) 56, 30);
+            TOOLDAMAGE.put((short) 57, 10);
+            TOOLDAMAGE.put((short) 58, 15);
+            TOOLDAMAGE.put((short) 59, 38);
+            TOOLDAMAGE.put((short) 145, 7);
+            TOOLDAMAGE.put((short) 146, 10);
+            TOOLDAMAGE.put((short) 147, 27);
+            TOOLDAMAGE.put((short) 148, 4);
+            TOOLDAMAGE.put((short) 149, 5);
+            TOOLDAMAGE.put((short) 150, 9);
+            TOOLDAMAGE.put((short) 154, 1);
+            TOOLDAMAGE.put((short) 155, 1);
+            TOOLDAMAGE.put((short) 156, 3);
+            TOOLDAMAGE.put((short) 157, 1);
+            TOOLDAMAGE.put((short) 158, 2);
+            TOOLDAMAGE.put((short) 159, 4);
+            TOOLDAMAGE.put((short) 57, 20);
+            TOOLDAMAGE.put((short) 58, 30);
+            TOOLDAMAGE.put((short) 59, 75);
 
             short[] drops = {0, 1, 2, 3, 4, 5, 6, 15, 20, 21, 22, 23, 24, 25, 26, 15, 0, 27, 28, 34, 35, 36, 37, 27, 35, 35, 36, 36, 37, 37, 0, 38, 39, 40, 41, 42, 43, 44, 44, 45, 46, 47, 48, 49, 50, 74, 75, 0, 0, 0, 78, 0, 0, 80, 0, 0, 82, 0, 0, 84, 0, 0, 86, 0, 0, 88, 0, 0, 90, 0, 0, 92, 1, 1, 93, 93, 94, 0, 0, 96, 151, 152, 153, 15, 161, 162, 163, 164, 165, 166, 168, 1, 50, 1, 175, 175, 175, 175, 175, 175, 176, 176, 176, 177, 177, 178, 178, 178, 178, 178, 178, 180, 180, 180, 180, 180, 180, 180, 180, 181, 181, 181, 181, 181, 181, 181, 181, 182, 182, 182, 182, 183, 183, 184, 184, 185, 185, 186, 186, 186, 186, 186, 186, 186, 186, 187, 187, 187, 187, 187, 187, 187, 187, 188, 188, 188, 188, 188, 188, 188, 188, 189, 189, 189, 189, 189, 189, 189, 189};
 
@@ -1215,7 +1215,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             ITEMBLOCKS = new HashMap<Short,Integer>();
 
             for (i=1; i<items.length; i++) {
-                ITEMBLOCKS.put(new Short((short)i), itemblocks[i]);
+                ITEMBLOCKS.put((short) i, itemblocks[i]);
             }
 
             OUTLINES = new HashMap<Integer,String>();
@@ -1344,7 +1344,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             short[] stacks = {100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 100, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1};
 
             for (i=0; i<items.length; i++) {
-                MAXSTACKS.put(new Short((short)i), stacks[i]);
+                MAXSTACKS.put((short) i, stacks[i]);
             }
 
             SKYCOLORS = new HashMap<Integer,Color>();
@@ -1496,166 +1496,166 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             ARMOR = new HashMap<Short,Integer>();
 
             for (i=0; i<items.length; i++) {
-                ARMOR.put(new Short((short)i), 0);
+                ARMOR.put((short) i, 0);
             }
 
-            ARMOR.put(new Short((short)105), 1);
-            ARMOR.put(new Short((short)106), 2);
-            ARMOR.put(new Short((short)107), 1);
-            ARMOR.put(new Short((short)108), 1);
-            ARMOR.put(new Short((short)109), 1);
-            ARMOR.put(new Short((short)110), 3);
-            ARMOR.put(new Short((short)111), 2);
-            ARMOR.put(new Short((short)112), 1);
-            ARMOR.put(new Short((short)113), 2);
-            ARMOR.put(new Short((short)114), 4);
-            ARMOR.put(new Short((short)115), 3);
-            ARMOR.put(new Short((short)116), 1);
-            ARMOR.put(new Short((short)117), 3);
-            ARMOR.put(new Short((short)118), 6);
-            ARMOR.put(new Short((short)119), 5);
-            ARMOR.put(new Short((short)120), 2);
-            ARMOR.put(new Short((short)121), 4);
-            ARMOR.put(new Short((short)122), 7);
-            ARMOR.put(new Short((short)123), 6);
-            ARMOR.put(new Short((short)124), 3);
-            ARMOR.put(new Short((short)125), 5);
-            ARMOR.put(new Short((short)126), 9);
-            ARMOR.put(new Short((short)127), 7);
-            ARMOR.put(new Short((short)128), 4);
-            ARMOR.put(new Short((short)129), 7);
-            ARMOR.put(new Short((short)130), 12);
-            ARMOR.put(new Short((short)131), 10);
-            ARMOR.put(new Short((short)132), 6);
-            ARMOR.put(new Short((short)133), 4);
-            ARMOR.put(new Short((short)134), 7);
-            ARMOR.put(new Short((short)135), 6);
-            ARMOR.put(new Short((short)136), 3);
-            ARMOR.put(new Short((short)137), 2);
-            ARMOR.put(new Short((short)138), 4);
-            ARMOR.put(new Short((short)139), 3);
-            ARMOR.put(new Short((short)140), 1);
-            ARMOR.put(new Short((short)141), 10);
-            ARMOR.put(new Short((short)142), 18);
-            ARMOR.put(new Short((short)143), 14);
-            ARMOR.put(new Short((short)144), 8);
+            ARMOR.put((short) 105, 1);
+            ARMOR.put((short) 106, 2);
+            ARMOR.put((short) 107, 1);
+            ARMOR.put((short) 108, 1);
+            ARMOR.put((short) 109, 1);
+            ARMOR.put((short) 110, 3);
+            ARMOR.put((short) 111, 2);
+            ARMOR.put((short) 112, 1);
+            ARMOR.put((short) 113, 2);
+            ARMOR.put((short) 114, 4);
+            ARMOR.put((short) 115, 3);
+            ARMOR.put((short) 116, 1);
+            ARMOR.put((short) 117, 3);
+            ARMOR.put((short) 118, 6);
+            ARMOR.put((short) 119, 5);
+            ARMOR.put((short) 120, 2);
+            ARMOR.put((short) 121, 4);
+            ARMOR.put((short) 122, 7);
+            ARMOR.put((short) 123, 6);
+            ARMOR.put((short) 124, 3);
+            ARMOR.put((short) 125, 5);
+            ARMOR.put((short) 126, 9);
+            ARMOR.put((short) 127, 7);
+            ARMOR.put((short) 128, 4);
+            ARMOR.put((short) 129, 7);
+            ARMOR.put((short) 130, 12);
+            ARMOR.put((short) 131, 10);
+            ARMOR.put((short) 132, 6);
+            ARMOR.put((short) 133, 4);
+            ARMOR.put((short) 134, 7);
+            ARMOR.put((short) 135, 6);
+            ARMOR.put((short) 136, 3);
+            ARMOR.put((short) 137, 2);
+            ARMOR.put((short) 138, 4);
+            ARMOR.put((short) 139, 3);
+            ARMOR.put((short) 140, 1);
+            ARMOR.put((short) 141, 10);
+            ARMOR.put((short) 142, 18);
+            ARMOR.put((short) 143, 14);
+            ARMOR.put((short) 144, 8);
 
             TOOLDURS = new HashMap<Short,Short>();
 
-            TOOLDURS.put(new Short((short)7), new Short((short)400));   // copper: P0200 A0200 S0125
-            TOOLDURS.put(new Short((short)8), new Short((short)500));   // iron:   P0250 A0250 S0150
-            TOOLDURS.put(new Short((short)9), new Short((short)600));   // silver: P0300 A0300 S0200
-            TOOLDURS.put(new Short((short)10), new Short((short)800));  // gold:   P0400 A0400 S0300
-            TOOLDURS.put(new Short((short)11), new Short((short)400));
-            TOOLDURS.put(new Short((short)12), new Short((short)500));
-            TOOLDURS.put(new Short((short)13), new Short((short)600));
-            TOOLDURS.put(new Short((short)14), new Short((short)800));
-            TOOLDURS.put(new Short((short)16), new Short((short)250));
-            TOOLDURS.put(new Short((short)17), new Short((short)300));
-            TOOLDURS.put(new Short((short)18), new Short((short)400));
-            TOOLDURS.put(new Short((short)19), new Short((short)600));
-            TOOLDURS.put(new Short((short)33), new Short((short)100));
-            TOOLDURS.put(new Short((short)51), new Short((short)1100));  // zinc:   P0550 A0550 S0475
-            TOOLDURS.put(new Short((short)52), new Short((short)1100));
-            TOOLDURS.put(new Short((short)53), new Short((short)950));
-            TOOLDURS.put(new Short((short)54), new Short((short)1350));  // rhyme:  P0675 A0675 S0625
-            TOOLDURS.put(new Short((short)55), new Short((short)1350));
-            TOOLDURS.put(new Short((short)56), new Short((short)1250));
-            TOOLDURS.put(new Short((short)57), new Short((short)1600));  // obdur:  P0800 A0800 S0800
-            TOOLDURS.put(new Short((short)58), new Short((short)1600));
-            TOOLDURS.put(new Short((short)59), new Short((short)1600));
-            TOOLDURS.put(new Short((short)145), new Short((short)200)); // alumin: P0100 A0100 S0050
-            TOOLDURS.put(new Short((short)146), new Short((short)200));
-            TOOLDURS.put(new Short((short)147), new Short((short)100));
-            TOOLDURS.put(new Short((short)148), new Short((short)2400));// lead:   P1200 A1200 S0800
-            TOOLDURS.put(new Short((short)149), new Short((short)2400));
-            TOOLDURS.put(new Short((short)150), new Short((short)1600));
-            TOOLDURS.put(new Short((short)154), new Short((short)200)); // wood:   P0100 A0100 S0050
-            TOOLDURS.put(new Short((short)155), new Short((short)200));
-            TOOLDURS.put(new Short((short)156), new Short((short)100));
-            TOOLDURS.put(new Short((short)157), new Short((short)300)); // stone:  P0150 A0150 S0075
-            TOOLDURS.put(new Short((short)158), new Short((short)300));
-            TOOLDURS.put(new Short((short)159), new Short((short)150));
-            TOOLDURS.put(new Short((short)169), new Short((short)1200)); // magne:  P0600 A0600 S0600
-            TOOLDURS.put(new Short((short)170), new Short((short)1200));
-            TOOLDURS.put(new Short((short)171), new Short((short)1200));
-            TOOLDURS.put(new Short((short)172), new Short((short)4000));// irrad:  P2000 A2000 S2000
-            TOOLDURS.put(new Short((short)173), new Short((short)4000));
-            TOOLDURS.put(new Short((short)174), new Short((short)4000));
-            TOOLDURS.put(new Short((short)190), new Short((short)400));
+            TOOLDURS.put((short) 7, (short) 400);   // copper: P0200 A0200 S0125
+            TOOLDURS.put((short) 8, (short) 500);   // iron:   P0250 A0250 S0150
+            TOOLDURS.put((short) 9, (short) 600);   // silver: P0300 A0300 S0200
+            TOOLDURS.put((short) 10, (short) 800);  // gold:   P0400 A0400 S0300
+            TOOLDURS.put((short) 11, (short) 400);
+            TOOLDURS.put((short) 12, (short) 500);
+            TOOLDURS.put((short) 13, (short) 600);
+            TOOLDURS.put((short) 14, (short) 800);
+            TOOLDURS.put((short) 16, (short) 250);
+            TOOLDURS.put((short) 17, (short) 300);
+            TOOLDURS.put((short) 18, (short) 400);
+            TOOLDURS.put((short) 19, (short) 600);
+            TOOLDURS.put((short) 33, (short) 100);
+            TOOLDURS.put((short) 51, (short) 1100);  // zinc:   P0550 A0550 S0475
+            TOOLDURS.put((short) 52, (short) 1100);
+            TOOLDURS.put((short) 53, (short) 950);
+            TOOLDURS.put((short) 54, (short) 1350);  // rhyme:  P0675 A0675 S0625
+            TOOLDURS.put((short) 55, (short) 1350);
+            TOOLDURS.put((short) 56, (short) 1250);
+            TOOLDURS.put((short) 57, (short) 1600);  // obdur:  P0800 A0800 S0800
+            TOOLDURS.put((short) 58, (short) 1600);
+            TOOLDURS.put((short) 59, (short) 1600);
+            TOOLDURS.put((short) 145, (short) 200); // alumin: P0100 A0100 S0050
+            TOOLDURS.put((short) 146, (short) 200);
+            TOOLDURS.put((short) 147, (short) 100);
+            TOOLDURS.put((short) 148, (short) 2400);// lead:   P1200 A1200 S0800
+            TOOLDURS.put((short) 149, (short) 2400);
+            TOOLDURS.put((short) 150, (short) 1600);
+            TOOLDURS.put((short) 154, (short) 200); // wood:   P0100 A0100 S0050
+            TOOLDURS.put((short) 155, (short) 200);
+            TOOLDURS.put((short) 156, (short) 100);
+            TOOLDURS.put((short) 157, (short) 300); // stone:  P0150 A0150 S0075
+            TOOLDURS.put((short) 158, (short) 300);
+            TOOLDURS.put((short) 159, (short) 150);
+            TOOLDURS.put((short) 169, (short) 1200); // magne:  P0600 A0600 S0600
+            TOOLDURS.put((short) 170, (short) 1200);
+            TOOLDURS.put((short) 171, (short) 1200);
+            TOOLDURS.put((short) 172, (short) 4000);// irrad:  P2000 A2000 S2000
+            TOOLDURS.put((short) 173, (short) 4000);
+            TOOLDURS.put((short) 174, (short) 4000);
+            TOOLDURS.put((short) 190, (short) 400);
 
-            TOOLDURS.put(new Short((short)105), new Short((short)200)); // copper: 0300
-            TOOLDURS.put(new Short((short)106), new Short((short)200)); // copper: 0300
-            TOOLDURS.put(new Short((short)107), new Short((short)200)); // copper: 0300
-            TOOLDURS.put(new Short((short)108), new Short((short)200)); // copper: 0300
-            TOOLDURS.put(new Short((short)109), new Short((short)200)); // iron:   0400
-            TOOLDURS.put(new Short((short)110), new Short((short)200)); // iron:   0400
-            TOOLDURS.put(new Short((short)111), new Short((short)200)); // iron:   0400
-            TOOLDURS.put(new Short((short)112), new Short((short)200)); // iron:   0400
-            TOOLDURS.put(new Short((short)113), new Short((short)200)); // silver: 0550
-            TOOLDURS.put(new Short((short)114), new Short((short)200)); // silver: 0550
-            TOOLDURS.put(new Short((short)115), new Short((short)200)); // silver: 0550
-            TOOLDURS.put(new Short((short)116), new Short((short)200)); // silver: 0550
-            TOOLDURS.put(new Short((short)117), new Short((short)200)); // gold:   0700
-            TOOLDURS.put(new Short((short)118), new Short((short)200)); // gold:   0700
-            TOOLDURS.put(new Short((short)119), new Short((short)200)); // gold:   0700
-            TOOLDURS.put(new Short((short)120), new Short((short)200)); // gold:   0700
-            TOOLDURS.put(new Short((short)121), new Short((short)200)); // zinc:   0875
-            TOOLDURS.put(new Short((short)122), new Short((short)200)); // zinc:   0875
-            TOOLDURS.put(new Short((short)123), new Short((short)200)); // zinc:   0875
-            TOOLDURS.put(new Short((short)124), new Short((short)200)); // zinc:   0875
-            TOOLDURS.put(new Short((short)125), new Short((short)200)); // rhyme:  1000
-            TOOLDURS.put(new Short((short)126), new Short((short)200)); // rhyme:  1000
-            TOOLDURS.put(new Short((short)127), new Short((short)200)); // rhyme:  1000
-            TOOLDURS.put(new Short((short)128), new Short((short)200)); // rhyme:  1000
-            TOOLDURS.put(new Short((short)129), new Short((short)200)); // obdur:  1400
-            TOOLDURS.put(new Short((short)130), new Short((short)200)); // obdur:  1400
-            TOOLDURS.put(new Short((short)131), new Short((short)200)); // obdur:  1400
-            TOOLDURS.put(new Short((short)132), new Short((short)200)); // obdur:  1400
-            TOOLDURS.put(new Short((short)133), new Short((short)200)); // alumin: 0150
-            TOOLDURS.put(new Short((short)134), new Short((short)200)); // alumin: 0150
-            TOOLDURS.put(new Short((short)135), new Short((short)200)); // alumin: 0150
-            TOOLDURS.put(new Short((short)136), new Short((short)200)); // alumin: 0150
-            TOOLDURS.put(new Short((short)137), new Short((short)200)); // lead:   2000
-            TOOLDURS.put(new Short((short)138), new Short((short)200)); // lead:   2000
-            TOOLDURS.put(new Short((short)139), new Short((short)200)); // lead:   2000
-            TOOLDURS.put(new Short((short)140), new Short((short)200)); // lead:   2000
+            TOOLDURS.put((short) 105, (short) 200); // copper: 0300
+            TOOLDURS.put((short) 106, (short) 200); // copper: 0300
+            TOOLDURS.put((short) 107, (short) 200); // copper: 0300
+            TOOLDURS.put((short) 108, (short) 200); // copper: 0300
+            TOOLDURS.put((short) 109, (short) 200); // iron:   0400
+            TOOLDURS.put((short) 110, (short) 200); // iron:   0400
+            TOOLDURS.put((short) 111, (short) 200); // iron:   0400
+            TOOLDURS.put((short) 112, (short) 200); // iron:   0400
+            TOOLDURS.put((short) 113, (short) 200); // silver: 0550
+            TOOLDURS.put((short) 114, (short) 200); // silver: 0550
+            TOOLDURS.put((short) 115, (short) 200); // silver: 0550
+            TOOLDURS.put((short) 116, (short) 200); // silver: 0550
+            TOOLDURS.put((short) 117, (short) 200); // gold:   0700
+            TOOLDURS.put((short) 118, (short) 200); // gold:   0700
+            TOOLDURS.put((short) 119, (short) 200); // gold:   0700
+            TOOLDURS.put((short) 120, (short) 200); // gold:   0700
+            TOOLDURS.put((short) 121, (short) 200); // zinc:   0875
+            TOOLDURS.put((short) 122, (short) 200); // zinc:   0875
+            TOOLDURS.put((short) 123, (short) 200); // zinc:   0875
+            TOOLDURS.put((short) 124, (short) 200); // zinc:   0875
+            TOOLDURS.put((short) 125, (short) 200); // rhyme:  1000
+            TOOLDURS.put((short) 126, (short) 200); // rhyme:  1000
+            TOOLDURS.put((short) 127, (short) 200); // rhyme:  1000
+            TOOLDURS.put((short) 128, (short) 200); // rhyme:  1000
+            TOOLDURS.put((short) 129, (short) 200); // obdur:  1400
+            TOOLDURS.put((short) 130, (short) 200); // obdur:  1400
+            TOOLDURS.put((short) 131, (short) 200); // obdur:  1400
+            TOOLDURS.put((short) 132, (short) 200); // obdur:  1400
+            TOOLDURS.put((short) 133, (short) 200); // alumin: 0150
+            TOOLDURS.put((short) 134, (short) 200); // alumin: 0150
+            TOOLDURS.put((short) 135, (short) 200); // alumin: 0150
+            TOOLDURS.put((short) 136, (short) 200); // alumin: 0150
+            TOOLDURS.put((short) 137, (short) 200); // lead:   2000
+            TOOLDURS.put((short) 138, (short) 200); // lead:   2000
+            TOOLDURS.put((short) 139, (short) 200); // lead:   2000
+            TOOLDURS.put((short) 140, (short) 200); // lead:   2000
 
             FUELS = new HashMap<Short,Double>();
 
-            FUELS.put(new Short((short)15), 0.01);
-            FUELS.put(new Short((short)28), 0.001);
-            FUELS.put(new Short((short)160), 0.02);
-            FUELS.put(new Short((short)168), 0.01);
-            FUELS.put(new Short((short)179), 0.0035);
-            FUELS.put(new Short((short)20), 0.0025);
-            FUELS.put(new Short((short)21), 0.00125);
-            FUELS.put(new Short((short)35), 0.02);
-            FUELS.put(new Short((short)36), 0.011);
-            FUELS.put(new Short((short)77), 0.02);
-            FUELS.put(new Short((short)79), 0.02);
-            FUELS.put(new Short((short)81), 0.02);
-            FUELS.put(new Short((short)83), 0.02);
-            FUELS.put(new Short((short)85), 0.02);
-            FUELS.put(new Short((short)87), 0.02);
-            FUELS.put(new Short((short)89), 0.0035);
-            FUELS.put(new Short((short)91), 0.02);
-            FUELS.put(new Short((short)95), 0.02);
-            FUELS.put(new Short((short)78), 0.01);
-            FUELS.put(new Short((short)80), 0.01);
-            FUELS.put(new Short((short)82), 0.01);
-            FUELS.put(new Short((short)84), 0.01);
-            FUELS.put(new Short((short)86), 0.01);
-            FUELS.put(new Short((short)88), 0.01);
-            FUELS.put(new Short((short)90), 0.01);
-            FUELS.put(new Short((short)92), 0.01);
-            FUELS.put(new Short((short)96), 0.01);
+            FUELS.put((short) 15, 0.01);
+            FUELS.put((short) 28, 0.001);
+            FUELS.put((short) 160, 0.02);
+            FUELS.put((short) 168, 0.01);
+            FUELS.put((short) 179, 0.0035);
+            FUELS.put((short) 20, 0.0025);
+            FUELS.put((short) 21, 0.00125);
+            FUELS.put((short) 35, 0.02);
+            FUELS.put((short) 36, 0.011);
+            FUELS.put((short) 77, 0.02);
+            FUELS.put((short) 79, 0.02);
+            FUELS.put((short) 81, 0.02);
+            FUELS.put((short) 83, 0.02);
+            FUELS.put((short) 85, 0.02);
+            FUELS.put((short) 87, 0.02);
+            FUELS.put((short) 89, 0.0035);
+            FUELS.put((short) 91, 0.02);
+            FUELS.put((short) 95, 0.02);
+            FUELS.put((short) 78, 0.01);
+            FUELS.put((short) 80, 0.01);
+            FUELS.put((short) 82, 0.01);
+            FUELS.put((short) 84, 0.01);
+            FUELS.put((short) 86, 0.01);
+            FUELS.put((short) 88, 0.01);
+            FUELS.put((short) 90, 0.01);
+            FUELS.put((short) 92, 0.01);
+            FUELS.put((short) 96, 0.01);
             for (i=97; i<103; i++) {
-                FUELS.put(new Short((short)i), 0.0035);
+                FUELS.put((short) i, 0.0035);
             }
-            FUELS.put(new Short((short)154), 0.002);
-            FUELS.put(new Short((short)155), 0.002);
-            FUELS.put(new Short((short)156), 0.00333);
+            FUELS.put((short) 154, 0.002);
+            FUELS.put((short) 155, 0.002);
+            FUELS.put((short) 156, 0.00333);
 
             WIREP = new HashMap<Integer,Integer>();
 
@@ -1746,11 +1746,11 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             FSPEED = new HashMap<Short,Double>();
 
             for (i=0; i<blocknames.length; i++) {
-                FSPEED.put(new Short((short)i), 0.001);
+                FSPEED.put((short) i, 0.001);
             }
 
-            FSPEED.put(new Short((short)85), -0.001);
-            FSPEED.put(new Short((short)86), -0.001);
+            FSPEED.put((short) 85, -0.001);
+            FSPEED.put((short) 86, -0.001);
 
             DDELAY = new HashMap<Integer,Integer>();
 
@@ -1774,32 +1774,32 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             FRI2 = new ArrayList<Short>(0);
             FRN2 = new ArrayList<Short>(0);
 
-            FRI1.add(new Short((short)3)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)29)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)4)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)30)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)5)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)31)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)6)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)32)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)38)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)60)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)39)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)61)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)40)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)62)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)41)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)63)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)42)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)64)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)43)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)65)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)44)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)67)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)45)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)68)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)46)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)69)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)47)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)70)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)48)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)71)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)49)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)72)); FRN2.add(new Short((short)1));
-            FRI1.add(new Short((short)50)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)73)); FRN2.add(new Short((short)1));
+            FRI1.add((short) 3); FRN1.add((short) 4); FRI2.add((short) 29); FRN2.add((short) 1);
+            FRI1.add((short) 4); FRN1.add((short) 4); FRI2.add((short) 30); FRN2.add((short) 1);
+            FRI1.add((short) 5); FRN1.add((short) 4); FRI2.add((short) 31); FRN2.add((short) 1);
+            FRI1.add((short) 6); FRN1.add((short) 4); FRI2.add((short) 32); FRN2.add((short) 1);
+            FRI1.add((short) 38); FRN1.add((short) 4); FRI2.add((short) 60); FRN2.add((short) 1);
+            FRI1.add((short) 39); FRN1.add((short) 4); FRI2.add((short) 61); FRN2.add((short) 1);
+            FRI1.add((short) 40); FRN1.add((short) 4); FRI2.add((short) 62); FRN2.add((short) 1);
+            FRI1.add((short) 41); FRN1.add((short) 4); FRI2.add((short) 63); FRN2.add((short) 1);
+            FRI1.add((short) 42); FRN1.add((short) 4); FRI2.add((short) 64); FRN2.add((short) 1);
+            FRI1.add((short) 43); FRN1.add((short) 4); FRI2.add((short) 65); FRN2.add((short) 1);
+            FRI1.add((short) 44); FRN1.add((short) 4); FRI2.add((short) 67); FRN2.add((short) 1);
+            FRI1.add((short) 45); FRN1.add((short) 4); FRI2.add((short) 68); FRN2.add((short) 1);
+            FRI1.add((short) 46); FRN1.add((short) 4); FRI2.add((short) 69); FRN2.add((short) 1);
+            FRI1.add((short) 47); FRN1.add((short) 4); FRI2.add((short) 70); FRN2.add((short) 1);
+            FRI1.add((short) 48); FRN1.add((short) 4); FRI2.add((short) 71); FRN2.add((short) 1);
+            FRI1.add((short) 49); FRN1.add((short) 4); FRI2.add((short) 72); FRN2.add((short) 1);
+            FRI1.add((short) 50); FRN1.add((short) 4); FRI2.add((short) 73); FRN2.add((short) 1);
             for (i=8; i>2; i--) {
-                FRI1.add(new Short((short)74)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)76)); FRN2.add(new Short((short)i));
-                FRI1.add(new Short((short)2)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)162)); FRN2.add(new Short((short)i));
-                FRI1.add(new Short((short)161)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)163)); FRN2.add(new Short((short)i));
-                FRI1.add(new Short((short)165)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)166)); FRN2.add(new Short((short)i));
-                FRI1.add(new Short((short)15)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)179)); FRN2.add(new Short((short)i));
+                FRI1.add((short) 74); FRN1.add((short) i); FRI2.add((short) 76); FRN2.add((short) i);
+                FRI1.add((short) 2); FRN1.add((short) i); FRI2.add((short) 162); FRN2.add((short) i);
+                FRI1.add((short) 161); FRN1.add((short) i); FRI2.add((short) 163); FRN2.add((short) i);
+                FRI1.add((short) 165); FRN1.add((short) i); FRI2.add((short) 166); FRN2.add((short) i);
+                FRI1.add((short) 15); FRN1.add((short) i); FRI2.add((short) 179); FRN2.add((short) i);
             }
             for (j=97; j<103; j++) {
-                FRI1.add(new Short((short)j)); FRN1.add(new Short((short)1)); FRI2.add(new Short((short)167)); FRN2.add(new Short((short)8));
+                FRI1.add((short) j); FRN1.add((short) 1); FRI2.add((short) 167); FRN2.add((short) 8);
             }
 
             bg = CYANISH;
@@ -2305,7 +2305,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             for (j=0; j<durLis2[i].length; j++) {
                 dur.put(j+100, durList[i][j]);
             }
-            DURABILITY.put(new Short((short)toolList[i]), dur);
+            DURABILITY.put((short) toolList[i], dur);
         }
     }
 
@@ -2349,91 +2349,91 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
 
         if (DEBUG_ITEMS != null) {
             if (DEBUG_ITEMS.equals("normal")) {
-                inventory.addItem(new Short((short)172), new Short((short)1));
-                inventory.addItem(new Short((short)173), new Short((short)1));
-                inventory.addItem(new Short((short)174), new Short((short)1));
-                inventory.addItem(new Short((short)164), new Short((short)100));
-                inventory.addItem(new Short((short)35), new Short((short)100));
-                inventory.addItem(new Short((short)36), new Short((short)100));
-                inventory.addItem(new Short((short)37), new Short((short)100));
-                inventory.addItem(new Short((short)20), new Short((short)5));
-                inventory.addItem(new Short((short)27), new Short((short)5));
-                inventory.addItem(new Short((short)33), new Short((short)1));
-                inventory.addItem(new Short((short)28), new Short((short)100));
-                inventory.addItem(new Short((short)50), new Short((short)100));
-                inventory.addItem(new Short((short)1), new Short((short)100));
-                inventory.addItem(new Short((short)2), new Short((short)100));
-                inventory.addItem(new Short((short)15), new Short((short)100));
+                inventory.addItem((short) 172, (short) 1);
+                inventory.addItem((short) 173, (short) 1);
+                inventory.addItem((short) 174, (short) 1);
+                inventory.addItem((short) 164, (short) 100);
+                inventory.addItem((short) 35, (short) 100);
+                inventory.addItem((short) 36, (short) 100);
+                inventory.addItem((short) 37, (short) 100);
+                inventory.addItem((short) 20, (short) 5);
+                inventory.addItem((short) 27, (short) 5);
+                inventory.addItem((short) 33, (short) 1);
+                inventory.addItem((short) 28, (short) 100);
+                inventory.addItem((short) 50, (short) 100);
+                inventory.addItem((short) 1, (short) 100);
+                inventory.addItem((short) 2, (short) 100);
+                inventory.addItem((short) 15, (short) 100);
             }
             if (DEBUG_ITEMS.equals("tools")) {
-                inventory.addItem(new Short((short)154), new Short((short)1));
-                inventory.addItem(new Short((short)155), new Short((short)1));
-                inventory.addItem(new Short((short)156), new Short((short)1));
-                inventory.addItem(new Short((short)157), new Short((short)1));
-                inventory.addItem(new Short((short)158), new Short((short)1));
-                inventory.addItem(new Short((short)159), new Short((short)1));
-                inventory.addItem(new Short((short)7), new Short((short)1));
-                inventory.addItem(new Short((short)11), new Short((short)1));
-                inventory.addItem(new Short((short)12), new Short((short)1));
-                inventory.addItem(new Short((short)8), new Short((short)1));
-                inventory.addItem(new Short((short)13), new Short((short)1));
-                inventory.addItem(new Short((short)14), new Short((short)1));
-                inventory.addItem(new Short((short)9), new Short((short)1));
-                inventory.addItem(new Short((short)16), new Short((short)1));
-                inventory.addItem(new Short((short)17), new Short((short)1));
-                inventory.addItem(new Short((short)10), new Short((short)1));
-                inventory.addItem(new Short((short)18), new Short((short)1));
-                inventory.addItem(new Short((short)33), new Short((short)1));
-                inventory.addItem(new Short((short)51), new Short((short)1));
-                inventory.addItem(new Short((short)52), new Short((short)1));
-                inventory.addItem(new Short((short)53), new Short((short)1));
-                inventory.addItem(new Short((short)54), new Short((short)1));
-                inventory.addItem(new Short((short)55), new Short((short)1));
-                inventory.addItem(new Short((short)56), new Short((short)1));
-                inventory.addItem(new Short((short)57), new Short((short)1));
-                inventory.addItem(new Short((short)58), new Short((short)1));
-                inventory.addItem(new Short((short)59), new Short((short)1));
-                inventory.addItem(new Short((short)145), new Short((short)1));
-                inventory.addItem(new Short((short)146), new Short((short)1));
-                inventory.addItem(new Short((short)147), new Short((short)1));
-                inventory.addItem(new Short((short)148), new Short((short)1));
-                inventory.addItem(new Short((short)149), new Short((short)1));
-                inventory.addItem(new Short((short)150), new Short((short)1));
-                inventory.addItem(new Short((short)169), new Short((short)1));
-                inventory.addItem(new Short((short)170), new Short((short)1));
-                inventory.addItem(new Short((short)171), new Short((short)1));
-                inventory.addItem(new Short((short)172), new Short((short)1));
-                inventory.addItem(new Short((short)173), new Short((short)1));
-                inventory.addItem(new Short((short)174), new Short((short)1));
+                inventory.addItem((short) 154, (short) 1);
+                inventory.addItem((short) 155, (short) 1);
+                inventory.addItem((short) 156, (short) 1);
+                inventory.addItem((short) 157, (short) 1);
+                inventory.addItem((short) 158, (short) 1);
+                inventory.addItem((short) 159, (short) 1);
+                inventory.addItem((short) 7, (short) 1);
+                inventory.addItem((short) 11, (short) 1);
+                inventory.addItem((short) 12, (short) 1);
+                inventory.addItem((short) 8, (short) 1);
+                inventory.addItem((short) 13, (short) 1);
+                inventory.addItem((short) 14, (short) 1);
+                inventory.addItem((short) 9, (short) 1);
+                inventory.addItem((short) 16, (short) 1);
+                inventory.addItem((short) 17, (short) 1);
+                inventory.addItem((short) 10, (short) 1);
+                inventory.addItem((short) 18, (short) 1);
+                inventory.addItem((short) 33, (short) 1);
+                inventory.addItem((short) 51, (short) 1);
+                inventory.addItem((short) 52, (short) 1);
+                inventory.addItem((short) 53, (short) 1);
+                inventory.addItem((short) 54, (short) 1);
+                inventory.addItem((short) 55, (short) 1);
+                inventory.addItem((short) 56, (short) 1);
+                inventory.addItem((short) 57, (short) 1);
+                inventory.addItem((short) 58, (short) 1);
+                inventory.addItem((short) 59, (short) 1);
+                inventory.addItem((short) 145, (short) 1);
+                inventory.addItem((short) 146, (short) 1);
+                inventory.addItem((short) 147, (short) 1);
+                inventory.addItem((short) 148, (short) 1);
+                inventory.addItem((short) 149, (short) 1);
+                inventory.addItem((short) 150, (short) 1);
+                inventory.addItem((short) 169, (short) 1);
+                inventory.addItem((short) 170, (short) 1);
+                inventory.addItem((short) 171, (short) 1);
+                inventory.addItem((short) 172, (short) 1);
+                inventory.addItem((short) 173, (short) 1);
+                inventory.addItem((short) 174, (short) 1);
 
-                inventory.addItem(new Short((short)19), new Short((short)1));
+                inventory.addItem((short) 19, (short) 1);
             }
             if (DEBUG_ITEMS.equals("testing")) {
-                inventory.addItem(new Short((short)172), new Short((short)1));
-                inventory.addItem(new Short((short)173), new Short((short)1));
-                inventory.addItem(new Short((short)175), new Short((short)100));
-                inventory.addItem(new Short((short)15), new Short((short)100));
-                inventory.addItem(new Short((short)35), new Short((short)100));
-                inventory.addItem(new Short((short)36), new Short((short)100));
-                inventory.addItem(new Short((short)37), new Short((short)100));
-                inventory.addItem(new Short((short)176), new Short((short)100));
-                inventory.addItem(new Short((short)177), new Short((short)100));
-                inventory.addItem(new Short((short)178), new Short((short)100));
-                inventory.addItem(new Short((short)27), new Short((short)100));
-                inventory.addItem(new Short((short)33), new Short((short)1));
-                inventory.addItem(new Short((short)86), new Short((short)100));
-                inventory.addItem(new Short((short)49), new Short((short)100));
-                inventory.addItem(new Short((short)180), new Short((short)100));
-                inventory.addItem(new Short((short)181), new Short((short)100));
-                inventory.addItem(new Short((short)182), new Short((short)100));
-                inventory.addItem(new Short((short)183), new Short((short)100));
-                inventory.addItem(new Short((short)184), new Short((short)100));
-                inventory.addItem(new Short((short)185), new Short((short)100));
-                inventory.addItem(new Short((short)186), new Short((short)100));
-                inventory.addItem(new Short((short)187), new Short((short)100));
-                inventory.addItem(new Short((short)188), new Short((short)100));
-                inventory.addItem(new Short((short)189), new Short((short)100));
-                inventory.addItem(new Short((short)190), new Short((short)1));
+                inventory.addItem((short) 172, (short) 1);
+                inventory.addItem((short) 173, (short) 1);
+                inventory.addItem((short) 175, (short) 100);
+                inventory.addItem((short) 15, (short) 100);
+                inventory.addItem((short) 35, (short) 100);
+                inventory.addItem((short) 36, (short) 100);
+                inventory.addItem((short) 37, (short) 100);
+                inventory.addItem((short) 176, (short) 100);
+                inventory.addItem((short) 177, (short) 100);
+                inventory.addItem((short) 178, (short) 100);
+                inventory.addItem((short) 27, (short) 100);
+                inventory.addItem((short) 33, (short) 1);
+                inventory.addItem((short) 86, (short) 100);
+                inventory.addItem((short) 49, (short) 100);
+                inventory.addItem((short) 180, (short) 100);
+                inventory.addItem((short) 181, (short) 100);
+                inventory.addItem((short) 182, (short) 100);
+                inventory.addItem((short) 183, (short) 100);
+                inventory.addItem((short) 184, (short) 100);
+                inventory.addItem((short) 185, (short) 100);
+                inventory.addItem((short) 186, (short) 100);
+                inventory.addItem((short) 187, (short) 100);
+                inventory.addItem((short) 188, (short) 100);
+                inventory.addItem((short) 189, (short) 100);
+                inventory.addItem((short) 190, (short) 1);
             }
         }
 
