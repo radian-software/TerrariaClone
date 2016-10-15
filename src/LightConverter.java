@@ -1,9 +1,9 @@
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import java.net.URL;
-import java.util.*;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Scanner;
 
 public class LightConverter {
 

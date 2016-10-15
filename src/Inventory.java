@@ -1,9 +1,11 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.*;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Inventory implements Serializable {
 

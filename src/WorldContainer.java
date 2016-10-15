@@ -1,7 +1,6 @@
-import java.awt.*;
-import java.awt.image.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class WorldContainer implements Serializable {
 
