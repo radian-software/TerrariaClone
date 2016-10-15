@@ -2311,6 +2311,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
 
     public void findWorlds() {
         folder = new File("worlds");
+        folder.mkdir();
         files = folder.listFiles();
         worldFiles = new ArrayList<String>();
         worldNames = new ArrayList<String>();
