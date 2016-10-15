@@ -29,7 +29,7 @@ public class Player implements Serializable {
 
         onGround = false;
 
-        image = loadImage("textures/sprites/player/right_still.png");
+        image = loadImage("sprites/player/right_still.png");
 
         width = TerraFrame.getPLAYERSIZEX();
         height = TerraFrame.getPLAYERSIZEY();
@@ -59,19 +59,19 @@ public class Player implements Serializable {
                 imgState.equals("walk right 1") || imgState.equals("walk right 2")) {
                 imgDelay = 5;
                 imgState = "walk left 2";
-                image = loadImage("textures/sprites/player/left_walk.png");
+                image = loadImage("sprites/player/left_walk.png");
             }
             if (imgDelay <= 0) {
                 if (imgState.equals("walk left 1")) {
                     imgDelay = 5;
                     imgState = "walk left 2";
-                    image = loadImage("textures/sprites/player/left_walk.png");
+                    image = loadImage("sprites/player/left_walk.png");
                 }
                 else {
                     if (imgState.equals("walk left 2")) {
                         imgDelay = 5;
                         imgState = "walk left 1";
-                        image = loadImage("textures/sprites/player/left_still.png");
+                        image = loadImage("sprites/player/left_still.png");
                     }
                 }
             }
@@ -87,19 +87,19 @@ public class Player implements Serializable {
                 imgState.equals("walk left 1") || imgState.equals("walk left 2")) {
                 imgDelay = 5;
                 imgState = "walk right 2";
-                image = loadImage("textures/sprites/player/right_walk.png");
+                image = loadImage("sprites/player/right_walk.png");
             }
             if (imgDelay <= 0) {
                 if (imgState.equals("walk right 1")) {
                     imgDelay = 5;
                     imgState = "walk right 2";
-                    image = loadImage("textures/sprites/player/right_walk.png");
+                    image = loadImage("sprites/player/right_walk.png");
                 }
                 else {
                     if (imgState.equals("walk right 2")) {
                         imgDelay = 5;
                         imgState = "walk right 1";
-                        image = loadImage("textures/sprites/player/right_still.png");
+                        image = loadImage("sprites/player/right_still.png");
                     }
                 }
             }
@@ -146,12 +146,12 @@ public class Player implements Serializable {
                 if (imgState.equals("still left") || imgState.equals("walk left 1") ||
                     imgState.equals("walk left 2")) {
                     imgState = "still left";
-                    image = loadImage("textures/sprites/player/left_still.png");
+                    image = loadImage("sprites/player/left_still.png");
                 }
                 if (imgState.equals("still right") || imgState.equals("walk right 1") ||
                     imgState.equals("walk right 2")) {
                     imgState = "still right";
-                    image = loadImage("textures/sprites/player/right_still.png");
+                    image = loadImage("sprites/player/right_still.png");
                 }
             }
         }
@@ -159,11 +159,11 @@ public class Player implements Serializable {
         if (!grounded) {
             if (imgState.equals("still left") || imgState.equals("walk left 1") ||
                 imgState.equals("walk left 2")) {
-                image = loadImage("textures/sprites/player/left_jump.png");
+                image = loadImage("sprites/player/left_jump.png");
             }
             if (imgState.equals("still right") || imgState.equals("walk right 1") ||
                 imgState.equals("walk right 2")) {
-                image = loadImage("textures/sprites/player/right_jump.png");
+                image = loadImage("sprites/player/right_jump.png");
             }
         }
 
@@ -256,26 +256,26 @@ public class Player implements Serializable {
     public void reloadImage() {
         if (grounded) {
             if (imgState.equals("still left") || imgState.equals("walk left 1")) {
-                image = loadImage("textures/sprites/player/left_still.png");
+                image = loadImage("sprites/player/left_still.png");
             }
             if (imgState.equals("walk left 2")) {
-                image = loadImage("textures/sprites/player/left_walk.png");
+                image = loadImage("sprites/player/left_walk.png");
             }
             if (imgState.equals("still right") || imgState.equals("walk right 1")) {
-                image = loadImage("textures/sprites/player/right_still.png");
+                image = loadImage("sprites/player/right_still.png");
             }
             if (imgState.equals("walk right 2")) {
-                image = loadImage("textures/sprites/player/right_walk.png");
+                image = loadImage("sprites/player/right_walk.png");
             }
         }
         else {
             if (imgState.equals("still left") || imgState.equals("walk left 1") ||
                 imgState.equals("walk left 2")) {
-                image = loadImage("textures/sprites/player/left_jump.png");
+                image = loadImage("sprites/player/left_jump.png");
             }
             if (imgState.equals("still right") || imgState.equals("walk right 1") ||
                 imgState.equals("walk right 2")) {
-                image = loadImage("textures/sprites/player/right_jump.png");
+                image = loadImage("sprites/player/right_jump.png");
             }
         }
     }

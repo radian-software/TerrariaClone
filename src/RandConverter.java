@@ -33,7 +33,7 @@ public class RandConverter {
             if (option == 'O') {
                 for (int k=0; k<dirs.length; k++) {
                     for (int j=2; j<6; j++) {
-                        BufferedImage texture = loadImage("textures/outlines/" + name + "/" + dirs[k] + "1.png");
+                        BufferedImage texture = loadImage("outlines/" + name + "/" + dirs[k] + "1.png");
                         int i, x, y;
                         int[] xy;
                         int[][] coords = new int[IMAGESIZE*IMAGESIZE][2];
@@ -53,7 +53,7 @@ public class RandConverter {
                                 }
                             }
                             try {
-                                ImageIO.write(result, "png", new File("textures/outlines/" + name + "/" + dirs[k] + j + ".png"));
+                                ImageIO.write(result, "png", new File("outlines/" + name + "/" + dirs[k] + j + ".png"));
                             }
                             catch (IOException e) {
                                 System.out.println("Error in writing file.");
@@ -63,7 +63,7 @@ public class RandConverter {
                 }
             }
             else {
-                BufferedImage texture = loadImage("textures/blocks/" + name + "/texture1.png");
+                BufferedImage texture = loadImage("blocks/" + name + "/texture1.png");
                 int i, x, y;
                 int[] xy;
                 int[][] coords = new int[IMAGESIZE*IMAGESIZE][2];
@@ -86,7 +86,7 @@ public class RandConverter {
                         }
                     }
                     try {
-                        ImageIO.write(result, "png", new File("textures/blocks/" + name + "/texture" + (i+2) + ".png"));
+                        ImageIO.write(result, "png", new File("blocks/" + name + "/texture" + (i+2) + ".png"));
                     }
                     catch (IOException e) {
                         System.out.println("Error in writing file.");

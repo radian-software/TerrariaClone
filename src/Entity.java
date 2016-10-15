@@ -59,13 +59,13 @@ public class Entity implements Serializable {
         if (name.equals("skeleton")) { thp = 50; ap = 1; atk = 7; AI = "zombie"; };
 
         if (AI == "bubble" || AI == "fast_bubble" || AI == "shooting_star" || AI == "sandbot" || AI == "bullet" || AI == "bee") {
-            image = loadImage("textures/sprites/monsters/" + name + "/normal.png");
+            image = loadImage("sprites/monsters/" + name + "/normal.png");
         }
         if (AI == "zombie") {
-            image = loadImage("textures/sprites/monsters/" + name + "/right_still.png");
+            image = loadImage("sprites/monsters/" + name + "/right_still.png");
         }
         if (AI == "bat") {
-            image = loadImage("textures/sprites/monsters/" + name + "/normal_right.png");
+            image = loadImage("sprites/monsters/" + name + "/normal_right.png");
         }
 
         width = image.getWidth()*2; height = image.getHeight()*2;
@@ -163,19 +163,19 @@ public class Entity implements Serializable {
                     imgState == "walk right 1" || imgState == "walk right 2") {
                     imgDelay = 10;
                     imgState = "walk left 2";
-                    image = loadImage("textures/sprites/monsters/" + name + "/left_walk.png");
+                    image = loadImage("sprites/monsters/" + name + "/left_walk.png");
                 }
                 if (imgDelay <= 0) {
                     if (imgState == "walk left 1") {
                         imgDelay = 10;
                         imgState = "walk left 2";
-                        image = loadImage("textures/sprites/monsters/" + name + "/left_walk.png");
+                        image = loadImage("sprites/monsters/" + name + "/left_walk.png");
                     }
                     else {
                         if (imgState == "walk left 2") {
                             imgDelay = 10;
                             imgState = "walk left 1";
-                            image = loadImage("textures/sprites/monsters/" + name + "/left_still.png");
+                            image = loadImage("sprites/monsters/" + name + "/left_still.png");
                         }
                     }
                 }
@@ -189,19 +189,19 @@ public class Entity implements Serializable {
                     imgState == "walk left 1" || imgState == "walk left 2") {
                     imgDelay = 10;
                     imgState = "walk right 2";
-                    image = loadImage("textures/sprites/monsters/" + name + "/right_walk.png");
+                    image = loadImage("sprites/monsters/" + name + "/right_walk.png");
                 }
                 if (imgDelay <= 0) {
                     if (imgState == "walk right 1") {
                         imgDelay = 10;
                         imgState = "walk right 2";
-                        image = loadImage("textures/sprites/monsters/" + name + "/right_walk.png");
+                        image = loadImage("sprites/monsters/" + name + "/right_walk.png");
                     }
                     else {
                         if (imgState == "walk right 2") {
                             imgDelay = 10;
                             imgState = "walk right 1";
-                            image = loadImage("textures/sprites/monsters/" + name + "/right_still.png");
+                            image = loadImage("sprites/monsters/" + name + "/right_still.png");
                         }
                     }
                 }
@@ -212,11 +212,11 @@ public class Entity implements Serializable {
             if (!grounded) {
                 if (imgState == "still left" || imgState == "walk left 1" ||
                     imgState == "walk left 2") {
-                    image = loadImage("textures/sprites/monsters/" + name + "/left_jump.png");
+                    image = loadImage("sprites/monsters/" + name + "/left_jump.png");
                 }
                 if (imgState == "still right" || imgState == "walk right 1" ||
                     imgState == "walk right 2") {
-                    image = loadImage("textures/sprites/monsters/" + name + "/right_jump.png");
+                    image = loadImage("sprites/monsters/" + name + "/right_jump.png");
                 }
             }
             collide(blocks, player, u, v);
@@ -292,20 +292,20 @@ public class Entity implements Serializable {
             }
             bcount += 1;
             if (bcount == 110) {
-                image = loadImage("textures/sprites/monsters/" + name + "/ready1.png");
+                image = loadImage("sprites/monsters/" + name + "/ready1.png");
             }
             if (bcount == 130) {
-                image = loadImage("textures/sprites/monsters/" + name + "/ready2.png");
+                image = loadImage("sprites/monsters/" + name + "/ready2.png");
             }
             if (bcount == 150) {
                 double theta = Math.atan2(player.y - y, player.x - x);
                 newMob = new Entity(x, y, Math.cos(theta)*3.5, Math.sin(theta)*3.5, name + "_bullet");
             }
             if (bcount == 170) {
-                image = loadImage("textures/sprites/monsters/" + name + "/ready1.png");
+                image = loadImage("sprites/monsters/" + name + "/ready1.png");
             }
             if (bcount == 190) {
-                image = loadImage("textures/sprites/monsters/" + name + "/normal.png");
+                image = loadImage("sprites/monsters/" + name + "/normal.png");
                 bcount = 0;
             }
             collide(blocks, player, u, v);
@@ -326,32 +326,32 @@ public class Entity implements Serializable {
             imgDelay -= 1;
             if (vx > 0 && imgState != "normal right") {
                 imgState = "normal right";
-                image = loadImage("textures/sprites/monsters/" + name + "/normal_right.png");
+                image = loadImage("sprites/monsters/" + name + "/normal_right.png");
                 imgDelay = 10;
             }
             if (vx < 0 && imgState != "normal left") {
                 imgState = "normal left";
-                image = loadImage("textures/sprites/monsters/" + name + "/normal_left.png");
+                image = loadImage("sprites/monsters/" + name + "/normal_left.png");
                 imgDelay = 10;
             }
             if (imgState == "normal left" && imgDelay <= 0) {
                 imgState = "flap left";
-                image = loadImage("textures/sprites/monsters/" + name + "/flap_left.png");
+                image = loadImage("sprites/monsters/" + name + "/flap_left.png");
                 imgDelay = 10;
             }
             if (imgState == "normal right" && imgDelay <= 0) {
                 imgState = "flap right";
-                image = loadImage("textures/sprites/monsters/" + name + "/flap_right.png");
+                image = loadImage("sprites/monsters/" + name + "/flap_right.png");
                 imgDelay = 10;
             }
             if (imgState == "flap left" && imgDelay <= 0) {
                 imgState = "normal left";
-                image = loadImage("textures/sprites/monsters/" + name + "/normal_left.png");
+                image = loadImage("sprites/monsters/" + name + "/normal_left.png");
                 imgDelay = 10;
             }
             if (imgState == "flap right" && imgDelay <= 0) {
                 imgState = "normal right";
-                image = loadImage("textures/sprites/monsters/" + name + "/normal_right.png");
+                image = loadImage("sprites/monsters/" + name + "/normal_right.png");
                 imgDelay = 10;
             }
             collide(blocks, player, u, v);
@@ -602,10 +602,10 @@ public class Entity implements Serializable {
 
     public void reloadImage() {
         if (AI.equals("bubble") || AI.equals("shooting_star")) {
-            image = loadImage("textures/sprites/monsters/" + name + "/normal.png");
+            image = loadImage("sprites/monsters/" + name + "/normal.png");
         }
         if (AI.equals("zombie")) {
-            image = loadImage("textures/sprites/monsters/" + name + "/right_still.png");
+            image = loadImage("sprites/monsters/" + name + "/right_still.png");
         }
     }
 

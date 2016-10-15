@@ -23,15 +23,15 @@ public class LightConverter {
         for (int i=0; i<17; i++) {
             System.out.print("Generate new textures [" + i + "] for: ");
             String name = (new Scanner(System.in)).nextLine();
-            BufferedImage light = loadImage("textures/light/" + i + ".png");
+            BufferedImage light = loadImage("light/" + i + ".png");
             for (int j=1; j<9; j++) {
-                BufferedImage texture = loadImage("textures/blocks/" + name + "/texture" + j + ".png");
+                BufferedImage texture = loadImage("blocks/" + name + "/texture" + j + ".png");
                 texture.createGraphics().drawImage(light,
                     0, 0, IMAGESIZE, IMAGESIZE,
                     0, 0, IMAGESIZE, IMAGESIZE,
                     null);
                 try {
-                    ImageIO.write(texture, "png", new File("textures/blocks/" + name + "/texture" + j + ".png"));
+                    ImageIO.write(texture, "png", new File("blocks/" + name + "/texture" + j + ".png"));
                 }
                 catch (IOException e) {
                     System.out.println("Error in writing file.");

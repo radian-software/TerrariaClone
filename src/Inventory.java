@@ -47,8 +47,8 @@ public class Inventory implements Serializable {
         }
         selection = 0;
         image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB);
-        box = loadImage("textures/interface/inventory.png");
-        box_selected = loadImage("textures/interface/inventory_selected.png");
+        box = loadImage("interface/inventory.png");
+        box_selected = loadImage("interface/inventory_selected.png");
         g2 = image.createGraphics();
         for (x=0; x<10; x++) {
             for (y=0; y<4; y++) {
@@ -947,8 +947,8 @@ public class Inventory implements Serializable {
 
     public void reloadImage() {
         image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB);
-        box = loadImage("textures/interface/inventory.png");
-        box_selected = loadImage("textures/interface/inventory_selected.png");
+        box = loadImage("interface/inventory.png");
+        box_selected = loadImage("interface/inventory_selected.png");
         g2 = image.createGraphics();
         for (x=0; x<10; x++) {
             for (y=0; y<4; y++) {
@@ -1057,7 +1057,7 @@ public class Inventory implements Serializable {
     public void renderCollection(ItemCollection ic) {
         if (ic.type.equals("cic")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/cic.png");
+                ic.image = loadImage("interface/cic.png");
                 for (i=0; i<4; i++) {
                     updateIC(ic, i);
                 }
@@ -1065,7 +1065,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("armor")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/armor.png");
+                ic.image = loadImage("interface/armor.png");
                 CX = 1;
                 CY = 4;
                 for (i=0; i<4; i++) {
@@ -1075,7 +1075,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("workbench")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/workbench.png");
+                ic.image = loadImage("interface/workbench.png");
                 for (i=0; i<9; i++) {
                     updateIC(ic, i);
                 }
@@ -1083,7 +1083,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("wooden_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/wooden_chest.png");
+                ic.image = loadImage("interface/wooden_chest.png");
                 CX = 3;
                 CY = 3;
                 for (i=0; i<9; i++) {
@@ -1093,7 +1093,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("stone_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/stone_chest.png");
+                ic.image = loadImage("interface/stone_chest.png");
                 CX = 5;
                 CY = 3;
                 for (i=0; i<15; i++) {
@@ -1103,7 +1103,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("copper_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/copper_chest.png");
+                ic.image = loadImage("interface/copper_chest.png");
                 CX = 5;
                 CY = 4;
                 for (i=0; i<20; i++) {
@@ -1113,7 +1113,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("iron_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/iron_chest.png");
+                ic.image = loadImage("interface/iron_chest.png");
                 CX = 7;
                 CY = 4;
                 for (i=0; i<28; i++) {
@@ -1123,7 +1123,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("silver_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/silver_chest.png");
+                ic.image = loadImage("interface/silver_chest.png");
                 CX = 7;
                 CY = 5;
                 for (i=0; i<35; i++) {
@@ -1133,7 +1133,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("gold_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/gold_chest.png");
+                ic.image = loadImage("interface/gold_chest.png");
                 CX = 7;
                 CY = 6;
                 for (i=0; i<42; i++) {
@@ -1143,7 +1143,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("zinc_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/zinc_chest.png");
+                ic.image = loadImage("interface/zinc_chest.png");
                 CX = 7;
                 CY = 8;
                 for (i=0; i<56; i++) {
@@ -1153,7 +1153,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("rhymestone_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/rhymestone_chest.png");
+                ic.image = loadImage("interface/rhymestone_chest.png");
                 CX = 8;
                 CY = 9;
                 for (i=0; i<72; i++) {
@@ -1163,7 +1163,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("obdurite_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/obdurite_chest.png");
+                ic.image = loadImage("interface/obdurite_chest.png");
                 CX = 10;
                 CY = 10;
                 for (i=0; i<100; i++) {
@@ -1173,7 +1173,7 @@ public class Inventory implements Serializable {
         }
         if (ic.type.equals("furnace")) {
             if (ic.image == null) {
-                ic.image = loadImage("textures/interface/furnace.png");
+                ic.image = loadImage("interface/furnace.png");
                 for (i=-1; i<4; i++) {
                     updateIC(ic, i);
                 }

@@ -525,8 +525,8 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
     int loadTextPos = 0;
 
     BufferedImage sun, moon, cloud, logo_white, logo_black, title_screen, select_world, new_world, save_exit;
-    BufferedImage[] clouds = {loadImage("textures/environment/cloud1.png")};
-    BufferedImage wcnct_px = loadImage("textures/misc/wcnct.png");
+    BufferedImage[] clouds = {loadImage("environment/cloud1.png")};
+    BufferedImage wcnct_px = loadImage("misc/wcnct.png");
 
     Thread thread;
     javax.swing.Timer createWorldTimer;
@@ -870,12 +870,12 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             mousePos = new int[2];
             mousePos2 = new int[2];
 
-            logo_white = loadImage("textures/interface/logo_white.png");
-            logo_black = loadImage("textures/interface/logo_black.png");
-            title_screen = loadImage("textures/interface/title_screen.png");
-            select_world = loadImage("textures/interface/select_world.png");
-            new_world = loadImage("textures/interface/new_world.png");
-            save_exit = loadImage("textures/interface/save_exit.png");
+            logo_white = loadImage("interface/logo_white.png");
+            logo_black = loadImage("interface/logo_black.png");
+            title_screen = loadImage("interface/title_screen.png");
+            select_world = loadImage("interface/select_world.png");
+            new_world = loadImage("interface/new_world.png");
+            save_exit = loadImage("interface/save_exit.png");
 
             state = "loading_graphics";
 
@@ -888,13 +888,13 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
                 "solid/stone", "stone_none/down"};
 
             for (i=0; i<bgs.length; i++) {
-                backgroundImgs.put((byte)i, loadImage("textures/backgrounds/" + bgs[i] + ".png"));
+                backgroundImgs.put((byte)i, loadImage("backgrounds/" + bgs[i] + ".png"));
             }
 
             itemImgs = new HashMap<Short,BufferedImage>();
 
             for (i=1; i<items.length; i++) {
-                itemImgs.put(new Short((short)i), loadImage("textures/items/" + items[i] + ".png"));
+                itemImgs.put(new Short((short)i), loadImage("items/" + items[i] + ".png"));
                 if (itemImgs.get((short)i) == null) {
                     System.out.println("[ERROR] Could not load item graphic '" + items[i] + "'.");
                 }
@@ -904,9 +904,9 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
 
             for (i=1; i<blocknames.length; i++) {
                 for (j=0; j<8; j++) {
-                    blockImgs.put("textures/blocks/" + blocknames[i] + "/texture" + (j+1) + ".png",
-                        loadImage("textures/blocks/" + blocknames[i] + "/texture" + (j+1) + ".png"));
-                    if (blockImgs.get("textures/blocks/" + blocknames[i] + "/texture" + (j+1) + ".png") == null) {
+                    blockImgs.put("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png",
+                        loadImage("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png"));
+                    if (blockImgs.get("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png") == null) {
                         System.out.println("[ERROR] Could not load block graphic '" + blocknames[i] + "'.");
                     }
                 }
@@ -919,8 +919,8 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             for (i=0; i<outlineNameList.length; i++) {
                 for (j=0; j<dirs.length; j++) {
                     for (k=0; k<5; k++) {
-                        outlineImgs.put("textures/outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png",
-                            loadImage("textures/outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png"));
+                        outlineImgs.put("outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png",
+                            loadImage("outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png"));
                     }
                 }
             }
@@ -1425,7 +1425,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             LIGHTLEVELS = new HashMap<Integer,BufferedImage>();
 
             for (i=0; i<17; i++) {
-                LIGHTLEVELS.put(i, loadImage("textures/light/" + i + ".png"));
+                LIGHTLEVELS.put(i, loadImage("light/" + i + ".png"));
             }
 
             BLOCKLIGHTS = new HashMap<Integer,Integer>();
@@ -1767,8 +1767,8 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
                 DDELAY.put(i, 80);
             }
 
-            sun = loadImage("textures/environment/sun.png");
-            moon = loadImage("textures/environment/moon.png");
+            sun = loadImage("environment/sun.png");
+            moon = loadImage("environment/moon.png");
             FRI1 = new ArrayList<Short>(0);
             FRN1 = new ArrayList<Short>(0);
             FRI2 = new ArrayList<Short>(0);
@@ -5541,13 +5541,13 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
             }
 
             if (layer == 0) {
-                layerImg = loadImage("textures/interface/layersB.png");
+                layerImg = loadImage("interface/layersB.png");
             }
             if (layer == 1) {
-                layerImg = loadImage("textures/interface/layersN.png");
+                layerImg = loadImage("interface/layersN.png");
             }
             if (layer == 2) {
-                layerImg = loadImage("textures/interface/layersF.png");
+                layerImg = loadImage("interface/layersF.png");
             }
 
             pg2.drawImage(layerImg,
@@ -5974,12 +5974,12 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
         int dir_is = (int)dir;
         String dir_s = dirs[dir_is];
         int dir_i = (int)dirn;
-        BufferedImage outline = outlineImgs.get("textures/outlines/" + outlineName + "/" + dir_s + (dir_i+1) + ".png");
+        BufferedImage outline = outlineImgs.get("outlines/" + outlineName + "/" + dir_s + (dir_i+1) + ".png");
         String bName = blocknames[type];
-        BufferedImage texture = blockImgs.get("textures/blocks/" + bName + "/texture" + (tnum+1) + ".png");
+        BufferedImage texture = blockImgs.get("blocks/" + bName + "/texture" + (tnum+1) + ".png");
         BufferedImage image = config.createCompatibleImage(IMAGESIZE, IMAGESIZE, Transparency.TRANSLUCENT);
         if (GRASSDIRT.get(type) != null) {
-            BufferedImage dirtOriginal = blockImgs.get("textures/blocks/" + blocknames[GRASSDIRT.get(type)] + "/texture" + (tnum+1) + ".png");
+            BufferedImage dirtOriginal = blockImgs.get("blocks/" + blocknames[GRASSDIRT.get(type)] + "/texture" + (tnum+1) + ".png");
             BufferedImage dirt = config.createCompatibleImage(IMAGESIZE, IMAGESIZE, Transparency.TRANSLUCENT);
             for (dy=0; dy<IMAGESIZE; dy++) {
                 for (dx=0; dx<IMAGESIZE; dx++) {
