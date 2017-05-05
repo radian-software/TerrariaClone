@@ -47,7 +47,7 @@ learned, in my case!) Here are some of the highlights:
 
 * The control flow is so labyrinthine that some of the code is
   actually indented by 23 tabs. Forget the 80-column rule -- these
-  lines don't even *start* until column 92! Even we discard the inline
+  lines don't even *start* until column 92! Even if we discard the inline
   data tables, then the longest line in the codebase is still a
   whopping *387 characters* long (you'll have to scroll to the right
   to read it):
