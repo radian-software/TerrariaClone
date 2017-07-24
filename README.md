@@ -75,13 +75,16 @@ learned, in my case!) Here are some of the highlights:
     }
     ```
 
-Now, when importing this project into version control, I did fix a few
-of the most blatantly horrible style violations -- for instance, I
-replaced tabs with spaces and removed the over 500 cases of
-unnecessary boxing. I also tried to get the main game actually
-working, which meant fixing a few resource path issues. Unfortunately,
-it's only working in the academic sense, since it's so slow that you
-only get about 0.03 FPS and it crashes when you click the mouse
-button. But, somewhere in there is a working game. You know, sort of.
+Now, when importing this project into version control (you thought I
+was using version control when I wrote this??), I did fix a few of the
+most blatantly horrible style violations -- for instance, I normalized
+the whitespace, although other improvements (for example, removing the
+over 500 cases of unnecessary boxing) have been reverted by popular
+demand in the name of historical integrity. I also tried to get the
+main game actually working, which meant fixing a few resource path
+issues. Unfortunately, it's only working in the academic sense, since
+it's so slow that you only get about 0.03 FPS and it crashes when you
+click the mouse button. But, somewhere in there is a working game. You
+know, sort of.
 
 [terraria]: https://terraria.org/
