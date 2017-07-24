@@ -1566,7 +1566,7 @@ public class Inventory implements Serializable {
             }
             if (valid) {
                 for (i=0; i<9; i++) {
-                    removeLocationIC(ic, i, (short) 1);
+                    removeLocationIC(ic, i, new Short((short)1));
                     updateIC(ic, i);
                 }
             }
@@ -1596,7 +1596,7 @@ public class Inventory implements Serializable {
                 for (k=0; k<9; k++) {
                     n = r3.indexOf(ic.ids[k]);
                     r3.remove(n);
-                    removeLocationIC(ic, k, (short) 1);
+                    removeLocationIC(ic, k, new Short((short)1));
                     updateIC(ic, k);
                 }
                 break;
@@ -1615,7 +1615,7 @@ public class Inventory implements Serializable {
             }
             if (valid) {
                 for (i=0; i<4; i++) {
-                    removeLocationIC(ic, i, (short) 1);
+                    removeLocationIC(ic, i, new Short((short)1));
                     updateIC(ic, i);
                 }
             }
@@ -1645,7 +1645,7 @@ public class Inventory implements Serializable {
                 for (k=0; k<4; k++) {
                     n = r3.indexOf(ic.ids[k]);
                     r3.remove(n);
-                    removeLocationIC(ic, k, (short) 1);
+                    removeLocationIC(ic, k, new Short((short)1));
                     updateIC(ic, k);
                 }
                 break;
