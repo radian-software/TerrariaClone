@@ -1,4 +1,4 @@
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
 import java.io.Serializable;
 
 public class ItemCollection implements Serializable {

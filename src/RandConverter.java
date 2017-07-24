@@ -1,11 +1,9 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
+import javax.imageio.ImageIO;
 
 public class RandConverter {
 

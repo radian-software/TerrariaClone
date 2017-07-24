@@ -1,5 +1,17 @@
+import java.applet.Applet;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.event.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.*;
+import java.io.*;
+import java.net.URL;
+import java.text.*;
+import java.util.*;
+import java.util.Arrays.*;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.event.*;
 
 public class TextField {
 

@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class PerlinNoise {
     public static double perlinNoise(double x, double p, int n) {
         double total = 0;
