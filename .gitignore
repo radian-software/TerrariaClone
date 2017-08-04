@@ -1,5 +1,6 @@
-/.idea/
+.idea/
 /log.txt
 /out/
 /TerraFrame.iml
 /worlds/
+target/
