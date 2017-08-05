@@ -887,26 +887,29 @@ class Inventory extends Serializable {
     // END CONSTRUCTOR
 
     def addItem(item: Short, quantity: Short): Int = {
-        if (TerraFrame.getTOOLDURS().get(item) != null) {
-            return addItem(item, quantity, TerraFrame.getTOOLDURS().get(item));
-        }
-        else {
-            return addItem(item, quantity, 0.toShort);
+
+        TerraFrame.getTOOLDURS().get(item).fold {
+            addItem(item, quantity, 0.toShort)
+        } { t =>
+            addItem(item, quantity, t)
         }
     }
 
     def addItem(item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         (0 until 40).foreach { i =>
-            if (ids(i) == item && nums(i) < TerraFrame.getMAXSTACKS().get(ids(i))) {
-                if (TerraFrame.getMAXSTACKS().get(ids(i)) - nums(i) >= updatedQuantity) {
+            if (ids(i) == item && TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => nums(i) < maxstacks)) {
+                if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
                     nums(i) = (nums(i) + updatedQuantity).toShort;
                     update(i);
                     return 0;
                 }
                 else {
-                    updatedQuantity = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ids(i)) - nums(i)).toShort;
-                    nums(i) = TerraFrame.getMAXSTACKS().get(ids(i));
+                    TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                        updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort;
+                        nums(i) = maxstacks;
+                    }
+
                     update(i);
                 }
             }
@@ -914,16 +917,18 @@ class Inventory extends Serializable {
         (0 until 40).foreach { i =>
             if (ids(i) == 0) {
                 ids(i) = item;
-                if (updatedQuantity <= TerraFrame.getMAXSTACKS().get(ids(i))) {
+                if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
                     nums(i) = updatedQuantity;
                     durs(i) = durability;
                     update(i);
                     return 0;
                 }
                 else {
-                    nums(i) = TerraFrame.getMAXSTACKS().get(ids(i));
+                    TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                        nums(i) = maxstacks;
+                        updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                    }
                     durs(i) = durability;
-                    updatedQuantity = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ids(i))).toShort;
                 }
             }
         }
@@ -956,19 +961,22 @@ class Inventory extends Serializable {
     def addLocation(i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ids(i) == item) {
-            if (TerraFrame.getMAXSTACKS().get(ids(i)) - nums(i) >= updatedQuantity) {
+            if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
                 nums(i) = (nums(i) + updatedQuantity).toShort;
                 update(i);
                 return 0;
             }
             else {
-                updatedQuantity = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ids(i)) - nums(i)).toShort;
-                nums(i) = TerraFrame.getMAXSTACKS().get(ids(i));
+                TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                    updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort;
+                    nums(i) = maxstacks;
+                }
+
                 update(i);
             }
         }
         else {
-            if (updatedQuantity <= TerraFrame.getMAXSTACKS().get(ids(i))) {
+            if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks )) {
                 ids(i) = item;
                 nums(i) = updatedQuantity;
                 durs(i) = durability;
@@ -976,7 +984,9 @@ class Inventory extends Serializable {
                 return 0;
             }
             else {
-                updatedQuantity  = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ids(i))).toShort;
+                TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                    updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                }
                 return updatedQuantity;
             }
         }
@@ -1070,12 +1080,15 @@ class Inventory extends Serializable {
             }
         }
         if (ids(i) != 0) {
-            width = TerraFrame.getItemImgs().get(ids(i)).getWidth();
-            height = TerraFrame.getItemImgs().get(ids(i)).getHeight();
-            g2.drawImage(TerraFrame.getItemImgs().get(ids(i)),
-                px*46+14+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+14+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+38-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+38-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                0, 0, width, height,
-                null);
+            TerraFrame.getItemImgs().get(ids(i)).foreach { itemImg =>
+                width = itemImg.getWidth();
+                height = itemImg.getHeight();
+                g2.drawImage(itemImg,
+                    px*46+14+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+14+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+38-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+38-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                    0, 0, width, height,
+                    null);
+            }
+
 
             if (nums(i) > 1) {
                 g2.setFont(font);
@@ -1245,7 +1258,7 @@ class Inventory extends Serializable {
     def addLocationIC(ic: ItemCollection, i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ic.ids(i) == item) {
-            if (TerraFrame.getMAXSTACKS().get(ic.ids(i)) - ic.nums(i) >= updatedQuantity) {
+            if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => maxstacks - ic.nums(i) >= updatedQuantity)) {
                 ic.nums(i) = (ic.nums(i) + updatedQuantity).toShort;
                 if (ic.image != null) {
                     updateIC(ic, i);
@@ -1253,15 +1266,18 @@ class Inventory extends Serializable {
                 return 0;
             }
             else {
-                updatedQuantity = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ic.ids(i)) - ic.nums(i)).toShort;
-                ic.nums(i) = TerraFrame.getMAXSTACKS().get(ic.ids(i));
+                TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
+                    updatedQuantity = (updatedQuantity - maxstacks - ic.nums(i)).toShort;
+                    ic.nums(i) = maxstacks;
+                }
+
                 if (ic.image != null) {
                     updateIC(ic, i);
                 }
             }
         }
         else {
-            if (updatedQuantity <= TerraFrame.getMAXSTACKS().get(ic.ids(i))) {
+            if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
                 ic.ids(i) = item;
                 ic.nums(i) = updatedQuantity;
                 ic.durs(i) = durability;
@@ -1271,7 +1287,9 @@ class Inventory extends Serializable {
                 return 0;
             }
             else {
-                updatedQuantity = (updatedQuantity - TerraFrame.getMAXSTACKS().get(ic.ids(i))).toShort;
+                TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
+                    updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                }
                 return updatedQuantity;
             }
         }
@@ -1316,12 +1334,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(i) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(i)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(i)).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(i)),
-                    px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                    0, 0, width, height,
-                    null);
+                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
+                        px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                        0, 0, width, height,
+                        null);
+                }
+
                 if (ic.nums(i) > 1) {
                     g2.setFont(font);
                     g2.setColor(Color.WHITE);
@@ -1346,8 +1367,9 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(4) = r2(4);
                         ic.nums(4) = r2(5);
-                        if (TerraFrame.getTOOLDURS().get(r2(4)) != null)
-                            ic.durs(4) = TerraFrame.getTOOLDURS().get(r2(4));
+                        TerraFrame.getTOOLDURS().get(r2(4)).foreach { d =>
+                            ic.durs(4) = d
+                        }
                         break;
                     }
                 }
@@ -1375,8 +1397,10 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(4) = r2(r2.length - 2);
                         ic.nums(4) = r2(r2.length - 1);
-                        if (TerraFrame.getTOOLDURS().get(r2(r2.length - 2)) != null)
-                            ic.durs(4) = TerraFrame.getTOOLDURS().get(r2(r2.length - 2));
+                        TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
+                            ic.durs(4) = d
+                        }
+
                         break;
                     }
                 }
@@ -1392,12 +1416,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(4) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(4)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(4)).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(4)),
-                    3*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, 3*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                    0, 0, width, height,
-                    null);
+                TerraFrame.getItemImgs().get(ic.ids(4)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
+                        3*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, 3*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                        0, 0, width, height,
+                        null);
+
+                }
 
                 if (ic.nums(4) > 1) {
                     g2.setFont(font);
@@ -1420,12 +1447,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(i) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(i)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(i)).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(i)),
-                    px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                    0, 0, width, height,
-                    null);
+                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
+                        px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                        0, 0, width, height,
+                        null);
+                }
+
 
                 if (ic.nums(i) > 1) {
                     g2.setFont(font);
@@ -1448,12 +1478,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(i) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(i)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(i)).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(i)),
-                    px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                    0, 0, width, height,
-                    null);
+                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
+                        px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                        0, 0, width, height,
+                        null);
+                }
+
                 if (ic.nums(i) > 1) {
                     g2.setFont(font);
                     g2.setColor(Color.WHITE);
@@ -1477,8 +1510,9 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(9) = r2(9);
                         ic.nums(9) = r2(10);
-                        if (TerraFrame.getTOOLDURS().get(r2(9)) != null)
-                            ic.durs(9) = TerraFrame.getTOOLDURS().get(r2(9));
+                        TerraFrame.getTOOLDURS().get(r2(9)).foreach { d =>
+                            ic.durs(9) = d
+                        }
                         break;
                     }
                 }
@@ -1506,8 +1540,9 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(9) = r2(r2.length - 2);
                         ic.nums(9) = r2(r2.length - 1);
-                        if (TerraFrame.getTOOLDURS().get(r2(r2.length - 2)) != null)
-                            ic.durs(9) = TerraFrame.getTOOLDURS().get(r2.length - 2);
+                        TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
+                            ic.durs(9) = d
+                        }
                         break;
                     }
                 }
@@ -1523,12 +1558,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(9) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(9)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(9)).getHeight();
-                    g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(9)),
+                TerraFrame.getItemImgs().get(ic.ids(9)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
                         4*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 1*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, 4*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 1*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
                         null);
+                }
+
 
                 if (ic.nums(9) > 1) {
                     g2.setFont(font);
@@ -1555,12 +1593,15 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids(i) != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids(i)).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids(i)).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(i)),
-                    px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
-                    0, 0, width, height,
-                    null);
+                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                    width = itemImg.getWidth();
+                    height = itemImg.getHeight();
+                    g2.drawImage(itemImg,
+                        px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
+                        0, 0, width, height,
+                        null);
+                }
+
 
                 if (ic.nums(i) > 1) {
                     g2.setFont(font);
@@ -1616,12 +1657,15 @@ class Inventory extends Serializable {
                     0, 0, 40, 40,
                     null);
                 if (ic.ids(i) != 0) {
-                    width = TerraFrame.getItemImgs().get(ic.ids(i)).getWidth();
-                    height = TerraFrame.getItemImgs().get(ic.ids(i)).getHeight();
-                    g2.drawImage(TerraFrame.getItemImgs().get(ic.ids(i)),
-                        (fpx*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt, (fpx*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt,
-                        0, 0, width, height,
-                        null);
+                    TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                        width = itemImg.getWidth();
+                        height = itemImg.getHeight();
+                        g2.drawImage(itemImg,
+                            (fpx*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt, (fpx*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt,
+                            0, 0, width, height,
+                            null);
+                    }
+
 
                     if (ic.nums(i) > 1) {
                         g2.setFont(font);

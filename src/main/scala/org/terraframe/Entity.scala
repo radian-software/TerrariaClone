@@ -139,8 +139,9 @@ case class Entity(var x: Double, var y: Double, var vx: Double, var vy: Double, 
         }
     } else {
         dframes = 0;
-
-        image = TerraFrame.getItemImgs().get(id);
+        TerraFrame.getItemImgs().get(id).foreach { i =>
+            image = i;
+        }
     }
 
     val width: Int = image.getWidth()*2; 
@@ -446,7 +447,7 @@ case class Entity(var x: Double, var y: Double, var vx: Double, var vy: Double, 
 
             (bx1 to bx2).foreach { i =>
                 (by1 to by2).foreach { j =>
-                    if (blocks(j)(i) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u))) {
+                    if (blocks(j)(i) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
                         if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                             if (oldx <= i*16 - width && (vx > 0 || AI == "shooting_star")) {
                                 x = i*16 - width;
@@ -511,7 +512,7 @@ case class Entity(var x: Double, var y: Double, var vx: Double, var vy: Double, 
 
             (bx1 to bx2).foreach { i =>
                 (by1 to by2).foreach { j =>
-                    if (blocks(j)(i) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u))) {
+                    if (blocks(j)(i) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
                         if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                             if (oldy <= j*16 - height && (vy > 0 || AI == "shooting_star")) {
                                 y = j*16 - height;

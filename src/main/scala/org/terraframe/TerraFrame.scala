@@ -11,7 +11,7 @@ Project mission: To program a 2D sandbox game similar to, but with many more
 
 **/
 
-import java.awt.{BorderLayout, Color, Font, Graphics, Graphics2D, GraphicsConfiguration, GraphicsEnvironment, Point, Rectangle, Transparency}
+import java.awt.{BorderLayout, Color, Dimension, Font, Graphics, Graphics2D, GraphicsConfiguration, GraphicsEnvironment, Point, Rectangle, Transparency}
 import java.awt.event._
 import java.awt.image._
 import java.io._
@@ -2174,10 +2174,10 @@ class TerraFrame extends JApplet
                                                         if (worlds(twy)(twx) != null) {
                                                             wg2 = worlds(twy)(twx).createGraphics();
                                                             fwg2 = fworlds(twy)(twx).createGraphics();
-                                                            (Math.max(twy*CHUNKSIZE, (player.iy-getHeight()/2+player.height/2+v*BLOCKSIZE).toInt-64) until(Math.min(twy*CHUNKSIZE+CHUNKSIZE, (player.iy+getHeight()/2-player.height/2+v*BLOCKSIZE).toInt+128),BLOCKSIZE)).foreach { tly =>
-                                                                (Math.max(twx*CHUNKSIZE, (player.ix-getWidth()/2+player.width/2+u*BLOCKSIZE).toInt-64) until(Math.min(twx*CHUNKSIZE+CHUNKSIZE, (player.ix+getWidth()/2-player.width/2+u*BLOCKSIZE).toInt+112),BLOCKSIZE)).foreach { tlx =>
-                                                                    tx = (tlx/BLOCKSIZE).toInt;
-                                                                    ty = (tly/BLOCKSIZE).toInt;
+                                                            (Math.max(twy*CHUNKSIZE, (player.iy-getHeight()/2+player.height/2+v*BLOCKSIZE)-64) until(Math.min(twy*CHUNKSIZE+CHUNKSIZE, (player.iy+getHeight()/2-player.height/2+v*BLOCKSIZE).toInt+128),BLOCKSIZE)).foreach { tly =>
+                                                                (Math.max(twx*CHUNKSIZE, (player.ix-getWidth()/2+player.width/2+u*BLOCKSIZE)-64) until(Math.min(twx*CHUNKSIZE+CHUNKSIZE, (player.ix+getWidth()/2-player.width/2+u*BLOCKSIZE).toInt+112),BLOCKSIZE)).foreach { tlx =>
+                                                                    tx = (tlx/BLOCKSIZE);
+                                                                    ty = (tly/BLOCKSIZE);
                                                                     if (tx >= 0 && tx < theSize && ty >= 0 && ty < theSize) {
                                                                         if (!drawn(ty)(tx)) {
                                                                             somevar = true;
@@ -2202,16 +2202,21 @@ class TerraFrame extends JApplet
                                                                             (0 until 3).foreach { l => 
                                                                                 if (blocks(l)(ty)(tx) != 0) {
                                                                                     if (l == 2) {
-                                                                                        fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
                                                                                     }
                                                                                     else {
-                                                                                        wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
+
                                                                                     }
                                                                                 }
                                                                                 if (wcnct(ty)(tx) && blocks(l)(ty)(tx) >= 94 && blocks(l)(ty)(tx) <= 99) {
@@ -2230,10 +2235,10 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (!DEBUG_LIGHT) {
-                                                                                fwg2.drawImage(LIGHTLEVELS.get(lights(ty)(tx).toInt),
+                                                                                LIGHTLEVELS.get(lights(ty)(tx).toInt).foreach(fwg2.drawImage(_,
                                                                                     tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null));
                                                                             }
                                                                             drawn(ty)(tx) = true;
                                                                             rdrawn(ty)(tx) = true;
@@ -2253,24 +2258,29 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (blockbgs(ty)(tx) != 0) {
-                                                                                wg2.drawImage(backgroundImgs.get(blockbgs(ty)(tx)),
+                                                                                backgroundImgs.get(blockbgs(ty)(tx)).foreach(wg2.drawImage(_,
                                                                                     tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null));
                                                                             }
                                                                             (0 until 3).foreach { l =>
                                                                                 if (blocks(l)(ty)(tx) != 0) {
                                                                                     if (l == 2) {
-                                                                                        fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
                                                                                     }
                                                                                     else {
-                                                                                        wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
+
                                                                                     }
                                                                                 }
                                                                                 if (wcnct(ty)(tx) && blocks(l)(ty)(tx) >= 94 && blocks(l)(ty)(tx) <= 99) {
@@ -2289,10 +2299,10 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (!DEBUG_LIGHT) {
-                                                                                fwg2.drawImage(LIGHTLEVELS.get(lights(ty)(tx).toInt),
+                                                                                LIGHTLEVELS.get(lights(ty)(tx).toInt).foreach(fwg2.drawImage(_,
                                                                                     tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null));
                                                                             }
                                                                             drawn(ty)(tx) = true;
                                                                             rdrawn(ty)(tx) = true;
@@ -2312,24 +2322,30 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (blockbgs(ty)(tx) != 0) {
-                                                                                wg2.drawImage(backgroundImgs.get(blockbgs(ty)(tx)),
+                                                                                backgroundImgs.get(blockbgs(ty)(tx)).foreach(wg2.drawImage(_,
                                                                                     tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null));
                                                                             }
                                                                             (0 until 3).foreach { l =>
                                                                                 if (blocks(l)(ty)(tx) != 0) {
                                                                                     if (l == 2) {
-                                                                                        fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            fwg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
+
                                                                                     }
                                                                                     else {
-                                                                                        wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, OUTLINES.get(blocks(l)(ty)(tx)), tx, ty, l),
-                                                                                            tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
-                                                                                            0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                            null);
+                                                                                        OUTLINES.get(blocks(l)(ty)(tx)).foreach { outlineName =>
+                                                                                            wg2.drawImage(loadBlock(blocks(l)(ty)(tx), blockds(l)(ty)(tx), blockdns(ty)(tx), blockts(ty)(tx), blocknames, dirs, outlineName, tx, ty, l),
+                                                                                                tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                                0, 0, IMAGESIZE, IMAGESIZE,
+                                                                                                null);
+                                                                                        }
+
                                                                                     }
                                                                                 }
                                                                                 if (wcnct(ty)(tx) && blocks(l)(ty)(tx) >= 94 && blocks(l)(ty)(tx) <= 99) {
@@ -2348,10 +2364,11 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (!DEBUG_LIGHT) {
-                                                                                fwg2.drawImage(LIGHTLEVELS.get(lights(ty)(tx).toInt),
+                                                                                LIGHTLEVELS.get(lights(ty)(tx).toInt)
+                                                                                  .foreach(fwg2.drawImage(_,
                                                                                     tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null));
                                                                             }
                                                                             drawn(ty)(tx) = true;
                                                                             rdrawn(ty)(tx) = true;
@@ -2427,13 +2444,13 @@ class TerraFrame extends JApplet
                                 }
                                 import scala.util.control.Breaks._
                                 breakable {
-                                    (0 until worldFiles.size()).foreach { i =>
+                                    (0 until worldFiles.length).foreach { i =>
                                         if (mousePos(0) >= 166 && mousePos(0) <= 470 &&
                                           mousePos(1) >= 117 + i * 35 && mousePos(1) <= 152 + i * 35) { // load world
-                                            currentWorld = worldNames.get(i);
+                                            currentWorld = worldNames(i);
                                             state = "loading_world";
                                             bg = Color.BLACK;
-                                            if (loadWorld(worldFiles.get(i))) {
+                                            if (loadWorld(worldFiles(i))) {
                                                 menuTimer.stop();
                                                 bg = CYANISH;
                                                 state = "ingame";
@@ -2451,8 +2468,8 @@ class TerraFrame extends JApplet
                                     if (!newWorldName.text.equals("")) {
                                         findWorlds();
                                         doGenerateWorld = true;
-                                        (0 until worldNames.size()).foreach { i =>
-                                            if (newWorldName.text.equals(worldNames.get(i))) {
+                                        (0 until worldNames.length).foreach { i =>
+                                            if (newWorldName.text.equals(worldNames(i))) {
                                                 doGenerateWorld = false;
                                             }
                                         }
@@ -2584,14 +2601,20 @@ class TerraFrame extends JApplet
         folder = new File("worlds");
         folder.mkdir();
         files = folder.listFiles();
-        worldFiles = new List[String]();
-        worldNames = new List[String]();
-        (0 until files.length).foreach { i =>
-            if (files(i).isFile() && files(i).getName().endsWith(".dat")) {
-                worldFiles.add(files(i).getName());
-                worldNames.add(files(i).getName().substring(0, files(i).getName().length()-4));
-            }
+
+        val (wordFilesTemp, worldNamesTemp) =files.filter(f => f.isFile() && f.getName().endsWith(".dat"))
+          .foldLeft((List.empty[String], List.empty[String])) {
+            (acc, file) =>
+            val wfs = acc._1
+            val wns = acc._2
+            val newFile = file.getName()
+            val newName = newFile.substring(0, newFile.length()-4)
+            (newFile :: wfs, newName :: wns)
         }
+
+        worldFiles = wordFilesTemp
+        worldNames = worldNamesTemp
+
     }
 
     def createNewWorld(): Unit = {
@@ -2726,15 +2749,15 @@ class TerraFrame extends JApplet
         mx = 0; my = 0;
         moveItem = 0; moveNum = 0; moveDur = 0;
 
-        entities = new List[Entity](0);
+        entities = new jul.ArrayList[Entity](0);
 
-        cloudsx = new List[Double](0);
-        cloudsy = new List[Double](0);
-        cloudsv = new List[Double](0);
-        cloudsn = new List[Int](0);
+        cloudsx = new jul.ArrayList[Double](0);
+        cloudsy = new jul.ArrayList[Double](0);
+        cloudsv = new jul.ArrayList[Double](0);
+        cloudsn = new jul.ArrayList[Int](0);
 
-        machinesx = new List[Int](0);
-        machinesy = new List[Int](0);
+        machinesx = new jul.ArrayList[Int](0);
+        machinesy = new jul.ArrayList[Int](0);
 
         icmatrix = Array.ofDim(3,HEIGHT,WIDTH);
 
@@ -2742,23 +2765,23 @@ class TerraFrame extends JApplet
         fworlds = Array.ofDim(2,2);
         kworlds = Array.ofDim(2,2);
 
-        pqx = new List[Int]();
-        pqy = new List[Int]();
+        pqx = new jul.ArrayList[Int]();
+        pqy = new jul.ArrayList[Int]();
 
         pmsg("-> Adding light sources...");
 
-        lqx = new List[Int]();
-        lqy = new List[Int]();
-        zqx = new List[Int]();
-        zqy = new List[Int]();
-        pqx = new List[Int]();
-        pqy = new List[Int]();
-        pzqx = new List[Int]();
-        pzqy = new List[Int]();
-        updatex = new List[Int]();
-        updatey = new List[Int]();
-        updatet = new List[Int]();
-        updatel = new List[Int]();
+        lqx = new jul.ArrayList[Int]();
+        lqy = new jul.ArrayList[Int]();
+        zqx = new jul.ArrayList[Int]();
+        zqy = new jul.ArrayList[Int]();
+        pqx = new jul.ArrayList[Int]();
+        pqy = new jul.ArrayList[Int]();
+        pzqx = new jul.ArrayList[Int]();
+        pzqy = new jul.ArrayList[Int]();
+        updatex = new jul.ArrayList[Int]();
+        updatey = new jul.ArrayList[Int]();
+        updatet = new jul.ArrayList[Int]();
+        updatel = new jul.ArrayList[Int]();
 
         (0 until WIDTH).foreach { x =>
 //            addSunLighting(x, 0);
@@ -2793,7 +2816,9 @@ class TerraFrame extends JApplet
             bg = Color.BLACK;
         }
         else {
-            bg = SKYCOLORS.get(currentSkyLight);
+            SKYCOLORS.get(currentSkyLight).foreach{ s =>
+              bg = s
+            }
         }
 
         if (rgnc1 == 0) {
@@ -2811,8 +2836,8 @@ class TerraFrame extends JApplet
             rgnc1 -= 1;
         }
 
-        (0 until machinesx.length).foreach { j =>
-            x = machinesx(j); y = machinesy(j);
+        (0 until machinesx.size()).foreach { j =>
+            x = machinesx.get(j); y = machinesy.get(j);
             (0 until 3).foreach { l =>
                 if (icmatrix(l)(y)(x) != null && icmatrix(l)(y)(x).`type`.equals("furnace")) {
                     if (icmatrix(l)(y)(x).F_ON) {
@@ -5965,11 +5990,11 @@ class TerraFrame extends JApplet
                         mousePos(1) >= uy*46+6 && mousePos(1) <= uy*46+46 && inventory.ids(uy*10+ux) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(inventory.ids(uy*10+ux).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(inventory.ids(uy*10+ux))) + " (" + (inventory.durs(uy*10+ux).toDouble/TOOLDURS.get(inventory.ids(uy*10+ux))*100).toInt + "%)", mousePos(0), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(inventory.ids(uy*10+ux))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(inventory.ids(uy*10+ux)).fold {
+                            UIBLOCKS.get(items(inventory.ids(uy*10+ux))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(inventory.ids(uy*10+ux))).foreach(u => pg2.drawString(u + " (" + (inventory.durs(uy*10+ux).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                         }
                     }
                 }
@@ -5979,9 +6004,9 @@ class TerraFrame extends JApplet
             pg2.drawString("Health: " + player.hp + "/" + player.thp, getWidth()-125, 20);
             pg2.drawString("Armor: " + player.sumArmor(), getWidth()-125, 40);
             if (DEBUG_STATS) {
-                pg2.drawString("(" + (player.ix/16).toInt + ", " + (player.iy/16).toInt + ")", getWidth()-125, 60);
+                pg2.drawString("(" + (player.ix/16).toInt + ", " + (player.iy/16) + ")", getWidth()-125, 60);
                 if (player.iy >= 0 && player.iy < HEIGHT*BLOCKSIZE) {
-                    pg2.drawString(checkBiome((player.ix/16+u).toInt, (player.iy/16+v).toInt) + " " + lights((player.iy/16+v).toInt)((player.ix/16+u).toInt), getWidth()-125, 80);
+                    pg2.drawString(checkBiome((player.ix/16+u), (player.iy/16+v)) + " " + lights((player.iy/16+v))((player.ix/16+u)), getWidth()-125, 80);
                 }
             }
             if (showInv) {
@@ -6037,11 +6062,11 @@ class TerraFrame extends JApplet
                                 ic.ids(uy*3+ux) != 0) {
                                 pg2.setFont(mobFont);
                                 pg2.setColor(Color.WHITE);
-                                if (TOOLDURS.get(ic.ids(uy*3+ux).toShort) != null) {
-                                    pg2.drawString(UIBLOCKS.get(items(ic.ids(uy*3+ux))) + " (" + (ic.durs(uy*3+ux).toDouble/TOOLDURS.get(ic.ids(uy*3+ux))*100).toInt + "%)", mousePos(0), mousePos(1));
-                                }
-                                else {
-                                    pg2.drawString(UIBLOCKS.get(items(ic.ids(uy*3+ux))), mousePos(0), mousePos(1));
+
+                                TOOLDURS.get(ic.ids(uy*3+ux)).fold {
+                                    UIBLOCKS.get(items(ic.ids(uy*3+ux))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                                } { t =>
+                                    UIBLOCKS.get(items(ic.ids(uy*3+ux))).foreach(u => pg2.drawString(u + " (" + (ic.durs(uy*3+ux).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                                 }
                             }
                         }
@@ -6073,11 +6098,11 @@ class TerraFrame extends JApplet
                                 ic.ids(uy*inventory.CX+ux) != 0) {
                                 pg2.setFont(mobFont);
                                 pg2.setColor(Color.WHITE);
-                                if (TOOLDURS.get(ic.ids(uy*inventory.CX+ux).toShort) != null) {
-                                    pg2.drawString(UIBLOCKS.get(items(ic.ids(uy*inventory.CX+ux))) + " (" + (ic.durs(uy*inventory.CX+ux).toDouble/TOOLDURS.get(ic.ids(uy*inventory.CX+ux))*100).toInt + "%)", mousePos(0), mousePos(1));
-                                }
-                                else {
-                                    pg2.drawString(UIBLOCKS.get(items(ic.ids(uy*inventory.CX+ux))), mousePos(0), mousePos(1));
+
+                                TOOLDURS.get(ic.ids(uy*inventory.CX+ux)).fold {
+                                    UIBLOCKS.get(items(ic.ids(uy*inventory.CX+ux))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                                } { t =>
+                                    UIBLOCKS.get(items(ic.ids(uy*inventory.CX+ux))).foreach( u => pg2.drawString(u + " (" + (ic.durs(uy*inventory.CX+ux).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                                 }
                             }
                         }
@@ -6089,11 +6114,11 @@ class TerraFrame extends JApplet
                         ic.ids(0) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(ic.ids(0).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(0))) + " (" + (ic.durs(0).toDouble/TOOLDURS.get(ic.ids(0))*100).toInt + "%)", mousePos(0), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(0))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(ic.ids(0)).fold {
+                            UIBLOCKS.get(items(ic.ids(0))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(ic.ids(0))).foreach(u => pg2.drawString(u + " (" + (ic.durs(0).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                         }
                     }
                     if (mousePos(0) >= 6 && mousePos(0) < 46 &&
@@ -6101,11 +6126,11 @@ class TerraFrame extends JApplet
                         ic.ids(1) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(ic.ids(1).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(1))) + " (" + (ic.durs(1).toDouble/TOOLDURS.get(ic.ids(1))*100).toInt + "%)", mousePos(1), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(1))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(ic.ids(1)).fold {
+                            UIBLOCKS.get(items(ic.ids(1))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(ic.ids(1))).foreach(u => pg2.drawString(u + " (" + (ic.durs(1).toDouble/t*100).toInt + "%)", mousePos(1), mousePos(1)));
                         }
                     }
                     if (mousePos(0) >= 6 && mousePos(0) < 46 &&
@@ -6113,11 +6138,11 @@ class TerraFrame extends JApplet
                         ic.ids(2) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(ic.ids(2).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(2))) + " (" + (ic.durs(2).toDouble/TOOLDURS.get(ic.ids(2))*100).toInt + "%)", mousePos(2), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(2))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(ic.ids(2)).fold {
+                            UIBLOCKS.get(items(ic.ids(2))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(ic.ids(2))).foreach(u => pg2.drawString(u + " (" + (ic.durs(2).toDouble/t*100).toInt + "%)", mousePos(2), mousePos(1)));
                         }
                     }
                     if (mousePos(0) >= 62 && mousePos(0) < 102 &&
@@ -6125,11 +6150,11 @@ class TerraFrame extends JApplet
                         ic.ids(3) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(ic.ids(3).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(3))) + " (" + (ic.durs(3).toDouble/TOOLDURS.get(ic.ids(3))*100).toInt + "%)", mousePos(3), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(3))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(ic.ids(3)).fold {
+                            UIBLOCKS.get(items(ic.ids(3))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(ic.ids(3))).foreach(u => pg2.drawString(u + " (" + (ic.durs(3).toDouble/t*100).toInt + "%)", mousePos(3), mousePos(1)));
                         }
                     }
                 }
@@ -6151,10 +6176,10 @@ class TerraFrame extends JApplet
                 0, 0, getWidth(), getHeight(),
                 0, 0, getWidth(), getHeight(),
                 null);
-            (0 until worldNames.size()).foreach { i =>
+            (0 until worldNames.length).foreach { i =>
                 pg2.setFont(worldFont);
                 pg2.setColor(Color.BLACK);
-                pg2.drawString(worldNames.get(i), 180, 140+i*35);
+                pg2.drawString(worldNames(i), 180, 140+i*35);
                 pg2.fillRect(166, 150+i*35, 470, 3);
             }
         }
@@ -6331,16 +6356,17 @@ class TerraFrame extends JApplet
         val dir_is: Int = dir.toInt;
         val dir_s: String = dirs(dir_is);
         val dir_i: Int = dirn.toInt;
-        val outline: BufferedImage = outlineImgs.get("outlines/" + outlineName + "/" + dir_s + (dir_i+1) + ".png");
         val bName: String = blocknames(`type`);
-        var texture: BufferedImage = blockImgs.get("blocks/" + bName + "/texture" + (tnum + 1) + ".png");
         val image: BufferedImage = config.createCompatibleImage(IMAGESIZE, IMAGESIZE, Transparency.TRANSLUCENT);
-        if (GRASSDIRT.get(`type`) != null) {
-            val dirtOriginal: BufferedImage = blockImgs.get("blocks/" + blocknames(GRASSDIRT.get(`type`)) + "/texture" + (tnum+1) + ".png");
+        var maybeTexture: Option[BufferedImage] = blockImgs.get("blocks/" + bName + "/texture" + (tnum + 1) + ".png");
+        GRASSDIRT.get(`type`).foreach { grassdirt =>
+            val maybeDirtOriginal: Option[BufferedImage] = blockImgs.get("blocks/" + blocknames(grassdirt) + "/texture" + (tnum+1) + ".png");
             val dirt: BufferedImage = config.createCompatibleImage(IMAGESIZE, IMAGESIZE, Transparency.TRANSLUCENT);
             (0 until IMAGESIZE).foreach { dy =>
                 (0 until IMAGESIZE).foreach { dx =>
-                    dirt.setRGB(dx, dy, dirtOriginal.getRGB(dx, dy));
+                    maybeDirtOriginal.foreach { dirtOriginal =>
+                        dirt.setRGB(dx, dy, dirtOriginal.getRGB(dx, dy));
+                    }
                 }
             }
             //val dn: Int = GRASSDIRT.get(`type`);
@@ -6434,20 +6460,28 @@ class TerraFrame extends JApplet
             }
             (0 until 8).foreach { dy =>
                 (0 until 8).foreach { dx =>
-                    dirt.setRGB(dx, dy, new Color((pixm(dy)(dx)/255.0 * new Color(texture.getRGB(dx, dy)).getRed() + (1 - pixm(dy)(dx)/255.0) * new Color(dirt.getRGB(dx, dy)).getRed()).toInt,
-                                                  (pixm(dy)(dx)/255.0 * new Color(texture.getRGB(dx, dy)).getGreen() + (1 - pixm(dy)(dx)/255.0) * new Color(dirt.getRGB(dx, dy)).getGreen()).toInt,
-                                                  (pixm(dy)(dx)/255.0 * new Color(texture.getRGB(dx, dy)).getBlue() + (1 - pixm(dy)(dx)/255.0) * new Color(dirt.getRGB(dx, dy)).getBlue()).toInt).getRGB());
+                    maybeTexture.foreach { texture =>
+                        dirt.setRGB(dx, dy, new Color((pixm(dy)(dx) / 255.0 * new Color(texture.getRGB(dx, dy)).getRed() + (1 - pixm(dy)(dx) / 255.0) * new Color(dirt.getRGB(dx, dy)).getRed()).toInt,
+                            (pixm(dy)(dx) / 255.0 * new Color(texture.getRGB(dx, dy)).getGreen() + (1 - pixm(dy)(dx) / 255.0) * new Color(dirt.getRGB(dx, dy)).getGreen()).toInt,
+                            (pixm(dy)(dx) / 255.0 * new Color(texture.getRGB(dx, dy)).getBlue() + (1 - pixm(dy)(dx) / 255.0) * new Color(dirt.getRGB(dx, dy)).getBlue()).toInt).getRGB());
+                    }
                 }
             }
-            texture = dirt;
+            maybeTexture = Some(dirt);
         }
-        (0 until IMAGESIZE).foreach { fy =>
-            (0 until IMAGESIZE).foreach { fx =>
-                if (outline.getRGB(fx, fy) == -65281 || outline.getRGB(fx, fy) == -48897) {
-                    image.setRGB(fx, fy, texture.getRGB(fx, fy));
-                }
-                else if (outline.getRGB(fx, fy) == -16777216) {
-                    image.setRGB(fx, fy, -16777216);
+
+
+        outlineImgs.get("outlines/" + outlineName + "/" + dir_s + (dir_i+1) + ".png").foreach { outline =>
+            (0 until IMAGESIZE).foreach { fy =>
+                (0 until IMAGESIZE).foreach { fx =>
+                    if (outline.getRGB(fx, fy) == -65281 || outline.getRGB(fx, fy) == -48897) {
+                        maybeTexture.foreach{ texture =>
+                            image.setRGB(fx, fy, texture.getRGB(fx, fy))
+                        }
+                    }
+                    else if (outline.getRGB(fx, fy) == -16777216) {
+                        image.setRGB(fx, fy, -16777216);
+                    }
                 }
             }
         }

@@ -1,7 +1,7 @@
 package org.terraframe;
 
 import java.io.Serializable;
-import java.util._;
+import java.{util => jul};
 
 case class WorldContainer(
     blocks: Array3D[Int],
@@ -17,16 +17,16 @@ case class WorldContainer(
     player: Player,
     inventory: Inventory,
     cic: ItemCollection,
-    entities: ArrayList[Entity],
-    cloudsx: ArrayList[Double],
-    cloudsy: ArrayList[Double],
-    cloudsv: ArrayList[Double],
-    cloudsn: ArrayList[Int],
-    machinesx: ArrayList[Int],
-    machinesy: ArrayList[Int],
+    entities: jul.List[Entity],
+    cloudsx: jul.List[Double],
+    cloudsy: jul.List[Double],
+    cloudsv: jul.List[Double],
+    cloudsn: jul.List[Int],
+    machinesx: jul.List[Int],
+    machinesy: jul.List[Int],
     lsources: Array2D[Boolean],
-    lqx: ArrayList[Int],
-    lqy: ArrayList[Int],
+    lqx: jul.List[Int],
+    lqy: jul.List[Int],
     lqd: Array2D[Boolean],
     rgnc1: Int,
     rgnc2: Int,
@@ -56,7 +56,7 @@ case class WorldContainer(
     doMobSpawn: Boolean,
     WIDTH: Int,
     HEIGHT: Int,
-    random: Random,
+    random: jul.Random,
     WORLDWIDTH: Int,
     WORLDHEIGHT: Int,
     resunlight: Int,

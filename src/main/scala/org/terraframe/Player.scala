@@ -235,7 +235,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
                 (bx1 to bx2).foreach { i =>
                     (by1 to by2).foreach { j =>
-                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u))) {
+                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldx <= i*16 - width && vx > 0) {
                                     x = i*16 - width;
@@ -271,7 +271,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
                 (bx1 to bx2).foreach { i =>
                     (by1 to by2).foreach { j =>
-                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u))) {
+                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldy <= j*16 - height && vy > 0) {
                                     y = j*16 - height;
@@ -346,10 +346,13 @@ case class Player(var x: Double, var y: Double) extends Serializable {
     }
 
     def sumArmor(): Int = {
-        return (TerraFrame.getARMOR().get(TerraFrame.armor.ids(0)) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids(1)) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids(2)) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids(3)));
+        val s = for {
+            armor0 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(0))
+            armor1 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(1))
+            armor2 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(2))
+            armor3 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(3))
+        } yield armor0 + armor1 + armor2 + armor3
+        s.getOrElse(0)
     }
    
 }
