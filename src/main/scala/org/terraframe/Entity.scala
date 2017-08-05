@@ -18,33 +18,9 @@ object Entity {
             image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(_) => //            System.out.println("[ERROR] could not load image '" + path + "'.")
+            case NonFatal(_) => // println("[ERROR] could not load image '" + path + "'.")
         }
         return image
-    }
-
-    def print(text: String): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Int): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Double): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Short): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Boolean): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: AnyRef): Unit = {
-        System.out.println(text)
     }
 
     val BLOCKSIZE: Int = TerraFrame.getBLOCKSIZE()

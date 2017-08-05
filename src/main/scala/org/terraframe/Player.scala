@@ -21,37 +21,13 @@ object Player {
             image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(e) => System.out.println("(ERROR) could not load image '" + path + "'.")
+            case NonFatal(e) => println("(ERROR) could not load image '" + path + "'.")
         }
         return image
     }
 
     def mod(a: Int, q: Int): Int = {
         return TerraFrame.mod(a, q)
-    }
-
-    def print(text: String): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Int): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Double): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Short): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Boolean): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: AnyRef): Unit = {
-        System.out.println(text)
     }
 }
 

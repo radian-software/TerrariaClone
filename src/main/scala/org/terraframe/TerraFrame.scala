@@ -673,10 +673,6 @@ object TerraFrame {
         return ARMOR
     }
 
-    def pmsg(msg: String): Unit = {
-        System.out.println(msg)
-    }
-
     def postError(e: Throwable): Unit = {
         val sb = new StringBuilder()
         sb.append("Exception in thread " + e.getClass().getName())
@@ -696,7 +692,7 @@ object TerraFrame {
             case _: IOException =>
         }
         finally {
-            System.out.println(sb.toString())
+            println(sb.toString())
         }
     }
 
@@ -728,32 +724,7 @@ object TerraFrame {
         return ((a % q) + q) % q
     }
 
-    def print(text: String): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Int): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Double): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Short): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Boolean): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: AnyRef): Unit = {
-        System.out.println(text)
-    }
-
     val theSize: Int = CHUNKBLOCKS*2
-
 }
 
 import TerraFrame._
@@ -1071,7 +1042,7 @@ class TerraFrame extends JApplet
             (1 until items.length).foreach { i =>
                 itemImgsTemp.put(i.toShort, loadImage("items/" + items(i) + ".png"))
                 if (itemImgsTemp.get(i.toShort) == null) {
-                    System.out.println("(ERROR) Could not load item graphic '" + items(i) + "'.")
+                    println("(ERROR) Could not load item graphic '" + items(i) + "'.")
                 }
             }
 
@@ -1085,7 +1056,7 @@ class TerraFrame extends JApplet
                     blockImgsTemp.put("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png",
                         loadImage("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png"))
                     if (blockImgsTemp.get("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png") == null) {
-                        System.out.println("(ERROR) Could not load block graphic '" + blocknames(i) + "'.")
+                        println("(ERROR) Could not load block graphic '" + blocknames(i) + "'.")
                     }
                 }
             }
@@ -2840,7 +2811,7 @@ class TerraFrame extends JApplet
         pqx = new jul.ArrayList[Int]()
         pqy = new jul.ArrayList[Int]()
 
-        pmsg("-> Adding light sources...")
+        println("-> Adding light sources...")
 
         lqx = new jul.ArrayList[Int]()
         lqy = new jul.ArrayList[Int]()
@@ -2866,12 +2837,12 @@ class TerraFrame extends JApplet
             }
         }
 
-        pmsg("-> Calculating light...")
+        println("-> Calculating light...")
 
         resolvePowerMatrix()
         resolveLightMatrix()
 
-        pmsg("Finished generation.")
+        println("Finished generation.")
     }
 
     def updateApp(): Unit = {

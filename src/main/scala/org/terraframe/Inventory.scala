@@ -17,7 +17,7 @@ object Inventory {
             image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(_) => System.out.println("(ERROR) could not load image '" + path + "'.")
+            case NonFatal(_) => println("(ERROR) could not load image '" + path + "'.")
         }
         return image
     }
@@ -31,30 +31,6 @@ object Inventory {
 
     def max(a: Int, b: Int, c: Int): Int = {
         return Math.max(Math.max(a, b), c)
-    }
-
-    def print(text: String): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Int): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Double): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Short): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: Boolean): Unit = {
-        System.out.println(text)
-    }
-
-    def print(text: AnyRef): Unit = {
-        System.out.println(text)
     }
 }
 

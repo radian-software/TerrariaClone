@@ -732,7 +732,7 @@ object World {
     val width: Int = blocks(0).length
     val height: Int = blocks.length
     if (msg) {
-      pmsg("-> Creating outlines...")
+      println("-> Creating outlines...")
     }
     val blockds: Array2D[Byte] = Array.ofDim(height,width)
     //val blockdns: Array2D[Byte] = Array.ofDim(height,width)
@@ -1129,7 +1129,7 @@ object World {
     */    }
 
   def generate3(blocks: Array2D[Int], terrain: Array[Double], stonelayer: Array[Double], inst: TerraFrame): Array2D[Byte] = {
-    pmsg("-> Creating background...")
+    println("-> Creating background...")
     val width: Int = blocks(0).length
     val height: Int = blocks.length
     val blockbgsi: Array2D[Byte] = Array.ofDim(height, width)
@@ -1346,35 +1346,8 @@ object World {
     return coordlist
   }
 
-  def pmsg(msg: String): Unit = {
-    TerraFrame.pmsg(msg)
-  }
 
   def mod(a: Int, q: Int): Int = {
     return TerraFrame.mod(a, q)
-  }
-
-  def print(text: String): Unit = {
-    System.out.println(text)
-  }
-
-  def print(text: Int): Unit = {
-    System.out.println(text)
-  }
-
-  def print(text: Double): Unit = {
-    System.out.println(text)
-  }
-
-  def print(text: Short): Unit = {
-    System.out.println(text)
-  }
-
-  def print(text: Boolean): Unit = {
-    System.out.println(text)
-  }
-
-  def print(text: AnyRef): Unit = {
-    System.out.println(text)
   }
 }

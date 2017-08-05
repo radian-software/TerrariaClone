@@ -56,7 +56,7 @@ object  RandConverter {
                                     ImageIO.write(result, "png", new File("outlines/" + name + "/" + dirs(k) + j + ".png"))
                                 }
                                 catch {
-                                    case _: IOException => System.out.println("Error in writing file.")
+                                    case _: IOException => println("Error in writing file.")
                                 }
                             }
                         }
@@ -86,7 +86,7 @@ object  RandConverter {
                             ImageIO.write(result, "png", new File("blocks/" + name + "/texture" + (i + 2) + ".png"))
                         }
                         catch {
-                            case _: IOException => System.out.println("Error in writing file.")
+                            case _: IOException => println("Error in writing file.")
                         }
                     }
                 }
@@ -101,7 +101,7 @@ object  RandConverter {
             image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(_) => System.out.println("Error: could not load image '" + path + "'.")
+            case NonFatal(_) => println("Error: could not load image '" + path + "'.")
         }
         return image
     }
