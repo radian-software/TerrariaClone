@@ -1,4 +1,4 @@
-package org.terraframe;
+package org.terraframe
 
 import java.awt._
 import java.awt.image._
@@ -7,130 +7,130 @@ import java.net.URL
 import java.util._
 import javax.imageio.ImageIO
 
-import scala.util.control.NonFatal;
+import scala.util.control.NonFatal
 
 object Inventory {
     def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path);
-        var image: BufferedImage = null;
+        val url: URL = getClass.getResource(path)
+        var image: BufferedImage = null
         try {
-            image = ImageIO.read(url);
+            image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(_) => System.out.println("(ERROR) could not load image '" + path + "'.");
+            case NonFatal(_) => System.out.println("(ERROR) could not load image '" + path + "'.")
         }
-        return image;
+        return image
     }
 
     def f(x: Int): Int = {
         if (x == 9) {
-            return 0;
+            return 0
         }
-        return x + 1;
+        return x + 1
     }
 
     def max(a: Int, b: Int, c: Int): Int = {
-        return Math.max(Math.max(a, b), c);
+        return Math.max(Math.max(a, b), c)
     }
 
     def print(text: String): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 
     def print(text: Int): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 
     def print(text: Double): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 
     def print(text: Short): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 
     def print(text: Boolean): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 
     def print(text: AnyRef): Unit = {
-        System.out.println(text);
+        System.out.println(text)
     }
 }
 
 class Inventory extends Serializable {
     import Inventory._
 
-    var i, j, k, x, y, n, px, py, selection, width, height: Int = _;
-    var fpx, fpy: Double = _;
-    var r: Short = _;
+    var i, j, k, x, y, n, px, py, selection, width, height: Int = _
+    var fpx, fpy: Double = _
+    var r: Short = _
 
-    var image, box, box_selected: BufferedImage = _; // was transient
-    val font = new Font("Chalkboard", Font.PLAIN, 12);
+    var image, box, box_selected: BufferedImage = _ // was transient
+    val font = new Font("Chalkboard", Font.PLAIN, 12)
 
-    var g2: Graphics2D = _; // was transient
+    var g2: Graphics2D = _ // was transient
 
-    var ids:Array[Short] = _;
-    var nums:Array[Short] = _;
-    var durs:Array[Short] = _;
-    var list_thing:Array2D[Short] = _;
-    var r1:Array2D[Short] = _;
-    var r2:Array[Short] = _;
+    var ids:Array[Short] = _
+    var nums:Array[Short] = _
+    var durs:Array[Short] = _
+    var list_thing:Array2D[Short] = _
+    var r1:Array2D[Short] = _
+    var r2:Array[Short] = _
 
-    var trolx: Int = 37;
-    var troly: Int = 17;
+    var trolx: Int = 37
+    var troly: Int = 17
 
-    var CX, CY: Int = _;
+    var CX, CY: Int = _
 
-    var valid: Boolean = false;
+    var valid: Boolean = false
 
-    var ic: ItemCollection = _;
+    var ic: ItemCollection = _
 
-    var RECIPES: Map[String,Array2D[Short]] = _;
+    var RECIPES: Map[String,Array2D[Short]] = _
 
     //Begin Constructor
     
-        ids = Array.ofDim(40);
-        nums = Array.ofDim(40);
-        durs = Array.ofDim(40);
+        ids = Array.ofDim(40)
+        nums = Array.ofDim(40)
+        durs = Array.ofDim(40)
         (0 until 40).foreach { i =>
-            ids(i) = 0;
-            nums(i) = 0;
-            durs(i) = 0;
+            ids(i) = 0
+            nums(i) = 0
+            durs(i) = 0
         }
-        selection = 0;
-        image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB);
-        box = loadImage("interface/inventory.png");
-        box_selected = loadImage("interface/inventory_selected.png");
-        g2 = image.createGraphics();
+        selection = 0
+        image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB)
+        box = loadImage("interface/inventory.png")
+        box_selected = loadImage("interface/inventory_selected.png")
+        g2 = image.createGraphics()
         (0 until 10).foreach { x =>
             (0 until 4).foreach { y =>
                 if (x == 0 && y == 0) {
                     g2.drawImage(box_selected,
                         x*46+6, y*46+6, x*46+46, y*46+46,
                         0, 0, 40, 40,
-                        null);
+                        null)
                     if (y == 0) {
-                        g2.setFont(font);
-                        g2.setColor(Color.BLACK);
-                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly);
+                        g2.setFont(font)
+                        g2.setColor(Color.BLACK)
+                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly)
                     }
                 }
                 else {
                     g2.drawImage(box,
                         x*46+6, y*46+6, x*46+46, y*46+46,
                         0, 0, 40, 40,
-                        null);
+                        null)
                     if (y == 0) {
-                        g2.setFont(font);
-                        g2.setColor(Color.BLACK);
-                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly);
+                        g2.setFont(font)
+                        g2.setColor(Color.BLACK)
+                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly)
                     }
                 }
             }
         }
 
-        RECIPES = new HashMap[String,Array2D[Short]]();
+        RECIPES = new HashMap[String,Array2D[Short]]()
 
         def list_thing1: Array2D[Short] = Array(
             Array[Short](15, 15, 15,
@@ -820,9 +820,9 @@ class Inventory extends Serializable {
             Array[Short](0, 0, 0,
                 162, 44, 162,
             0, 175, 0, 185, 1)
-        );
+        )
 
-        RECIPES.put("workbench", list_thing1);
+        RECIPES.put("workbench", list_thing1)
 
         def list_thing2: Array2D[Short] = Array(
             Array[Short](15, 15,
@@ -863,27 +863,27 @@ class Inventory extends Serializable {
                 0, 0, 184, 1), // Stone Pressure Plate
             Array[Short](0, 0,
                 2, 2, 184, 1)
-        );
+        )
 
-        RECIPES.put("cic", list_thing2);
+        RECIPES.put("cic", list_thing2)
 
         def list_thing3: Array2D[Short] = Array(
             Array[Short](15, 167, 0, 0, 0, 0, 0, 0, 0,
         168, 1),
             Array[Short](162, 0, 0, 0, 0, 0, 0, 0, 0,
         182, 1)
-        );
+        )
 
-        RECIPES.put("shapeless", list_thing3);
+        RECIPES.put("shapeless", list_thing3)
 
         def list_thing4: Array2D[Short] = Array(
             Array[Short](15, 167, 0, 0,
         168, 1),
             Array[Short](162, 0, 0, 0,
         182, 1)
-        );
+        )
 
-        RECIPES.put("shapeless_cic", list_thing4);
+        RECIPES.put("shapeless_cic", list_thing4)
     // END CONSTRUCTOR
 
     def addItem(item: Short, quantity: Short): Int = {
@@ -900,39 +900,39 @@ class Inventory extends Serializable {
         (0 until 40).foreach { i =>
             if (ids(i) == item && TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => nums(i) < maxstacks)) {
                 if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
-                    nums(i) = (nums(i) + updatedQuantity).toShort;
-                    update(i);
-                    return 0;
+                    nums(i) = (nums(i) + updatedQuantity).toShort
+                    update(i)
+                    return 0
                 }
                 else {
                     TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
-                        updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort;
-                        nums(i) = maxstacks;
+                        updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort
+                        nums(i) = maxstacks
                     }
 
-                    update(i);
+                    update(i)
                 }
             }
         }
         (0 until 40).foreach { i =>
             if (ids(i) == 0) {
-                ids(i) = item;
+                ids(i) = item
                 if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
-                    nums(i) = updatedQuantity;
-                    durs(i) = durability;
-                    update(i);
-                    return 0;
+                    nums(i) = updatedQuantity
+                    durs(i) = durability
+                    update(i)
+                    return 0
                 }
                 else {
                     TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
-                        nums(i) = maxstacks;
-                        updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                        nums(i) = maxstacks
+                        updatedQuantity = (updatedQuantity - maxstacks).toShort
                     }
-                    durs(i) = durability;
+                    durs(i) = durability
                 }
             }
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def removeItem(item: Short, quantity: Short): Int = {
@@ -940,638 +940,638 @@ class Inventory extends Serializable {
         (0 until 40).foreach { i =>
             if (ids(i) == item) {
                 if (nums(i) <= updatedQuantity) {
-                    nums(i) = (nums(i) - updatedQuantity).toShort;
+                    nums(i) = (nums(i) - updatedQuantity).toShort
                     if (nums(i) == 0) {
-                        ids(i) = 0;
+                        ids(i) = 0
                     }
-                    update(i);
-                    return 0;
+                    update(i)
+                    return 0
                 }
                 else {
-                    updatedQuantity = (updatedQuantity - nums(i)).toShort;
-                    nums(i) = 0;
-                    ids(i) = 0;
-                    update(i);
+                    updatedQuantity = (updatedQuantity - nums(i)).toShort
+                    nums(i) = 0
+                    ids(i) = 0
+                    update(i)
                 }
             }
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def addLocation(i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ids(i) == item) {
             if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
-                nums(i) = (nums(i) + updatedQuantity).toShort;
-                update(i);
-                return 0;
+                nums(i) = (nums(i) + updatedQuantity).toShort
+                update(i)
+                return 0
             }
             else {
                 TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
-                    updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort;
-                    nums(i) = maxstacks;
+                    updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort
+                    nums(i) = maxstacks
                 }
 
-                update(i);
+                update(i)
             }
         }
         else {
             if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks )) {
-                ids(i) = item;
-                nums(i) = updatedQuantity;
-                durs(i) = durability;
-                update(i);
-                return 0;
+                ids(i) = item
+                nums(i) = updatedQuantity
+                durs(i) = durability
+                update(i)
+                return 0
             }
             else {
                 TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
-                    updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                    updatedQuantity = (updatedQuantity - maxstacks).toShort
                 }
-                return updatedQuantity;
+                return updatedQuantity
             }
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def removeLocation(i: Int, quantity: Short): Int =  {
         var updatedQuantity: Short = quantity
         if (nums(i) >= updatedQuantity) {
-            nums(i) = (nums(i) - updatedQuantity).toShort;
+            nums(i) = (nums(i) - updatedQuantity).toShort
             if (nums(i) == 0) {
-                ids(i) = 0;
+                ids(i) = 0
             }
-            update(i);
-            return 0;
+            update(i)
+            return 0
         }
         else {
-            updatedQuantity = (updatedQuantity - nums(i)).toShort;
-            nums(i) = 0;
-            ids(i) = 0;
-            update(i);
+            updatedQuantity = (updatedQuantity - nums(i)).toShort
+            nums(i) = 0
+            ids(i) = 0
+            update(i)
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def reloadImage(): Unit = {
-        image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB);
-        box = loadImage("interface/inventory.png");
-        box_selected = loadImage("interface/inventory_selected.png");
-        g2 = image.createGraphics();
+        image = new BufferedImage(466, 190, BufferedImage.TYPE_INT_ARGB)
+        box = loadImage("interface/inventory.png")
+        box_selected = loadImage("interface/inventory_selected.png")
+        g2 = image.createGraphics()
         (0 until 10).foreach { x =>
             (0 until 4).foreach { y =>
                 if (x == 0 && y == 0) {
                     g2.drawImage(box_selected,
                         x*46+6, y*46+6, x*46+46, y*46+46,
                         0, 0, 40, 40,
-                        null);
+                        null)
                     if (y == 0) {
-                        g2.setFont(font);
-                        g2.setColor(Color.BLACK);
-                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly);
+                        g2.setFont(font)
+                        g2.setColor(Color.BLACK)
+                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly)
                     }
                 }
                 else {
                     g2.drawImage(box,
                         x*46+6, y*46+6, x*46+46, y*46+46,
                         0, 0, 40, 40,
-                        null);
+                        null)
                     if (y == 0) {
-                        g2.setFont(font);
-                        g2.setColor(Color.BLACK);
-                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly);
+                        g2.setFont(font)
+                        g2.setColor(Color.BLACK)
+                        g2.drawString(f(x) + " ", x*46+trolx, y*46+troly)
                     }
                 }
             }
         }
         (0 until 40).foreach { i =>
-            update(i);
+            update(i)
         }
     }
 
     def update(i: Int): Unit = {
-        py = (i/10).toInt;
-        px = i-(py*10);
+        py = (i/10)
+        px = i-(py*10)
         (px*46+6 until px*46+46).foreach { x =>
             (py*46+6 until py*46+46).foreach { y =>
-                image.setRGB(x, y, 9539985);
+                image.setRGB(x, y, 9539985)
             }
         }
-        g2 = image.createGraphics();
+        g2 = image.createGraphics()
         if (i == selection) {
             g2.drawImage(box_selected,
                 px*46+6, py*46+6, px*46+46, py*46+46,
                 0, 0, 40, 40,
-                null);
+                null)
             if (py == 0) {
-                g2.setFont(font);
-                g2.setColor(Color.BLACK);
-                g2.drawString(f(px) + " ", px*46+trolx, py*46+troly);
+                g2.setFont(font)
+                g2.setColor(Color.BLACK)
+                g2.drawString(f(px) + " ", px*46+trolx, py*46+troly)
             }
         }
         else {
             g2.drawImage(box,
                 px*46+6, py*46+6, px*46+46, py*46+46,
                 0, 0, 40, 40,
-                null);
+                null)
             if (py == 0) {
-                g2.setFont(font);
-                g2.setColor(Color.BLACK);
-                g2.drawString(f(px) + " ", px*46+trolx, py*46+troly);
+                g2.setFont(font)
+                g2.setColor(Color.BLACK)
+                g2.drawString(f(px) + " ", px*46+trolx, py*46+troly)
             }
         }
         if (ids(i) != 0) {
             TerraFrame.getItemImgs().get(ids(i)).foreach { itemImg =>
-                width = itemImg.getWidth();
-                height = itemImg.getHeight();
+                width = itemImg.getWidth()
+                height = itemImg.getHeight()
                 g2.drawImage(itemImg,
                     px*46+14+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+14+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+38-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+38-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                     0, 0, width, height,
-                    null);
+                    null)
             }
 
 
             if (nums(i) > 1) {
-                g2.setFont(font);
-                g2.setColor(Color.WHITE);
-                g2.drawString(nums(i) + " ", px*46+15, py*46+40);
+                g2.setFont(font)
+                g2.setColor(Color.WHITE)
+                g2.drawString(nums(i) + " ", px*46+15, py*46+40)
             }
         }
     }
 
     def select(i: Int): Unit = {
         if (i == 0) {
-            n = selection;
-            selection = 9;
-            update(n);
-            update(9);
+            n = selection
+            selection = 9
+            update(n)
+            update(9)
         }
         else {
-            n = selection;
-            selection = i - 1;
-            update(n);
-            update(i - 1);
+            n = selection
+            selection = i - 1
+            update(n)
+            update(i - 1)
         }
     }
 
     def select2(i: Int): Unit = {
-        n = selection;
-        selection = i;
-        update(n);
-        update(i);
+        n = selection
+        selection = i
+        update(n)
+        update(i)
     }
 
     def tool(): Short = {
-        return ids(selection);
+        return ids(selection)
     }
 
     def renderCollection(ic: ItemCollection): Unit = {
         if (ic.`type`.equals("cic")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/cic.png");
+                ic.image = loadImage("interface/cic.png")
                 (0 until 4).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("armor")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/armor.png");
-                CX = 1;
-                CY = 4;
+                ic.image = loadImage("interface/armor.png")
+                CX = 1
+                CY = 4
                 (0 until 4).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("workbench")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/workbench.png");
+                ic.image = loadImage("interface/workbench.png")
                 (0 until 9).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("wooden_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/wooden_chest.png");
-                CX = 3;
-                CY = 3;
+                ic.image = loadImage("interface/wooden_chest.png")
+                CX = 3
+                CY = 3
                 (0 until 9).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("stone_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/stone_chest.png");
-                CX = 5;
-                CY = 3;
+                ic.image = loadImage("interface/stone_chest.png")
+                CX = 5
+                CY = 3
                 (0 until 15).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("copper_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/copper_chest.png");
-                CX = 5;
-                CY = 4;
+                ic.image = loadImage("interface/copper_chest.png")
+                CX = 5
+                CY = 4
                 (0 until 20).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("iron_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/iron_chest.png");
-                CX = 7;
-                CY = 4;
+                ic.image = loadImage("interface/iron_chest.png")
+                CX = 7
+                CY = 4
                 (0 until 28).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("silver_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/silver_chest.png");
-                CX = 7;
-                CY = 5;
+                ic.image = loadImage("interface/silver_chest.png")
+                CX = 7
+                CY = 5
                 (0 until 35).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("gold_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/gold_chest.png");
-                CX = 7;
-                CY = 6;
+                ic.image = loadImage("interface/gold_chest.png")
+                CX = 7
+                CY = 6
                 (0 until 42).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("zinc_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/zinc_chest.png");
-                CX = 7;
-                CY = 8;
+                ic.image = loadImage("interface/zinc_chest.png")
+                CX = 7
+                CY = 8
                 (0 until 56).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("rhymestone_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/rhymestone_chest.png");
-                CX = 8;
-                CY = 9;
+                ic.image = loadImage("interface/rhymestone_chest.png")
+                CX = 8
+                CY = 9
                 (0 until 72).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("obdurite_chest")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/obdurite_chest.png");
-                CX = 10;
-                CY = 10;
+                ic.image = loadImage("interface/obdurite_chest.png")
+                CX = 10
+                CY = 10
                 (0 until 100).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         if (ic.`type`.equals("furnace")) {
             if (ic.image == null) {
-                ic.image = loadImage("interface/furnace.png");
+                ic.image = loadImage("interface/furnace.png")
                 (-1 until 4).foreach { i =>
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
     }
 
     def addLocationIC(ic: ItemCollection, i: Int, item: Short, quantity: Short): Int = {
-        return addLocationIC(ic, i, item, quantity, 0.toShort);
+        return addLocationIC(ic, i, item, quantity, 0.toShort)
     }
 
     def addLocationIC(ic: ItemCollection, i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ic.ids(i) == item) {
             if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => maxstacks - ic.nums(i) >= updatedQuantity)) {
-                ic.nums(i) = (ic.nums(i) + updatedQuantity).toShort;
+                ic.nums(i) = (ic.nums(i) + updatedQuantity).toShort
                 if (ic.image != null) {
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
-                return 0;
+                return 0
             }
             else {
                 TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
-                    updatedQuantity = (updatedQuantity - maxstacks - ic.nums(i)).toShort;
-                    ic.nums(i) = maxstacks;
+                    updatedQuantity = (updatedQuantity - maxstacks - ic.nums(i)).toShort
+                    ic.nums(i) = maxstacks
                 }
 
                 if (ic.image != null) {
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
             }
         }
         else {
             if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
-                ic.ids(i) = item;
-                ic.nums(i) = updatedQuantity;
-                ic.durs(i) = durability;
+                ic.ids(i) = item
+                ic.nums(i) = updatedQuantity
+                ic.durs(i) = durability
                 if (ic.image != null) {
-                    updateIC(ic, i);
+                    updateIC(ic, i)
                 }
-                return 0;
+                return 0
             }
             else {
                 TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
-                    updatedQuantity = (updatedQuantity - maxstacks).toShort;
+                    updatedQuantity = (updatedQuantity - maxstacks).toShort
                 }
-                return updatedQuantity;
+                return updatedQuantity
             }
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def removeLocationIC(ic: ItemCollection, i: Int, quantity: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ic.nums(i) >= updatedQuantity) {
-            ic.nums(i) = (ic.nums(i) - updatedQuantity).toShort;
+            ic.nums(i) = (ic.nums(i) - updatedQuantity).toShort
             if (ic.nums(i) == 0) {
-                ic.ids(i) = 0;
+                ic.ids(i) = 0
             }
             if (ic.image != null) {
-                updateIC(ic, i);
+                updateIC(ic, i)
             }
-            return 0;
+            return 0
         }
         else {
-            updatedQuantity = (updatedQuantity - ic.nums(i)).toShort;
-            ic.nums(i) = 0;
-            ic.ids(i) = 0;
+            updatedQuantity = (updatedQuantity - ic.nums(i)).toShort
+            ic.nums(i) = 0
+            ic.ids(i) = 0
             if (ic.image != null) {
-                updateIC(ic, i);
+                updateIC(ic, i)
             }
         }
-        return updatedQuantity;
+        return updatedQuantity
     }
 
     def updateIC(ic: ItemCollection, i: Int): Unit = {
         if (ic.`type`.equals("cic")) {
-            py = (i/2).toInt;
-            px = i-(py*2);
+            py = (i/2)
+            px = i-(py*2)
             (px*40 until px*40+40).foreach { x =>
                 (py*40 until py*40+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 px*40, py*40, px*40+40, py*40+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(i) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
                 }
 
                 if (ic.nums(i) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34)
                 }
             }
-            ic.ids(4) = 0;
-            ic.ids(4) = 0;
+            ic.ids(4) = 0
+            ic.ids(4) = 0
             import scala.util.control.Breaks._
             breakable {
                 RECIPES.get("cic").foreach { r2 =>
-                    valid = true;
+                    valid = true
 
                     breakable {
                         (0 until 4).foreach { i =>
                             if (ic.ids(i) != r2(i)) {
-                                valid = false;
-                                break;
+                                valid = false
+                                break
                             }
                         }
                     }
                     if (valid) {
-                        ic.ids(4) = r2(4);
-                        ic.nums(4) = r2(5);
+                        ic.ids(4) = r2(4)
+                        ic.nums(4) = r2(5)
                         TerraFrame.getTOOLDURS().get(r2(4)).foreach { d =>
                             ic.durs(4) = d
                         }
-                        break;
+                        break
                     }
                 }
             }
-            val r3: ArrayList[Short] = new ArrayList[Short](6);
+            val r3: ArrayList[Short] = new ArrayList[Short](6)
             breakable {
                 RECIPES.get("shapeless_cic").foreach { r2 =>
-                    valid = true;
-                    r3.clear();
+                    valid = true
+                    r3.clear()
                     (0 until r2.length - 2).foreach { j =>
-                        r3.add(r2(j));
+                        r3.add(r2(j))
                     }
                     breakable {
                         (0 until 4).foreach { j =>
-                            n = r3.indexOf(ic.ids(j));
+                            n = r3.indexOf(ic.ids(j))
                             if (n == -1) {
-                                valid = false;
-                                break;
+                                valid = false
+                                break
                             }
                             else {
-                                r3.remove(n);
+                                r3.remove(n)
                             }
                         }
                     }
                     if (valid) {
-                        ic.ids(4) = r2(r2.length - 2);
-                        ic.nums(4) = r2(r2.length - 1);
+                        ic.ids(4) = r2(r2.length - 2)
+                        ic.nums(4) = r2(r2.length - 1)
                         TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
                             ic.durs(4) = d
                         }
 
-                        break;
+                        break
                     }
                 }
             }
             (3*40 until 3*40+40).foreach { x =>
                 (20 until 20+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 3*40, 20, 3*40+40, 20+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(4) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(4)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         3*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, 3*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 20+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
 
                 }
 
                 if (ic.nums(4) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(4) + " ", 3*40+9, 20+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(4) + " ", 3*40+9, 20+34)
                 }
             }
         }
         if (ic.`type`.equals("armor")) {
-            py = (i/CX).toInt;
-            px = i-(py*CX);
+            py = (i/CX)
+            px = i-(py*CX)
             (px*46 until px*46+40).foreach { x =>
                 (py*46 until py*46+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 px*46, py*46, px*46+40, py*46+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(i) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
                 }
 
 
                 if (ic.nums(i) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(i) + " ", px*46+9, py*46+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(i) + " ", px*46+9, py*46+34)
                 }
             }
         }
         if (ic.`type`.equals("workbench")) {
-            py = (i/3).toInt;
-            px = i-(py*3);
+            py = (i/3)
+            px = i-(py*3)
             (px*40 until px*40+40).foreach { x =>
                 (py*40 until py*40+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 px*40, py*40, px*40+40, py*40+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(i) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         px*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
                 }
 
                 if (ic.nums(i) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34)
                 }
             }
-            ic.ids(9) = 0;
-            ic.ids(9) = 0;
+            ic.ids(9) = 0
+            ic.ids(9) = 0
             import scala.util.control.Breaks._
             breakable {
                 RECIPES.get("workbench").foreach { r2 =>
-                    valid = true;
+                    valid = true
                     breakable {
                         (0 until 9).foreach { i =>
                             if (ic.ids(i) != r2(i)) {
-                                valid = false;
-                                break;
+                                valid = false
+                                break
                             }
                         }
                     }
                     if (valid) {
-                        ic.ids(9) = r2(9);
-                        ic.nums(9) = r2(10);
+                        ic.ids(9) = r2(9)
+                        ic.nums(9) = r2(10)
                         TerraFrame.getTOOLDURS().get(r2(9)).foreach { d =>
                             ic.durs(9) = d
                         }
-                        break;
+                        break
                     }
                 }
             }
-            val r3: ArrayList[Short] = new ArrayList[Short](11);
+            val r3: ArrayList[Short] = new ArrayList[Short](11)
             breakable {
                 RECIPES.get("shapeless").foreach { r2 =>
-                    valid = true;
-                    r3.clear();
+                    valid = true
+                    r3.clear()
                     (0 until r2.length - 2).foreach { j =>
-                        r3.add(r2(j));
+                        r3.add(r2(j))
                     }
                     breakable {
                         (0 until 9).foreach { j =>
-                            n = r3.indexOf(ic.ids(j));
+                            n = r3.indexOf(ic.ids(j))
                             if (n == -1) {
-                                valid = false;
-                                break;
+                                valid = false
+                                break
                             }
                             else {
-                                r3.remove(n);
+                                r3.remove(n)
                             }
                         }
                     }
                     if (valid) {
-                        ic.ids(9) = r2(r2.length - 2);
-                        ic.nums(9) = r2(r2.length - 1);
+                        ic.ids(9) = r2(r2.length - 2)
+                        ic.nums(9) = r2(r2.length - 1)
                         TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
                             ic.durs(9) = d
                         }
-                        break;
+                        break
                     }
                 }
             }
             (4*40 until 4*40+40).foreach { x =>
                 (1*40 until 1*40+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 4*40, 1*40, 4*40+40, 1*40+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(9) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(9)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         4*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 1*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, 4*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, 1*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
                 }
 
 
                 if (ic.nums(9) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(9) + " ", 4*40+9, 1*40+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(9) + " ", 4*40+9, 1*40+34)
                 }
             }
         }
@@ -1580,33 +1580,33 @@ class Inventory extends Serializable {
             ic.`type`.equals("silver_chest") || ic.`type`.equals("gold_chest") ||
             ic.`type`.equals("zinc_chest") || ic.`type`.equals("rhymestone_chest") ||
             ic.`type`.equals("obdurite_chest")) {
-            py = (i/CX).toInt;
-            px = i-(py*CX);
+            py = (i/CX)
+            px = i-(py*CX)
             (px*46 until px*46+40).foreach { x =>
                 (py*46 until py*46+40).foreach { y =>
-                    ic.image.setRGB(x, y, 9539985);
+                    ic.image.setRGB(x, y, 9539985)
                 }
             }
-            g2 = ic.image.createGraphics();
+            g2 = ic.image.createGraphics()
             g2.drawImage(box,
                 px*46, py*46, px*46+40, py*46+40,
                 0, 0, 40, 40,
-                null);
+                null)
             if (ic.ids(i) != 0) {
                 TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
-                    width = itemImg.getWidth();
-                    height = itemImg.getHeight();
+                    width = itemImg.getWidth()
+                    height = itemImg.getHeight()
                     g2.drawImage(itemImg,
                         px*46+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt, px*46+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt, py*46+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt,
                         0, 0, width, height,
-                        null);
+                        null)
                 }
 
 
                 if (ic.nums(i) > 1) {
-                    g2.setFont(font);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(ic.nums(i) + " ", px*46+9, py*46+34);
+                    g2.setFont(font)
+                    g2.setColor(Color.WHITE)
+                    g2.drawString(ic.nums(i) + " ", px*46+9, py*46+34)
                 }
             }
         }
@@ -1614,63 +1614,63 @@ class Inventory extends Serializable {
             if (i == -1) {
                 (0 until 5).foreach { y =>
                     (0 until (ic.FUELP*38).toInt).foreach { x =>
-                        ic.image.setRGB(x+1, y+51, new Color(255, 0, 0).getRGB());
+                        ic.image.setRGB(x+1, y+51, new Color(255, 0, 0).getRGB())
                     }
                     ((ic.FUELP*38).toInt until 38).foreach { x =>
-                        ic.image.setRGB(x+1, y+51, new Color(145, 145, 145).getRGB());
+                        ic.image.setRGB(x+1, y+51, new Color(145, 145, 145).getRGB())
                     }
                 }
                 (0 until 5).foreach { x =>
                     (0 until (ic.SMELTP*38).toInt).foreach { y =>
-                        ic.image.setRGB(x+40, y+1, new Color(255, 0, 0).getRGB());
+                        ic.image.setRGB(x+40, y+1, new Color(255, 0, 0).getRGB())
                     }
                     ((ic.SMELTP*38).toInt until 38).foreach { y =>
-                        ic.image.setRGB(x+40, y+1, new Color(145, 145, 145).getRGB());
+                        ic.image.setRGB(x+40, y+1, new Color(145, 145, 145).getRGB())
                     }
                 }
             }
             else {
                 if (i == 0) {
-                    fpx = 0;
-                    fpy = 0;
+                    fpx = 0
+                    fpy = 0
                 }
                 if (i == 1) {
-                    fpx = 0;
-                    fpy = 1.4;
+                    fpx = 0
+                    fpy = 1.4
                 }
                 if (i == 2) {
-                    fpx = 0;
-                    fpy = 2.4;
+                    fpx = 0
+                    fpy = 2.4
                 }
                 if (i == 3) {
-                    fpx = 1.4;
-                    fpy = 0;
+                    fpx = 1.4
+                    fpy = 0
                 }
                 ((fpx*40).toInt until (fpx*40+40).toInt).foreach { x =>
                     ((fpy*40).toInt until (fpy*40+40).toInt).foreach { y =>
-                        ic.image.setRGB(x, y, 9539985);
+                        ic.image.setRGB(x, y, 9539985)
                     }
                 }
-                g2 = ic.image.createGraphics();
+                g2 = ic.image.createGraphics()
                 g2.drawImage(box,
                     (fpx*40).toInt, (fpy*40).toInt, (fpx*40+40).toInt, (fpy*40+40).toInt,
                     0, 0, 40, 40,
-                    null);
+                    null)
                 if (ic.ids(i) != 0) {
                     TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
-                        width = itemImg.getWidth();
-                        height = itemImg.getHeight();
+                        width = itemImg.getWidth()
+                        height = itemImg.getHeight()
                         g2.drawImage(itemImg,
                             (fpx*40+8+((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+8+((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt, (fpx*40+32-((24-12.toDouble/max(width, height, 12)*width*2)/2).toInt).toInt, (fpy*40+32-((24-12.toDouble/max(width, height, 12)*height*2)/2).toInt).toInt,
                             0, 0, width, height,
-                            null);
+                            null)
                     }
 
 
                     if (ic.nums(i) > 1) {
-                        g2.setFont(font);
-                        g2.setColor(Color.WHITE);
-                        g2.drawString(ic.nums(i) + " ", (fpx*40+9).toInt, (fpy*40+34).toInt);
+                        g2.setFont(font)
+                        g2.setColor(Color.WHITE)
+                        g2.drawString(ic.nums(i) + " ", (fpx*40+9).toInt, (fpy*40+34).toInt)
                     }
                 }
             }
@@ -1679,56 +1679,56 @@ class Inventory extends Serializable {
 
     def useRecipeWorkbench(ic: ItemCollection): Unit = {
         RECIPES.get("workbench").foreach { r2 =>
-            valid = true;
+            valid = true
             import scala.util.control.Breaks._
             breakable {
                 (0 until 9).foreach { i =>
                     if (ic.ids(i) != r2(i)) {
-                        valid = false;
-                        break;
+                        valid = false
+                        break
                     }
                 }
             }
             if (valid) {
                 (0 until 9).foreach { i =>
-                    removeLocationIC(ic, i, 1.toShort);
-                    updateIC(ic, i);
+                    removeLocationIC(ic, i, 1.toShort)
+                    updateIC(ic, i)
                 }
             }
         }
-        val r3: ArrayList[Short] = new ArrayList[Short](11);
+        val r3: ArrayList[Short] = new ArrayList[Short](11)
         import scala.util.control.Breaks._
         breakable {
             RECIPES.get("shapeless").foreach { r2 =>
-                valid = true;
-                r3.clear();
+                valid = true
+                r3.clear()
                 (0 until r2.length - 2).foreach { k =>
-                    r3.add(r2(k));
+                    r3.add(r2(k))
                 }
                 breakable {
                     (0 until 9).foreach { k =>
-                        n = r3.indexOf(ic.ids(k));
+                        n = r3.indexOf(ic.ids(k))
                         if (n == -1) {
-                            valid = false;
-                            break;
+                            valid = false
+                            break
                         }
                         else {
-                            r3.remove(n);
+                            r3.remove(n)
                         }
                     }
                 }
                 if (valid) {
-                    r3.clear();
+                    r3.clear()
                     (0 until r2.length - 2).foreach { k =>
-                        r3.add(r2(k));
+                        r3.add(r2(k))
                     }
                     (0 until 9).foreach { k =>
-                        n = r3.indexOf(ic.ids(k));
-                        r3.remove(n);
-                        removeLocationIC(ic, k, 1.toShort);
-                        updateIC(ic, k);
+                        n = r3.indexOf(ic.ids(k))
+                        r3.remove(n)
+                        removeLocationIC(ic, k, 1.toShort)
+                        updateIC(ic, k)
                     }
-                    break;
+                    break
                 }
             }
         }
@@ -1736,56 +1736,56 @@ class Inventory extends Serializable {
 
     def useRecipeCIC(ic: ItemCollection): Unit = {
         RECIPES.get("cic").foreach { r2 =>
-            valid = true;
+            valid = true
             import scala.util.control.Breaks._
             breakable {
                 (0 until 4).foreach { i =>
                     if (ic.ids(i) != r2(i)) {
-                        valid = false;
-                        break;
+                        valid = false
+                        break
                     }
                 }
             }
             if (valid) {
                 (0 until 4).foreach { i =>
-                    removeLocationIC(ic, i, 1.toShort);
-                    updateIC(ic, i);
+                    removeLocationIC(ic, i, 1.toShort)
+                    updateIC(ic, i)
                 }
             }
         }
-        val r3: ArrayList[Short] = new ArrayList[Short](6);
+        val r3: ArrayList[Short] = new ArrayList[Short](6)
         import scala.util.control.Breaks._
         breakable {
             RECIPES.get("shapeless_cic").foreach { r2 =>
-                valid = true;
-                r3.clear();
+                valid = true
+                r3.clear()
                 (0 until r2.length - 2).foreach { k =>
-                    r3.add(r2(k));
+                    r3.add(r2(k))
                 }
                 breakable {
                     (0 until 4).foreach { k =>
-                        n = r3.indexOf(ic.ids(k));
+                        n = r3.indexOf(ic.ids(k))
                         if (n == -1) {
-                            valid = false;
-                            break;
+                            valid = false
+                            break
                         }
                         else {
-                            r3.remove(n);
+                            r3.remove(n)
                         }
                     }
                 }
                 if (valid) {
-                    r3.clear();
+                    r3.clear()
                     (0 until r2.length - 2).foreach { k =>
-                        r3.add(r2(k));
+                        r3.add(r2(k))
                     }
                     (0 until 4).foreach { k =>
-                        n = r3.indexOf(ic.ids(k));
-                        r3.remove(n);
-                        removeLocationIC(ic, k, 1.toShort);
-                        updateIC(ic, k);
+                        n = r3.indexOf(ic.ids(k))
+                        r3.remove(n)
+                        removeLocationIC(ic, k, 1.toShort)
+                        updateIC(ic, k)
                     }
-                    break;
+                    break
                 }
             }
         }

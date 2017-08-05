@@ -1,7 +1,7 @@
-package org.terraframe;
+package org.terraframe
 
-import java.io.Serializable;
-import java.{util => jul};
+import java.io.Serializable
+import java.{util => jul}
 
 case class WorldContainer(
     blocks: Array3D[Int],

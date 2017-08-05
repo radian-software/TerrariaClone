@@ -1,4 +1,4 @@
-package org.terraframe;
+package org.terraframe
 
 import java.awt.image._
 import java.io._
@@ -6,12 +6,12 @@ import java.net.URL
 import java.util._
 import javax.imageio.ImageIO
 
-import scala.util.control.NonFatal;
+import scala.util.control.NonFatal
 
 object LightConverter {
 
-    val BLOCKSIZE: Int = 16;
-    val IMAGESIZE: Int = 8;
+    val BLOCKSIZE: Int = 16
+    val IMAGESIZE: Int = 8
 
     val dirs: Array[String] = Array("center", "tdown_both", "tdown_cw", "tdown_ccw",
         "tdown", "tup_both", "tup_cw", "tup_ccw",
@@ -20,38 +20,38 @@ object LightConverter {
         "downleftdiag", "downleft", "left", "tleft_both",
         "tleft_cw", "tleft_ccw", "tleft", "uprightdiag",
         "upright", "downrightdiag", "downright", "right",
-        "updown", "up", "down", "single");
+        "updown", "up", "down", "single")
 
     def main(args: Array[String]): Unit = {
         (0 until 17).foreach { i =>
-            System.out.print("Generate new textures [" + i + "] for: ");
-            val name: String = (new Scanner(System.in)).nextLine();
-            val light: BufferedImage = loadImage("light/" + i + ".png");
+            System.out.print("Generate new textures [" + i + "] for: ")
+            val name: String = (new Scanner(System.in)).nextLine()
+            val light: BufferedImage = loadImage("light/" + i + ".png")
             (1 until 9).foreach { j =>
-                val texture: BufferedImage = loadImage("blocks/" + name + "/texture" + j + ".png");
+                val texture: BufferedImage = loadImage("blocks/" + name + "/texture" + j + ".png")
                 texture.createGraphics().drawImage(light,
                     0, 0, IMAGESIZE, IMAGESIZE,
                     0, 0, IMAGESIZE, IMAGESIZE,
-                    null);
+                    null)
                 try {
-                    ImageIO.write(texture, "png", new File("blocks/" + name + "/texture" + j + ".png"));
+                    ImageIO.write(texture, "png", new File("blocks/" + name + "/texture" + j + ".png"))
                 }
                 catch {
-                    case _: IOException => System.out.println("Error in writing file.");
+                    case _: IOException => System.out.println("Error in writing file.")
                 }
             }
         }
     }
 
     def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path);
-        var image: BufferedImage = null;
+        val url: URL = getClass.getResource(path)
+        var image: BufferedImage = null
         try {
-            image = ImageIO.read(url);
+            image = ImageIO.read(url)
         }
         catch {
-            case NonFatal(_) => System.out.println("Error: could not load image '" + path + "'.");
+            case NonFatal(_) => System.out.println("Error: could not load image '" + path + "'.")
         }
-        return image;
+        return image
     }
 }
