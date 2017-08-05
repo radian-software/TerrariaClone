@@ -71,7 +71,7 @@ case class Entity(var x: Double, var y: Double, var vx: Double, var vy: Double, 
     var newMob: Entity = _
 
 
-    var image: BufferedImage = _//was transient
+    @transient var image: BufferedImage = _
     
     if(name != null) {
         if (name.equals("blue_bubble")) {

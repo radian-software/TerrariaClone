@@ -65,10 +65,10 @@ class Inventory extends Serializable {
     var fpx, fpy: Double = _
     var r: Short = _
 
-    var image, box, box_selected: BufferedImage = _ // was transient
+    @transient var image, box, box_selected: BufferedImage = _
     val font = new Font("Chalkboard", Font.PLAIN, 12)
 
-    var g2: Graphics2D = _ // was transient
+    @transient var g2: Graphics2D = _
 
     var ids:Array[Short] = _
     var nums:Array[Short] = _

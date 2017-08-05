@@ -79,7 +79,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
     onGround = false
 
-    var image: BufferedImage = loadImage("sprites/player/right_still.png")// was transient
+    @transient var image: BufferedImage = loadImage("sprites/player/right_still.png")
 
     ix = x.toInt
     iy = y.toInt
