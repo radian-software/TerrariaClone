@@ -11,15 +11,16 @@ Project mission: To program a 2D sandbox game similar to, but with many more
 
 **/
 
-import java.awt._
+import java.awt.{BorderLayout, Color, Font, Graphics, Graphics2D, GraphicsConfiguration, GraphicsEnvironment, Point, Rectangle, Transparency}
 import java.awt.event._
 import java.awt.image._
 import java.io._
-import java.util._
+import java.{util => jul}
 import javax.imageio.ImageIO
 import javax.swing._
 import javax.swing.event._
 
+import scala.collection.JavaConverters._
 import scala.util.control.NonFatal;
 
 /*
@@ -452,9 +453,9 @@ object TerraFrame {
     val CHUNKSIZE: Int = CHUNKBLOCKS*BLOCKSIZE;
     val PLAYERSIZEX: Int = 20;
     val PLAYERSIZEY: Int = 46;
-    val seed: Int = new Random().nextInt();
+    val seed: Int = new jul.Random().nextInt();
 
-    var random: Random = new Random(seed); // SEED
+    var random: jul.Random = new jul.Random(seed); // SEED
 
     val BRIGHTEST: Int = 21;
     val PMAX: Int = 10;
@@ -552,37 +553,37 @@ object TerraFrame {
     val wirec: Array[Boolean] = Array(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
     val skycolors: Array[Int] = Array(28800, 28980, 29160, 29340, 29520, 29700, 29880, 30060, 30240, 30420, 30600, 30780, 30960, 31140, 31320, 31500, 31680, 31860, 32040, 32220, 72000, 72180, 72360, 72540, 72720, 72900, 73080, 73260, 73440, 73620, 73800, 73980, 74160, 74340, 74520, 74700, 74880, 75060, 75240, 75420);
 
-    var backgroundImgs: java.util.Map[Byte, BufferedImage] = _;
-    var itemImgs: java.util.Map[Short, BufferedImage] = _;
-    var DURABILITY: java.util.Map[Short, java.util.Map[Int, Int]] = _;
-    var dur: java.util.Map[Int,Int] = _;
+    var backgroundImgs: Map[Byte, BufferedImage] = _;
+    var itemImgs: Map[Short, BufferedImage] = _;
+    var DURABILITY: Map[Short, Map[Int, Int]] = _;
+    var dur: Map[Int,Int] = _;
     var BLOCKTOOLS: Map[Int, Array[Short]] = _;
-    var TOOLSPEED: java.util.Map[Short, Double] = _;
-    var TOOLDAMAGE: java.util.Map[Short, Int] = _;
-    var BLOCKDROPS: java.util.Map[Int, Short] = _;
-    var ITEMBLOCKS: java.util.Map[Short,Int] = _ ;
-    var OUTLINES: java.util.Map[Int, String] = _;
-    var UIBLOCKS: java.util.Map[String, String] = _;
-    var UIENTITIES: java.util.Map[String, String] = _;
-    var BLOCKCD: java.util.Map[Int, Boolean] = _;
-    var MAXSTACKS: java.util.Map[Short, Short] = _;
-    var SKYLIGHTS: java.util.Map[Int, Int] = _;
-    var SKYCOLORS: java.util.Map[Int, Color] = _;
-    var LIGHTLEVELS: java.util.Map[Int,BufferedImage] = _;
-    var blockImgs: java.util.Map[String, BufferedImage] = _;
-    var outlineImgs: java.util.Map[String, BufferedImage] = _;
-    var BLOCKLIGHTS: java.util.Map[Int, Int] = _;
-    var GRASSDIRT: java.util.Map[Int, Int] = _;
-    var ARMOR: java.util.Map[Short, Int] = _;
-    var TOOLDURS: java.util.Map[Short, Short] = _;
-    var FUELS: java.util.Map[Short, Double] = _;
-    var WIREP: java.util.Map[Int, Int] = _;
-    var TORCHESL: java.util.Map[Int, Int] = _;
-    var TORCHESR: java.util.Map[Int, Int] = _;
-    var TORCHESB: java.util.Map[Int, Boolean] = _;
-    var GSUPPORT: java.util.Map[Int, Boolean] = _;
-    var FSPEED: java.util.Map[Short, Double] = _;
-    var DDELAY: java.util.Map[Int, Int] = _;
+    var TOOLSPEED: Map[Short, Double] = _;
+    var TOOLDAMAGE: Map[Short, Int] = _;
+    var BLOCKDROPS: Map[Int, Short] = _;
+    var ITEMBLOCKS: Map[Short,Int] = _ ;
+    var OUTLINES: Map[Int, String] = _;
+    var UIBLOCKS: Map[String, String] = _;
+    var UIENTITIES: Map[String, String] = _;
+    var BLOCKCD: Map[Int, Boolean] = _;
+    var MAXSTACKS: Map[Short, Short] = _;
+    var SKYLIGHTS: Map[Int, Int] = _;
+    var SKYCOLORS: Map[Int, Color] = _;
+    var LIGHTLEVELS: Map[Int,BufferedImage] = _;
+    var blockImgs: Map[String, BufferedImage] = _;
+    var outlineImgs: Map[String, BufferedImage] = _;
+    var BLOCKLIGHTS: Map[Int, Int] = _;
+    var GRASSDIRT: Map[Int, Int] = _;
+    var ARMOR: Map[Short, Int] = _;
+    var TOOLDURS: Map[Short, Short] = _;
+    var FUELS: Map[Short, Double] = _;
+    var WIREP: Map[Int, Int] = _;
+    var TORCHESL: Map[Int, Int] = _;
+    var TORCHESR: Map[Int, Int] = _;
+    var TORCHESB: Map[Int, Boolean] = _;
+    var GSUPPORT: Map[Int, Boolean] = _;
+    var FSPEED: Map[Short, Double] = _;
+    var DDELAY: Map[Int, Int] = _;
 
     var log: BufferedWriter = _;
 
@@ -644,23 +645,23 @@ object TerraFrame {
         return blockcds;
     }
 
-    def getBLOCKCD() : java.util.Map[Int,Boolean] = {
+    def getBLOCKCD() : Map[Int,Boolean] = {
         return BLOCKCD;
     }
 
-    def getTOOLDURS(): java.util.Map[Short,Short] = {
+    def getTOOLDURS(): Map[Short,Short] = {
         return TOOLDURS;
     }
 
-    def getMAXSTACKS(): java.util.Map[Short,Short] = {
+    def getMAXSTACKS(): Map[Short,Short] = {
         return MAXSTACKS;
     }
 
-    def getRandom(): Random = {
+    def getRandom(): jul.Random = {
         return random;
     }
 
-    def getItemImgs(): java.util.Map[Short,BufferedImage] = {
+    def getItemImgs(): Map[Short,BufferedImage] = {
         return itemImgs;
     }
 
@@ -668,7 +669,7 @@ object TerraFrame {
         return items;
     }
 
-    def getARMOR(): java.util.Map[Short,Int] = {
+    def getARMOR(): Map[Short,Int] = {
         return ARMOR;
     }
 
@@ -772,7 +773,7 @@ class TerraFrame extends JApplet
     var timer, menuTimer, paIntTimer: javax.swing.Timer = _;
     var folder: File = _;
     var files: Array[File] = _;
-    var worldFiles, worldNames: ArrayList[String] = _;
+    var worldFiles, worldNames: List[String] = _;
     var currentWorld: String= _;
     var newWorldName: TextField = _;
 
@@ -784,21 +785,21 @@ class TerraFrame extends JApplet
     var lights: Array2D[Float] = _;
     var power: Array3D[Float] = _;
     var lsources: Array2D[Boolean] = _;
-    var lqx, lqy, pqx, pqy, zqx, zqy, pzqx, pzqy: ArrayList[Int] = _;
+    var lqx, lqy, pqx, pqy, zqx, zqy, pzqx, pzqy: jul.List[Int] = _;
     var lqd, zqd, pqd, pzqd: Array2D[Boolean] = _;
     var zqn: Array2D[Byte] = _;
     var pzqn: Array3D[Byte] = _;
     var arbprd: Array3D[Boolean] = _;
-    var updatex, updatey, updatet, updatel: ArrayList[Int] = _;
+    var updatex, updatey, updatet, updatel: jul.List[Int] = _;
     var wcnct: Array2D[Boolean] = _;
     var drawn, ldrawn, rdrawn: Array2D[Boolean] = _;
     var player: Player = _;
     var inventory: Inventory = _;
     
-    var entities: ArrayList[Entity] = _;
-    var cloudsx, cloudsy, cloudsv: ArrayList[Double] = _;
-    var cloudsn: ArrayList[Int] = _;
-    var machinesx, machinesy: ArrayList[Int] = _;
+    var entities: jul.List[Entity] = _;
+    var cloudsx, cloudsy, cloudsv: jul.List[Double] = _;
+    var cloudsn: jul.List[Int] = _;
+    var machinesx, machinesy: jul.List[Int] = _;
 
     var temporarySaveFile: Array2D[Chunk] = _;
     var chunkMatrix: Array2D[Chunk] = _;
@@ -1015,7 +1016,7 @@ class TerraFrame extends JApplet
         "Zythium Delayer", "Zythium Delayer", "Zythium Delayer", "Zythium Delayer", "Wrench");
 
 
-    var FRI1, FRN1, FRI2, FRN2: ArrayList[Short] = _;
+    var FRI1, FRN1, FRI2, FRN2: List[Short] = _;
 
     var g2, wg2, fwg2, ug2, pg2: Graphics2D = _;
 
@@ -1050,55 +1051,68 @@ class TerraFrame extends JApplet
 
             repaint();
 
-            backgroundImgs = new HashMap[Byte,BufferedImage]();
 
             val bgs: Array[String] = Array("solid/empty", "dirt_none/downleft", "dirt_none/downright", "dirt_none/left", "dirt_none/right", "dirt_none/up", "dirt_none/upleft", "dirt_none/upright",
                 "solid/dirt", "stone_dirt/downleft", "stone_dirt/downright", "stone_dirt/left", "stone_dirt/right", "stone_dirt/up", "stone_dirt/upleft", "stone_dirt/upright",
                 "solid/stone", "stone_none/down");
+            
+            val backgroundImgsTemp = new jul.HashMap[Byte,BufferedImage](bgs.length);
 
             (0 until bgs.length).foreach { i =>
-                backgroundImgs.put(i.toByte, loadImage("backgrounds/" + bgs(i) + ".png"));
+                backgroundImgsTemp.put(i.toByte, loadImage("backgrounds/" + bgs(i) + ".png"));
             }
 
-            itemImgs = new HashMap[Short,BufferedImage]();
+            backgroundImgs = backgroundImgsTemp.asScala.toMap
+
+            
+            
+            val itemImgsTemp = new jul.HashMap[Short,BufferedImage](items.length);
 
             (1 until items.length).foreach { i =>
-                itemImgs.put(i.toShort, loadImage("items/" + items(i) + ".png"));
-                if (itemImgs.get(i.toShort) == null) {
+                itemImgsTemp.put(i.toShort, loadImage("items/" + items(i) + ".png"));
+                if (itemImgsTemp.get(i.toShort) == null) {
                     System.out.println("(ERROR) Could not load item graphic '" + items(i) + "'.");
                 }
             }
 
-            blockImgs = new HashMap[String,BufferedImage]();
+            itemImgs = itemImgsTemp.asScala.toMap
+
+            
+            val blockImgsTemp = new jul.HashMap[String,BufferedImage](blocknames.length);
 
             (1 until blocknames.length).foreach { i =>
                 (0 until 8).foreach { j =>
-                    blockImgs.put("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png",
+                    blockImgsTemp.put("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png",
                         loadImage("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png"));
-                    if (blockImgs.get("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png") == null) {
+                    if (blockImgsTemp.get("blocks/" + blocknames(i) + "/texture" + (j+1) + ".png") == null) {
                         System.out.println("(ERROR) Could not load block graphic '" + blocknames(i) + "'.");
                     }
                 }
             }
 
-            outlineImgs = new HashMap[String,BufferedImage]();
+            blockImgs = blockImgsTemp.asScala.toMap
+
+
 
             val outlineNameList: Array[String] = Array("default", "wood", "none", "tree", "tree_root", "square", "wire");
+            
+            val outlineImgsTemp = new jul.HashMap[String,BufferedImage](outlineNameList.length * dirs.length);
 
             (0 until outlineNameList.length).foreach { i =>
                 (0 until dirs.length).foreach { j =>
                     (0 until 5).foreach { k =>
-                        outlineImgs.put("outlines/" + outlineNameList(i) + "/" + dirs(j) + (k+1) + ".png",
+                        outlineImgsTemp.put("outlines/" + outlineNameList(i) + "/" + dirs(j) + (k+1) + ".png",
                             loadImage("outlines/" + outlineNameList(i) + "/" + dirs(j) + (k+1) + ".png"));
                     }
                 }
             }
 
-            DURABILITY = new HashMap[Short,Map[Int,Int]]();
+            outlineImgs = outlineImgsTemp.asScala.toMap
+            
 
             codeTooLarge();
 
-            BLOCKTOOLS = new HashMap[Int,Array[Short]]();
+            
 
             val blocktools: Array2D[Short] = Array(
                                     Array[Short](),
@@ -1271,706 +1285,783 @@ class TerraFrame extends JApplet
                                     Array[Short](7, 8, 9, 10, 51, 54, 57, 145, 148, 154, 157, 169, 172),
                                     Array[Short](7, 8, 9, 10, 51, 54, 57, 145, 148, 154, 157, 169, 172));
 
-            (0 until blocktools.length).foreach { i =>
-                (0 until blocktools(i).length).foreach { j =>
-                    blocktools(i)(j) = blocktools(i)(j).toShort
-                }
-            }
+
+            val blockToolsTemp = new jul.HashMap[Int,Array[Short]](blocknames.length);
 
             (1 until blocknames.length).foreach { i =>
-                BLOCKTOOLS.put(i, blocktools(i));
+                blockToolsTemp.put(i, blocktools(i));
             }
 
-            TOOLSPEED = new HashMap[Short,Double]();
+            BLOCKTOOLS = blockToolsTemp.asScala.toMap
+
+            val toolSpeedTemp = new jul.HashMap[Short,Double](items.length);
 
             (1 until items.length).foreach { i =>
-                TOOLSPEED.put(i.toShort, 0.175);
+                toolSpeedTemp.put(i.toShort, 0.175);
             }
 
-            TOOLSPEED.put(154.toShort, 0.100);// wood:   P100 S100
-            TOOLSPEED.put(155.toShort, 0.100);
-            TOOLSPEED.put(156.toShort, 0.100);
-            TOOLSPEED.put(157.toShort, 0.110);// stone:  P110 S105
-            TOOLSPEED.put(158.toShort, 0.110);
-            TOOLSPEED.put(159.toShort, 0.105);
-            TOOLSPEED.put(7.toShort, 0.120);  // copper: P120 S110
-            TOOLSPEED.put(11.toShort, 0.120);
-            TOOLSPEED.put(16.toShort, 0.110);
-            TOOLSPEED.put(8.toShort, 0.130);  // iron:   P130 S115
-            TOOLSPEED.put(12.toShort, 0.130);
-            TOOLSPEED.put(17.toShort, 0.115);
-            TOOLSPEED.put(9.toShort, 0.140);  // silver: P140 S120
-            TOOLSPEED.put(13.toShort, 0.140);
-            TOOLSPEED.put(18.toShort, 0.120);
-            TOOLSPEED.put(10.toShort, 0.150); // gold:   P150 S125
-            TOOLSPEED.put(14.toShort, 0.150);
-            TOOLSPEED.put(19.toShort, 0.125);
-            TOOLSPEED.put(51.toShort, 0.160); // zinc:   P160 S130
-            TOOLSPEED.put(52.toShort, 0.160);
-            TOOLSPEED.put(53.toShort, 0.130);
-            TOOLSPEED.put(54.toShort, 0.170); // rhyme:  P170 S135
-            TOOLSPEED.put(55.toShort, 0.170);
-            TOOLSPEED.put(56.toShort, 0.135);
-            TOOLSPEED.put(57.toShort, 0.180); // obdur:  P180 S140
-            TOOLSPEED.put(58.toShort, 0.180);
-            TOOLSPEED.put(59.toShort, 0.140);
-            TOOLSPEED.put(145.toShort, 0.350);// alumin: P250 S175
-            TOOLSPEED.put(146.toShort, 0.350);
-            TOOLSPEED.put(147.toShort, 0.245);
-            TOOLSPEED.put(148.toShort, 0.130);// lead:   P130 S115
-            TOOLSPEED.put(149.toShort, 0.130);
-            TOOLSPEED.put(150.toShort, 0.115);
-            TOOLSPEED.put(169.toShort, 0.250); // magne:  P350 S245
-            TOOLSPEED.put(170.toShort, 0.250);
-            TOOLSPEED.put(171.toShort, 0.175);
-            TOOLSPEED.put(172.toShort, 0.350); // irrad:  P350 S245
-            TOOLSPEED.put(173.toShort, 0.350);
-            TOOLSPEED.put(174.toShort, 0.245);
+            toolSpeedTemp.put(154.toShort, 0.100);// wood:   P100 S100
+            toolSpeedTemp.put(155.toShort, 0.100);
+            toolSpeedTemp.put(156.toShort, 0.100);
+            toolSpeedTemp.put(157.toShort, 0.110);// stone:  P110 S105
+            toolSpeedTemp.put(158.toShort, 0.110);
+            toolSpeedTemp.put(159.toShort, 0.105);
+            toolSpeedTemp.put(7.toShort, 0.120);  // copper: P120 S110
+            toolSpeedTemp.put(11.toShort, 0.120);
+            toolSpeedTemp.put(16.toShort, 0.110);
+            toolSpeedTemp.put(8.toShort, 0.130);  // iron:   P130 S115
+            toolSpeedTemp.put(12.toShort, 0.130);
+            toolSpeedTemp.put(17.toShort, 0.115);
+            toolSpeedTemp.put(9.toShort, 0.140);  // silver: P140 S120
+            toolSpeedTemp.put(13.toShort, 0.140);
+            toolSpeedTemp.put(18.toShort, 0.120);
+            toolSpeedTemp.put(10.toShort, 0.150); // gold:   P150 S125
+            toolSpeedTemp.put(14.toShort, 0.150);
+            toolSpeedTemp.put(19.toShort, 0.125);
+            toolSpeedTemp.put(51.toShort, 0.160); // zinc:   P160 S130
+            toolSpeedTemp.put(52.toShort, 0.160);
+            toolSpeedTemp.put(53.toShort, 0.130);
+            toolSpeedTemp.put(54.toShort, 0.170); // rhyme:  P170 S135
+            toolSpeedTemp.put(55.toShort, 0.170);
+            toolSpeedTemp.put(56.toShort, 0.135);
+            toolSpeedTemp.put(57.toShort, 0.180); // obdur:  P180 S140
+            toolSpeedTemp.put(58.toShort, 0.180);
+            toolSpeedTemp.put(59.toShort, 0.140);
+            toolSpeedTemp.put(145.toShort, 0.350);// alumin: P250 S175
+            toolSpeedTemp.put(146.toShort, 0.350);
+            toolSpeedTemp.put(147.toShort, 0.245);
+            toolSpeedTemp.put(148.toShort, 0.130);// lead:   P130 S115
+            toolSpeedTemp.put(149.toShort, 0.130);
+            toolSpeedTemp.put(150.toShort, 0.115);
+            toolSpeedTemp.put(169.toShort, 0.250); // magne:  P350 S245
+            toolSpeedTemp.put(170.toShort, 0.250);
+            toolSpeedTemp.put(171.toShort, 0.175);
+            toolSpeedTemp.put(172.toShort, 0.350); // irrad:  P350 S245
+            toolSpeedTemp.put(173.toShort, 0.350);
+            toolSpeedTemp.put(174.toShort, 0.245);
 
-            TOOLSPEED.put(33.toShort, 0.125); // stone lighter
+            toolSpeedTemp.put(33.toShort, 0.125); // stone lighter
 
-            TOOLDAMAGE = new HashMap[Short,Int]();
+            TOOLSPEED = toolSpeedTemp.asScala.toMap
+
+
+            val toolDamageTemp = new jul.HashMap[Short,Int](items.length);
 
             (0 until items.length).foreach { i =>
-                TOOLDAMAGE.put(i.toShort, 1);
+                toolDamageTemp.put(i.toShort, 1);
             }
 
-            TOOLDAMAGE.put(7.toShort, 2);
-            TOOLDAMAGE.put(8.toShort, 3);
-            TOOLDAMAGE.put(9.toShort, 3);
-            TOOLDAMAGE.put(10.toShort, 4);
-            TOOLDAMAGE.put(11.toShort, 3);
-            TOOLDAMAGE.put(12.toShort, 4);
-            TOOLDAMAGE.put(13.toShort, 5);
-            TOOLDAMAGE.put(14.toShort, 6);
-            TOOLDAMAGE.put(16.toShort, 5);
-            TOOLDAMAGE.put(17.toShort, 8);
-            TOOLDAMAGE.put(18.toShort, 13);
-            TOOLDAMAGE.put(19.toShort, 18);
-            TOOLDAMAGE.put(51.toShort, 6);
-            TOOLDAMAGE.put(52.toShort, 9);
-            TOOLDAMAGE.put(53.toShort, 24);
-            TOOLDAMAGE.put(54.toShort, 8);
-            TOOLDAMAGE.put(55.toShort, 11);
-            TOOLDAMAGE.put(56.toShort, 30);
-            TOOLDAMAGE.put(57.toShort, 10);
-            TOOLDAMAGE.put(58.toShort, 15);
-            TOOLDAMAGE.put(59.toShort, 38);
-            TOOLDAMAGE.put(145.toShort, 7);
-            TOOLDAMAGE.put(146.toShort, 10);
-            TOOLDAMAGE.put(147.toShort, 27);
-            TOOLDAMAGE.put(148.toShort, 4);
-            TOOLDAMAGE.put(149.toShort, 5);
-            TOOLDAMAGE.put(150.toShort, 9);
-            TOOLDAMAGE.put(154.toShort, 1);
-            TOOLDAMAGE.put(155.toShort, 1);
-            TOOLDAMAGE.put(156.toShort, 3);
-            TOOLDAMAGE.put(157.toShort, 1);
-            TOOLDAMAGE.put(158.toShort, 2);
-            TOOLDAMAGE.put(159.toShort, 4);
-            TOOLDAMAGE.put(57.toShort, 20);
-            TOOLDAMAGE.put(58.toShort, 30);
-            TOOLDAMAGE.put(59.toShort, 75);
+            toolDamageTemp.put(7.toShort, 2);
+            toolDamageTemp.put(8.toShort, 3);
+            toolDamageTemp.put(9.toShort, 3);
+            toolDamageTemp.put(10.toShort, 4);
+            toolDamageTemp.put(11.toShort, 3);
+            toolDamageTemp.put(12.toShort, 4);
+            toolDamageTemp.put(13.toShort, 5);
+            toolDamageTemp.put(14.toShort, 6);
+            toolDamageTemp.put(16.toShort, 5);
+            toolDamageTemp.put(17.toShort, 8);
+            toolDamageTemp.put(18.toShort, 13);
+            toolDamageTemp.put(19.toShort, 18);
+            toolDamageTemp.put(51.toShort, 6);
+            toolDamageTemp.put(52.toShort, 9);
+            toolDamageTemp.put(53.toShort, 24);
+            toolDamageTemp.put(54.toShort, 8);
+            toolDamageTemp.put(55.toShort, 11);
+            toolDamageTemp.put(56.toShort, 30);
+            toolDamageTemp.put(57.toShort, 10);
+            toolDamageTemp.put(58.toShort, 15);
+            toolDamageTemp.put(59.toShort, 38);
+            toolDamageTemp.put(145.toShort, 7);
+            toolDamageTemp.put(146.toShort, 10);
+            toolDamageTemp.put(147.toShort, 27);
+            toolDamageTemp.put(148.toShort, 4);
+            toolDamageTemp.put(149.toShort, 5);
+            toolDamageTemp.put(150.toShort, 9);
+            toolDamageTemp.put(154.toShort, 1);
+            toolDamageTemp.put(155.toShort, 1);
+            toolDamageTemp.put(156.toShort, 3);
+            toolDamageTemp.put(157.toShort, 1);
+            toolDamageTemp.put(158.toShort, 2);
+            toolDamageTemp.put(159.toShort, 4);
+            toolDamageTemp.put(57.toShort, 20);
+            toolDamageTemp.put(58.toShort, 30);
+            toolDamageTemp.put(59.toShort, 75);
 
+            TOOLDAMAGE = toolDamageTemp.asScala.toMap
+
+            
             val drops: Array[Short] = Array[Short](0, 1, 2, 3, 4, 5, 6, 15, 20, 21, 22, 23, 24, 25, 26, 15, 0, 27, 28, 34, 35, 36, 37, 27, 35, 35, 36, 36, 37, 37, 0, 38, 39, 40, 41, 42, 43, 44, 44, 45, 46, 47, 48, 49, 50, 74, 75, 0, 0, 0, 78, 0, 0, 80, 0, 0, 82, 0, 0, 84, 0, 0, 86, 0, 0, 88, 0, 0, 90, 0, 0, 92, 1, 1, 93, 93, 94, 0, 0, 96, 151, 152, 153, 15, 161, 162, 163, 164, 165, 166, 168, 1, 50, 1, 175, 175, 175, 175, 175, 175, 176, 176, 176, 177, 177, 178, 178, 178, 178, 178, 178, 180, 180, 180, 180, 180, 180, 180, 180, 181, 181, 181, 181, 181, 181, 181, 181, 182, 182, 182, 182, 183, 183, 184, 184, 185, 185, 186, 186, 186, 186, 186, 186, 186, 186, 187, 187, 187, 187, 187, 187, 187, 187, 188, 188, 188, 188, 188, 188, 188, 188, 189, 189, 189, 189, 189, 189, 189, 189);
 
-            BLOCKDROPS = new HashMap[Int,Short]();
+            val blockDropsTemp = new jul.HashMap[Int,Short](blocknames.length);
 
             (1 until blocknames.length).foreach { i =>
-                BLOCKDROPS.put(i, drops(i));
+                blockDropsTemp.put(i, drops(i));
             }
+
+            BLOCKDROPS = blockDropsTemp.asScala.toMap
+            
 
             val itemblocks: Array[Int] = Array(0, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 8, 9, 10, 11, 12, 13, 14, 17, 18, 0, 0, 0, 0, 0, 19, 20, 21, 22, 31, 32, 33, 34, 35, 36, 37, 39, 40, 41, 42, 43, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45/*72*/, 46, 47, 48, 0, 51, 0, 54, 0, 57, 0, 60, 0, 63, 0, 66, 0, 69, 0, 75, 76, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 81, 82, 0, 0, 0, 0, 0, 0, 0, 84, 85, 86, 87, 88, 89, 0, 90, 0, 0, 0, 0, 0, 0, 94, 100, 103, 105, 0, 111, 119, 127, 131, 133, 135, 137, 145, 153, 161, 0);
 
-            ITEMBLOCKS = new HashMap[Short,Int]();
+            val itemBlocksTemp = new jul.HashMap[Short,Int](items.length);
 
             (1 until items.length).foreach { i =>
-                ITEMBLOCKS.put(i.toShort, itemblocks(i));
+                itemBlocksTemp.put(i.toShort, itemblocks(i));
             }
 
-            OUTLINES = new HashMap[Int,String]();
+            ITEMBLOCKS = itemBlocksTemp.asScala.toMap
+            
+
+            val outlinesTemp = new jul.HashMap[Int,String](blocknames.length);
 
             (1 until blocknames.length).foreach { i =>
-                OUTLINES.put(i, "default");
+                outlinesTemp.put(i, "default");
             }
 
-            OUTLINES.put(7, "wood");
-            OUTLINES.put(8, "none");
-            OUTLINES.put(9, "none");
-            OUTLINES.put(10, "none");
-            OUTLINES.put(11, "none");
-            OUTLINES.put(12, "none");
-            OUTLINES.put(13, "none");
-            OUTLINES.put(14, "none");
-            OUTLINES.put(15, "tree");
-            OUTLINES.put(17, "none");
-            OUTLINES.put(20, "none");
-            OUTLINES.put(21, "none");
-            OUTLINES.put(22, "none");
-            OUTLINES.put(23, "none");
-            OUTLINES.put(24, "none");
-            OUTLINES.put(25, "none");
-            OUTLINES.put(26, "none");
-            OUTLINES.put(27, "none");
-            OUTLINES.put(28, "none");
-            OUTLINES.put(29, "none");
-            OUTLINES.put(30, "tree_root");
-            OUTLINES.put(47, "square");
-            OUTLINES.put(77, "none");
-            OUTLINES.put(78, "none");
-            OUTLINES.put(79, "none");
-            OUTLINES.put(80, "none");
-            OUTLINES.put(81, "none");
-            OUTLINES.put(82, "none");
-            OUTLINES.put(83, "tree");
-            OUTLINES.put(84, "square");
-            OUTLINES.put(85, "square");
-            OUTLINES.put(86, "square");
-            OUTLINES.put(87, "square");
-            OUTLINES.put(89, "square");
-            OUTLINES.put(90, "wood");
-            OUTLINES.put(94, "wire");
-            OUTLINES.put(95, "wire");
-            OUTLINES.put(96, "wire");
-            OUTLINES.put(97, "wire");
-            OUTLINES.put(98, "wire");
-            OUTLINES.put(99, "wire");
-            OUTLINES.put(100, "none");
-            OUTLINES.put(101, "none");
-            OUTLINES.put(102, "none");
-            OUTLINES.put(103, "square");
-            OUTLINES.put(104, "square");
-            OUTLINES.put(105, "none");
-            OUTLINES.put(106, "none");
-            OUTLINES.put(107, "none");
-            OUTLINES.put(108, "none");
-            OUTLINES.put(109, "none");
-            OUTLINES.put(110, "none");
-            OUTLINES.put(111, "none");
-            OUTLINES.put(112, "none");
-            OUTLINES.put(113, "none");
-            OUTLINES.put(114, "none");
-            OUTLINES.put(115, "none");
-            OUTLINES.put(116, "none");
-            OUTLINES.put(117, "none");
-            OUTLINES.put(118, "none");
-            OUTLINES.put(119, "none");
-            OUTLINES.put(120, "none");
-            OUTLINES.put(121, "none");
-            OUTLINES.put(122, "none");
-            OUTLINES.put(123, "none");
-            OUTLINES.put(124, "none");
-            OUTLINES.put(125, "none");
-            OUTLINES.put(126, "none");
-            OUTLINES.put(127, "none");
-            OUTLINES.put(128, "none");
-            OUTLINES.put(129, "none");
-            OUTLINES.put(130, "none");
-            OUTLINES.put(131, "none");
-            OUTLINES.put(132, "none");
-            OUTLINES.put(133, "none");
-            OUTLINES.put(134, "none");
-            OUTLINES.put(135, "none");
-            OUTLINES.put(136, "none");
+            outlinesTemp.put(7, "wood");
+            outlinesTemp.put(8, "none");
+            outlinesTemp.put(9, "none");
+            outlinesTemp.put(10, "none");
+            outlinesTemp.put(11, "none");
+            outlinesTemp.put(12, "none");
+            outlinesTemp.put(13, "none");
+            outlinesTemp.put(14, "none");
+            outlinesTemp.put(15, "tree");
+            outlinesTemp.put(17, "none");
+            outlinesTemp.put(20, "none");
+            outlinesTemp.put(21, "none");
+            outlinesTemp.put(22, "none");
+            outlinesTemp.put(23, "none");
+            outlinesTemp.put(24, "none");
+            outlinesTemp.put(25, "none");
+            outlinesTemp.put(26, "none");
+            outlinesTemp.put(27, "none");
+            outlinesTemp.put(28, "none");
+            outlinesTemp.put(29, "none");
+            outlinesTemp.put(30, "tree_root");
+            outlinesTemp.put(47, "square");
+            outlinesTemp.put(77, "none");
+            outlinesTemp.put(78, "none");
+            outlinesTemp.put(79, "none");
+            outlinesTemp.put(80, "none");
+            outlinesTemp.put(81, "none");
+            outlinesTemp.put(82, "none");
+            outlinesTemp.put(83, "tree");
+            outlinesTemp.put(84, "square");
+            outlinesTemp.put(85, "square");
+            outlinesTemp.put(86, "square");
+            outlinesTemp.put(87, "square");
+            outlinesTemp.put(89, "square");
+            outlinesTemp.put(90, "wood");
+            outlinesTemp.put(94, "wire");
+            outlinesTemp.put(95, "wire");
+            outlinesTemp.put(96, "wire");
+            outlinesTemp.put(97, "wire");
+            outlinesTemp.put(98, "wire");
+            outlinesTemp.put(99, "wire");
+            outlinesTemp.put(100, "none");
+            outlinesTemp.put(101, "none");
+            outlinesTemp.put(102, "none");
+            outlinesTemp.put(103, "square");
+            outlinesTemp.put(104, "square");
+            outlinesTemp.put(105, "none");
+            outlinesTemp.put(106, "none");
+            outlinesTemp.put(107, "none");
+            outlinesTemp.put(108, "none");
+            outlinesTemp.put(109, "none");
+            outlinesTemp.put(110, "none");
+            outlinesTemp.put(111, "none");
+            outlinesTemp.put(112, "none");
+            outlinesTemp.put(113, "none");
+            outlinesTemp.put(114, "none");
+            outlinesTemp.put(115, "none");
+            outlinesTemp.put(116, "none");
+            outlinesTemp.put(117, "none");
+            outlinesTemp.put(118, "none");
+            outlinesTemp.put(119, "none");
+            outlinesTemp.put(120, "none");
+            outlinesTemp.put(121, "none");
+            outlinesTemp.put(122, "none");
+            outlinesTemp.put(123, "none");
+            outlinesTemp.put(124, "none");
+            outlinesTemp.put(125, "none");
+            outlinesTemp.put(126, "none");
+            outlinesTemp.put(127, "none");
+            outlinesTemp.put(128, "none");
+            outlinesTemp.put(129, "none");
+            outlinesTemp.put(130, "none");
+            outlinesTemp.put(131, "none");
+            outlinesTemp.put(132, "none");
+            outlinesTemp.put(133, "none");
+            outlinesTemp.put(134, "none");
+            outlinesTemp.put(135, "none");
+            outlinesTemp.put(136, "none");
 
             (48 until 72).foreach { i =>
-                OUTLINES.put(i, "none");
+                outlinesTemp.put(i, "none");
             }
 
             (137 until 169).foreach { i =>
-                OUTLINES.put(i, "none");
+                outlinesTemp.put(i, "none");
             }
 
-            UIBLOCKS = new HashMap[String,String]();
+            OUTLINES = outlinesTemp.asScala.toMap
+            
+
+            val uiBlocksTemp = new jul.HashMap[String,String](items.length);
 
             (1 until items.length).foreach { i =>
-                UIBLOCKS.put(items(i), ui_items(i));
+                uiBlocksTemp.put(items(i), ui_items(i));
             }
 
-            UIENTITIES = new HashMap[String,String]();
+            UIBLOCKS = uiBlocksTemp.asScala.toMap
 
-            UIENTITIES.put("blue_bubble", "Blue Bubble");
-            UIENTITIES.put("green_bubble", "Green Bubble");
-            UIENTITIES.put("red_bubble", "Red Bubble");
-            UIENTITIES.put("black_bubble", "Black Bubble");
-            UIENTITIES.put("white_bubble", "White Bubble");
-            UIENTITIES.put("zombie", "Zombie");
-            UIENTITIES.put("armored_zombie", "Armored Zombie");
-            UIENTITIES.put("shooting_star", "Shooting Star");
-            UIENTITIES.put("sandbot", "Sandbot");
-            UIENTITIES.put("snowman", "Snowman");
-            UIENTITIES.put("bat", "Bat");
-            UIENTITIES.put("bee", "Bee");
-            UIENTITIES.put("skeleton", "Skeleton");
+            
+            val uiEntitiesTemp = new jul.HashMap[String,String]();
 
-            BLOCKCD = new HashMap[Int,Boolean]();
+            uiEntitiesTemp.put("blue_bubble", "Blue Bubble");
+            uiEntitiesTemp.put("green_bubble", "Green Bubble");
+            uiEntitiesTemp.put("red_bubble", "Red Bubble");
+            uiEntitiesTemp.put("black_bubble", "Black Bubble");
+            uiEntitiesTemp.put("white_bubble", "White Bubble");
+            uiEntitiesTemp.put("zombie", "Zombie");
+            uiEntitiesTemp.put("armored_zombie", "Armored Zombie");
+            uiEntitiesTemp.put("shooting_star", "Shooting Star");
+            uiEntitiesTemp.put("sandbot", "Sandbot");
+            uiEntitiesTemp.put("snowman", "Snowman");
+            uiEntitiesTemp.put("bat", "Bat");
+            uiEntitiesTemp.put("bee", "Bee");
+            uiEntitiesTemp.put("skeleton", "Skeleton");
+
+            UIENTITIES = uiEntitiesTemp.asScala.toMap
+            
+            
+            val blockCdTemp = new jul.HashMap[Int,Boolean](blockcds.length);
 
             (1 until blockcds.length).foreach { i =>
-                BLOCKCD.put(i, blockcds(i));
+                blockCdTemp.put(i, blockcds(i));
             }
 
-            MAXSTACKS = new HashMap[Short,Short]();
+            BLOCKCD = blockCdTemp.asScala.toMap
+            
+
+            val maxStacksTemp = new jul.HashMap[Short,Short](items.length);
 
             val stacks: Array[Short] = Array[Short](100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 100, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1);
 
             (0 until items.length).foreach { i =>
-                MAXSTACKS.put(i.toShort, stacks(i));
+                maxStacksTemp.put(i.toShort, stacks(i));
             }
 
-            SKYCOLORS = new HashMap[Int,Color]();
+            MAXSTACKS = maxStacksTemp.asScala.toMap
+            
 
-            SKYCOLORS.put(28800, new Color(71, 154, 230));
-            SKYCOLORS.put(28980, new Color(67, 146, 218));
-            SKYCOLORS.put(29160, new Color(63, 138, 206));
-            SKYCOLORS.put(29340, new Color(60, 130, 194));
-            SKYCOLORS.put(29520, new Color(56, 122, 182));
-            SKYCOLORS.put(29700, new Color(52, 114, 170));
-            SKYCOLORS.put(29880, new Color(48, 105, 157));
-            SKYCOLORS.put(30060, new Color(45, 97, 145));
-            SKYCOLORS.put(30240, new Color(41, 89, 133));
-            SKYCOLORS.put(30420, new Color(37, 81, 121));
-            SKYCOLORS.put(30600, new Color(33, 73, 109));
-            SKYCOLORS.put(30780, new Color(30, 65, 97));
-            SKYCOLORS.put(30960, new Color(26, 57, 85));
-            SKYCOLORS.put(31140, new Color(22, 48, 72));
-            SKYCOLORS.put(31320, new Color(18, 40, 60));
-            SKYCOLORS.put(31500, new Color(15, 32, 48));
-            SKYCOLORS.put(31680, new Color(11, 24, 36));
-            SKYCOLORS.put(31860, new Color(7, 16, 24));
-            SKYCOLORS.put(32040, new Color(3, 8, 12));
-            SKYCOLORS.put(32220, new Color(0, 0, 0));
+            val skyColorsTemp = new jul.HashMap[Int,Color]();
 
-            SKYCOLORS.put(72000, new Color(3, 8, 12));
-            SKYCOLORS.put(72180, new Color(7, 16, 24));
-            SKYCOLORS.put(72360, new Color(11, 24, 36));
-            SKYCOLORS.put(72540, new Color(15, 32, 48));
-            SKYCOLORS.put(72720, new Color(18, 40, 60));
-            SKYCOLORS.put(72900, new Color(22, 48, 72));
-            SKYCOLORS.put(73080, new Color(26, 57, 85));
-            SKYCOLORS.put(73260, new Color(30, 65, 97));
-            SKYCOLORS.put(73440, new Color(33, 73, 109));
-            SKYCOLORS.put(73620, new Color(37, 81, 121));
-            SKYCOLORS.put(73800, new Color(41, 89, 133));
-            SKYCOLORS.put(73980, new Color(45, 97, 145));
-            SKYCOLORS.put(74160, new Color(48, 105, 157));
-            SKYCOLORS.put(74340, new Color(52, 114, 170));
-            SKYCOLORS.put(74520, new Color(56, 122, 182));
-            SKYCOLORS.put(74700, new Color(60, 130, 194));
-            SKYCOLORS.put(74880, new Color(63, 138, 206));
-            SKYCOLORS.put(75060, new Color(67, 146, 218));
-            SKYCOLORS.put(75240, new Color(71, 154, 230));
-            SKYCOLORS.put(75420, new Color(75, 163, 243));
+            skyColorsTemp.put(28800, new Color(71, 154, 230));
+            skyColorsTemp.put(28980, new Color(67, 146, 218));
+            skyColorsTemp.put(29160, new Color(63, 138, 206));
+            skyColorsTemp.put(29340, new Color(60, 130, 194));
+            skyColorsTemp.put(29520, new Color(56, 122, 182));
+            skyColorsTemp.put(29700, new Color(52, 114, 170));
+            skyColorsTemp.put(29880, new Color(48, 105, 157));
+            skyColorsTemp.put(30060, new Color(45, 97, 145));
+            skyColorsTemp.put(30240, new Color(41, 89, 133));
+            skyColorsTemp.put(30420, new Color(37, 81, 121));
+            skyColorsTemp.put(30600, new Color(33, 73, 109));
+            skyColorsTemp.put(30780, new Color(30, 65, 97));
+            skyColorsTemp.put(30960, new Color(26, 57, 85));
+            skyColorsTemp.put(31140, new Color(22, 48, 72));
+            skyColorsTemp.put(31320, new Color(18, 40, 60));
+            skyColorsTemp.put(31500, new Color(15, 32, 48));
+            skyColorsTemp.put(31680, new Color(11, 24, 36));
+            skyColorsTemp.put(31860, new Color(7, 16, 24));
+            skyColorsTemp.put(32040, new Color(3, 8, 12));
+            skyColorsTemp.put(32220, new Color(0, 0, 0));
 
-            SKYLIGHTS = new HashMap[Int,Int]();
+            skyColorsTemp.put(72000, new Color(3, 8, 12));
+            skyColorsTemp.put(72180, new Color(7, 16, 24));
+            skyColorsTemp.put(72360, new Color(11, 24, 36));
+            skyColorsTemp.put(72540, new Color(15, 32, 48));
+            skyColorsTemp.put(72720, new Color(18, 40, 60));
+            skyColorsTemp.put(72900, new Color(22, 48, 72));
+            skyColorsTemp.put(73080, new Color(26, 57, 85));
+            skyColorsTemp.put(73260, new Color(30, 65, 97));
+            skyColorsTemp.put(73440, new Color(33, 73, 109));
+            skyColorsTemp.put(73620, new Color(37, 81, 121));
+            skyColorsTemp.put(73800, new Color(41, 89, 133));
+            skyColorsTemp.put(73980, new Color(45, 97, 145));
+            skyColorsTemp.put(74160, new Color(48, 105, 157));
+            skyColorsTemp.put(74340, new Color(52, 114, 170));
+            skyColorsTemp.put(74520, new Color(56, 122, 182));
+            skyColorsTemp.put(74700, new Color(60, 130, 194));
+            skyColorsTemp.put(74880, new Color(63, 138, 206));
+            skyColorsTemp.put(75060, new Color(67, 146, 218));
+            skyColorsTemp.put(75240, new Color(71, 154, 230));
+            skyColorsTemp.put(75420, new Color(75, 163, 243));
 
-            SKYLIGHTS.put(28883, 18);
-            SKYLIGHTS.put(29146, 17);
-            SKYLIGHTS.put(29409, 16);
-            SKYLIGHTS.put(29672, 15);
-            SKYLIGHTS.put(29935, 14);
-            SKYLIGHTS.put(30198, 13);
-            SKYLIGHTS.put(30461, 12);
-            SKYLIGHTS.put(30724, 11);
-            SKYLIGHTS.put(30987, 10);
-            SKYLIGHTS.put(31250, 9);
-            SKYLIGHTS.put(31513, 8);
-            SKYLIGHTS.put(31776, 7);
-            SKYLIGHTS.put(32039, 6);
-            SKYLIGHTS.put(32302, 5);
-            SKYLIGHTS.put(72093, 6);
-            SKYLIGHTS.put(72336, 7);
-            SKYLIGHTS.put(72639, 8);
-            SKYLIGHTS.put(72912, 9);
-            SKYLIGHTS.put(73185, 10);
-            SKYLIGHTS.put(73458, 11);
-            SKYLIGHTS.put(73731, 12);
-            SKYLIGHTS.put(74004, 13);
-            SKYLIGHTS.put(74277, 14);
-            SKYLIGHTS.put(74550, 15);
-            SKYLIGHTS.put(74823, 16);
-            SKYLIGHTS.put(75096, 17);
-            SKYLIGHTS.put(75369, 18);
-            SKYLIGHTS.put(75642, 19);
+            SKYCOLORS = skyColorsTemp.asScala.toMap
+            
+            
+            val skyLightsTemp = new jul.HashMap[Int,Int]();
 
-            LIGHTLEVELS = new HashMap[Int,BufferedImage]();
+            skyLightsTemp.put(28883, 18);
+            skyLightsTemp.put(29146, 17);
+            skyLightsTemp.put(29409, 16);
+            skyLightsTemp.put(29672, 15);
+            skyLightsTemp.put(29935, 14);
+            skyLightsTemp.put(30198, 13);
+            skyLightsTemp.put(30461, 12);
+            skyLightsTemp.put(30724, 11);
+            skyLightsTemp.put(30987, 10);
+            skyLightsTemp.put(31250, 9);
+            skyLightsTemp.put(31513, 8);
+            skyLightsTemp.put(31776, 7);
+            skyLightsTemp.put(32039, 6);
+            skyLightsTemp.put(32302, 5);
+            skyLightsTemp.put(72093, 6);
+            skyLightsTemp.put(72336, 7);
+            skyLightsTemp.put(72639, 8);
+            skyLightsTemp.put(72912, 9);
+            skyLightsTemp.put(73185, 10);
+            skyLightsTemp.put(73458, 11);
+            skyLightsTemp.put(73731, 12);
+            skyLightsTemp.put(74004, 13);
+            skyLightsTemp.put(74277, 14);
+            skyLightsTemp.put(74550, 15);
+            skyLightsTemp.put(74823, 16);
+            skyLightsTemp.put(75096, 17);
+            skyLightsTemp.put(75369, 18);
+            skyLightsTemp.put(75642, 19);
+
+            SKYLIGHTS = skyLightsTemp.asScala.toMap
+            
+            
+            val lightLevelsTemp = new jul.HashMap[Int,BufferedImage]();
 
             (0 until 17).foreach { i =>
-                LIGHTLEVELS.put(i, loadImage("light/" + i + ".png"));
+                lightLevelsTemp.put(i, loadImage("light/" + i + ".png"));
             }
+            
+            LIGHTLEVELS = lightLevelsTemp.asScala.toMap
+            
 
-            BLOCKLIGHTS = new HashMap[Int,Int]();
+            val blockLightsTemp = new jul.HashMap[Int,Int](blocknames.length);
 
             (0 until blocknames.length).foreach { i =>
-                BLOCKLIGHTS.put(i, 0);
+                blockLightsTemp.put(i, 0);
             }
 
-            BLOCKLIGHTS.put(19, 21);
-            BLOCKLIGHTS.put(20, 15);
-            BLOCKLIGHTS.put(21, 18);
-            BLOCKLIGHTS.put(22, 21);
-            BLOCKLIGHTS.put(23, 15);
-            BLOCKLIGHTS.put(24, 15);
-            BLOCKLIGHTS.put(25, 15);
-            BLOCKLIGHTS.put(26, 18);
-            BLOCKLIGHTS.put(27, 18);
-            BLOCKLIGHTS.put(28, 21);
-            BLOCKLIGHTS.put(29, 21);
-            BLOCKLIGHTS.put(36, 15);
-            BLOCKLIGHTS.put(36, 15);
-            BLOCKLIGHTS.put(38, 18);
-            BLOCKLIGHTS.put(51, 15);
-            BLOCKLIGHTS.put(52, 15);
-            BLOCKLIGHTS.put(53, 15);
-            BLOCKLIGHTS.put(95, 6);
-            BLOCKLIGHTS.put(96, 7);
-            BLOCKLIGHTS.put(97, 8);
-            BLOCKLIGHTS.put(98, 9);
-            BLOCKLIGHTS.put(99, 10);
-            BLOCKLIGHTS.put(100, 12);
-            BLOCKLIGHTS.put(101, 12);
-            BLOCKLIGHTS.put(102, 12);
-            BLOCKLIGHTS.put(104, 21);
-            BLOCKLIGHTS.put(112, 12);
-            BLOCKLIGHTS.put(114, 12);
-            BLOCKLIGHTS.put(116, 12);
-            BLOCKLIGHTS.put(118, 12);
-            BLOCKLIGHTS.put(123, 12);
-            BLOCKLIGHTS.put(124, 12);
-            BLOCKLIGHTS.put(125, 12);
-            BLOCKLIGHTS.put(126, 12);
+            blockLightsTemp.put(19, 21);
+            blockLightsTemp.put(20, 15);
+            blockLightsTemp.put(21, 18);
+            blockLightsTemp.put(22, 21);
+            blockLightsTemp.put(23, 15);
+            blockLightsTemp.put(24, 15);
+            blockLightsTemp.put(25, 15);
+            blockLightsTemp.put(26, 18);
+            blockLightsTemp.put(27, 18);
+            blockLightsTemp.put(28, 21);
+            blockLightsTemp.put(29, 21);
+            blockLightsTemp.put(36, 15);
+            blockLightsTemp.put(36, 15);
+            blockLightsTemp.put(38, 18);
+            blockLightsTemp.put(51, 15);
+            blockLightsTemp.put(52, 15);
+            blockLightsTemp.put(53, 15);
+            blockLightsTemp.put(95, 6);
+            blockLightsTemp.put(96, 7);
+            blockLightsTemp.put(97, 8);
+            blockLightsTemp.put(98, 9);
+            blockLightsTemp.put(99, 10);
+            blockLightsTemp.put(100, 12);
+            blockLightsTemp.put(101, 12);
+            blockLightsTemp.put(102, 12);
+            blockLightsTemp.put(104, 21);
+            blockLightsTemp.put(112, 12);
+            blockLightsTemp.put(114, 12);
+            blockLightsTemp.put(116, 12);
+            blockLightsTemp.put(118, 12);
+            blockLightsTemp.put(123, 12);
+            blockLightsTemp.put(124, 12);
+            blockLightsTemp.put(125, 12);
+            blockLightsTemp.put(126, 12);
 
-            BLOCKLIGHTS.put(137, 12);
-            BLOCKLIGHTS.put(138, 12);
-            BLOCKLIGHTS.put(139, 12);
-            BLOCKLIGHTS.put(140, 12);
-            BLOCKLIGHTS.put(145, 12);
-            BLOCKLIGHTS.put(146, 12);
-            BLOCKLIGHTS.put(147, 12);
-            BLOCKLIGHTS.put(148, 12);
-            BLOCKLIGHTS.put(153, 12);
-            BLOCKLIGHTS.put(154, 12);
-            BLOCKLIGHTS.put(155, 12);
-            BLOCKLIGHTS.put(156, 12);
-            BLOCKLIGHTS.put(161, 12);
-            BLOCKLIGHTS.put(162, 12);
-            BLOCKLIGHTS.put(163, 12);
-            BLOCKLIGHTS.put(164, 12);
+            blockLightsTemp.put(137, 12);
+            blockLightsTemp.put(138, 12);
+            blockLightsTemp.put(139, 12);
+            blockLightsTemp.put(140, 12);
+            blockLightsTemp.put(145, 12);
+            blockLightsTemp.put(146, 12);
+            blockLightsTemp.put(147, 12);
+            blockLightsTemp.put(148, 12);
+            blockLightsTemp.put(153, 12);
+            blockLightsTemp.put(154, 12);
+            blockLightsTemp.put(155, 12);
+            blockLightsTemp.put(156, 12);
+            blockLightsTemp.put(161, 12);
+            blockLightsTemp.put(162, 12);
+            blockLightsTemp.put(163, 12);
+            blockLightsTemp.put(164, 12);
 
-            GRASSDIRT = new HashMap[Int,Int]();
+            BLOCKLIGHTS = blockLightsTemp.asScala.toMap
+            
+            
+            val grassDirtTemp = new jul.HashMap[Int,Int]();
 
-            GRASSDIRT.put(72, 1);
-            GRASSDIRT.put(73, 1);
-            GRASSDIRT.put(74, 75);
-            GRASSDIRT.put(93, 91);
+            grassDirtTemp.put(72, 1);
+            grassDirtTemp.put(73, 1);
+            grassDirtTemp.put(74, 75);
+            grassDirtTemp.put(93, 91);
 
-            ARMOR = new HashMap[Short,Int]();
+            GRASSDIRT = grassDirtTemp.asScala.toMap
+            
+            
+            val armorTemp = new jul.HashMap[Short,Int](items.length);
 
             (0 until items.length).foreach { i =>
-                ARMOR.put(i.toShort, 0);
+                armorTemp.put(i.toShort, 0);
             }
 
-            ARMOR.put(105.toShort, 1);
-            ARMOR.put(106.toShort, 2);
-            ARMOR.put(107.toShort, 1);
-            ARMOR.put(108.toShort, 1);
-            ARMOR.put(109.toShort, 1);
-            ARMOR.put(110.toShort, 3);
-            ARMOR.put(111.toShort, 2);
-            ARMOR.put(112.toShort, 1);
-            ARMOR.put(113.toShort, 2);
-            ARMOR.put(114.toShort, 4);
-            ARMOR.put(115.toShort, 3);
-            ARMOR.put(116.toShort, 1);
-            ARMOR.put(117.toShort, 3);
-            ARMOR.put(118.toShort, 6);
-            ARMOR.put(119.toShort, 5);
-            ARMOR.put(120.toShort, 2);
-            ARMOR.put(121.toShort, 4);
-            ARMOR.put(122.toShort, 7);
-            ARMOR.put(123.toShort, 6);
-            ARMOR.put(124.toShort, 3);
-            ARMOR.put(125.toShort, 5);
-            ARMOR.put(126.toShort, 9);
-            ARMOR.put(127.toShort, 7);
-            ARMOR.put(128.toShort, 4);
-            ARMOR.put(129.toShort, 7);
-            ARMOR.put(130.toShort, 12);
-            ARMOR.put(131.toShort, 10);
-            ARMOR.put(132.toShort, 6);
-            ARMOR.put(133.toShort, 4);
-            ARMOR.put(134.toShort, 7);
-            ARMOR.put(135.toShort, 6);
-            ARMOR.put(136.toShort, 3);
-            ARMOR.put(137.toShort, 2);
-            ARMOR.put(138.toShort, 4);
-            ARMOR.put(139.toShort, 3);
-            ARMOR.put(140.toShort, 1);
-            ARMOR.put(141.toShort, 10);
-            ARMOR.put(142.toShort, 18);
-            ARMOR.put(143.toShort, 14);
-            ARMOR.put(144.toShort, 8);
+            armorTemp.put(105.toShort, 1);
+            armorTemp.put(106.toShort, 2);
+            armorTemp.put(107.toShort, 1);
+            armorTemp.put(108.toShort, 1);
+            armorTemp.put(109.toShort, 1);
+            armorTemp.put(110.toShort, 3);
+            armorTemp.put(111.toShort, 2);
+            armorTemp.put(112.toShort, 1);
+            armorTemp.put(113.toShort, 2);
+            armorTemp.put(114.toShort, 4);
+            armorTemp.put(115.toShort, 3);
+            armorTemp.put(116.toShort, 1);
+            armorTemp.put(117.toShort, 3);
+            armorTemp.put(118.toShort, 6);
+            armorTemp.put(119.toShort, 5);
+            armorTemp.put(120.toShort, 2);
+            armorTemp.put(121.toShort, 4);
+            armorTemp.put(122.toShort, 7);
+            armorTemp.put(123.toShort, 6);
+            armorTemp.put(124.toShort, 3);
+            armorTemp.put(125.toShort, 5);
+            armorTemp.put(126.toShort, 9);
+            armorTemp.put(127.toShort, 7);
+            armorTemp.put(128.toShort, 4);
+            armorTemp.put(129.toShort, 7);
+            armorTemp.put(130.toShort, 12);
+            armorTemp.put(131.toShort, 10);
+            armorTemp.put(132.toShort, 6);
+            armorTemp.put(133.toShort, 4);
+            armorTemp.put(134.toShort, 7);
+            armorTemp.put(135.toShort, 6);
+            armorTemp.put(136.toShort, 3);
+            armorTemp.put(137.toShort, 2);
+            armorTemp.put(138.toShort, 4);
+            armorTemp.put(139.toShort, 3);
+            armorTemp.put(140.toShort, 1);
+            armorTemp.put(141.toShort, 10);
+            armorTemp.put(142.toShort, 18);
+            armorTemp.put(143.toShort, 14);
+            armorTemp.put(144.toShort, 8);
+            
+            ARMOR = armorTemp.asScala.toMap
+            
+            
 
-            TOOLDURS = new HashMap[Short,Short]();
+            val toolDursTemp = new jul.HashMap[Short,Short]();
 
-            TOOLDURS.put(7.toShort, 400.toShort);   // copper: P0200 A0200 S0125
-            TOOLDURS.put(8.toShort, 500.toShort);   // iron:   P0250 A0250 S0150
-            TOOLDURS.put(9.toShort, 600.toShort);   // silver: P0300 A0300 S0200
-            TOOLDURS.put(10.toShort, 800.toShort);  // gold:   P0400 A0400 S0300
-            TOOLDURS.put(11.toShort, 400.toShort);
-            TOOLDURS.put(12.toShort, 500.toShort);
-            TOOLDURS.put(13.toShort, 600.toShort);
-            TOOLDURS.put(14.toShort, 800.toShort);
-            TOOLDURS.put(16.toShort, 250.toShort);
-            TOOLDURS.put(17.toShort, 300.toShort);
-            TOOLDURS.put(18.toShort, 400.toShort);
-            TOOLDURS.put(19.toShort, 600.toShort);
-            TOOLDURS.put(33.toShort, 100.toShort);
-            TOOLDURS.put(51.toShort, 1100.toShort);  // zinc:   P0550 A0550 S0475
-            TOOLDURS.put(52.toShort, 1100.toShort);
-            TOOLDURS.put(53.toShort, 950.toShort);
-            TOOLDURS.put(54.toShort, 1350.toShort);  // rhyme:  P0675 A0675 S0625
-            TOOLDURS.put(55.toShort, 1350.toShort);
-            TOOLDURS.put(56.toShort, 1250.toShort);
-            TOOLDURS.put(57.toShort, 1600.toShort);  // obdur:  P0800 A0800 S0800
-            TOOLDURS.put(58.toShort, 1600.toShort);
-            TOOLDURS.put(59.toShort, 1600.toShort);
-            TOOLDURS.put(145.toShort, 200.toShort); // alumin: P0100 A0100 S0050
-            TOOLDURS.put(146.toShort, 200.toShort);
-            TOOLDURS.put(147.toShort, 100.toShort);
-            TOOLDURS.put(148.toShort, 2400.toShort);// lead:   P1200 A1200 S0800
-            TOOLDURS.put(149.toShort, 2400.toShort);
-            TOOLDURS.put(150.toShort, 1600.toShort);
-            TOOLDURS.put(154.toShort, 200.toShort); // wood:   P0100 A0100 S0050
-            TOOLDURS.put(155.toShort, 200.toShort);
-            TOOLDURS.put(156.toShort, 100.toShort);
-            TOOLDURS.put(157.toShort, 300.toShort); // stone:  P0150 A0150 S0075
-            TOOLDURS.put(158.toShort, 300.toShort);
-            TOOLDURS.put(159.toShort, 150.toShort);
-            TOOLDURS.put(169.toShort, 1200.toShort); // magne:  P0600 A0600 S0600
-            TOOLDURS.put(170.toShort, 1200.toShort);
-            TOOLDURS.put(171.toShort, 1200.toShort);
-            TOOLDURS.put(172.toShort, 4000.toShort);// irrad:  P2000 A2000 S2000
-            TOOLDURS.put(173.toShort, 4000.toShort);
-            TOOLDURS.put(174.toShort, 4000.toShort);
-            TOOLDURS.put(190.toShort, 400.toShort);
+            toolDursTemp.put(7.toShort, 400.toShort);   // copper: P0200 A0200 S0125
+            toolDursTemp.put(8.toShort, 500.toShort);   // iron:   P0250 A0250 S0150
+            toolDursTemp.put(9.toShort, 600.toShort);   // silver: P0300 A0300 S0200
+            toolDursTemp.put(10.toShort, 800.toShort);  // gold:   P0400 A0400 S0300
+            toolDursTemp.put(11.toShort, 400.toShort);
+            toolDursTemp.put(12.toShort, 500.toShort);
+            toolDursTemp.put(13.toShort, 600.toShort);
+            toolDursTemp.put(14.toShort, 800.toShort);
+            toolDursTemp.put(16.toShort, 250.toShort);
+            toolDursTemp.put(17.toShort, 300.toShort);
+            toolDursTemp.put(18.toShort, 400.toShort);
+            toolDursTemp.put(19.toShort, 600.toShort);
+            toolDursTemp.put(33.toShort, 100.toShort);
+            toolDursTemp.put(51.toShort, 1100.toShort);  // zinc:   P0550 A0550 S0475
+            toolDursTemp.put(52.toShort, 1100.toShort);
+            toolDursTemp.put(53.toShort, 950.toShort);
+            toolDursTemp.put(54.toShort, 1350.toShort);  // rhyme:  P0675 A0675 S0625
+            toolDursTemp.put(55.toShort, 1350.toShort);
+            toolDursTemp.put(56.toShort, 1250.toShort);
+            toolDursTemp.put(57.toShort, 1600.toShort);  // obdur:  P0800 A0800 S0800
+            toolDursTemp.put(58.toShort, 1600.toShort);
+            toolDursTemp.put(59.toShort, 1600.toShort);
+            toolDursTemp.put(145.toShort, 200.toShort); // alumin: P0100 A0100 S0050
+            toolDursTemp.put(146.toShort, 200.toShort);
+            toolDursTemp.put(147.toShort, 100.toShort);
+            toolDursTemp.put(148.toShort, 2400.toShort);// lead:   P1200 A1200 S0800
+            toolDursTemp.put(149.toShort, 2400.toShort);
+            toolDursTemp.put(150.toShort, 1600.toShort);
+            toolDursTemp.put(154.toShort, 200.toShort); // wood:   P0100 A0100 S0050
+            toolDursTemp.put(155.toShort, 200.toShort);
+            toolDursTemp.put(156.toShort, 100.toShort);
+            toolDursTemp.put(157.toShort, 300.toShort); // stone:  P0150 A0150 S0075
+            toolDursTemp.put(158.toShort, 300.toShort);
+            toolDursTemp.put(159.toShort, 150.toShort);
+            toolDursTemp.put(169.toShort, 1200.toShort); // magne:  P0600 A0600 S0600
+            toolDursTemp.put(170.toShort, 1200.toShort);
+            toolDursTemp.put(171.toShort, 1200.toShort);
+            toolDursTemp.put(172.toShort, 4000.toShort);// irrad:  P2000 A2000 S2000
+            toolDursTemp.put(173.toShort, 4000.toShort);
+            toolDursTemp.put(174.toShort, 4000.toShort);
+            toolDursTemp.put(190.toShort, 400.toShort);
 
-            TOOLDURS.put(105.toShort, 200.toShort); // copper: 0300
-            TOOLDURS.put(106.toShort, 200.toShort); // copper: 0300
-            TOOLDURS.put(107.toShort, 200.toShort); // copper: 0300
-            TOOLDURS.put(108.toShort, 200.toShort); // copper: 0300
-            TOOLDURS.put(109.toShort, 200.toShort); // iron:   0400
-            TOOLDURS.put(110.toShort, 200.toShort); // iron:   0400
-            TOOLDURS.put(111.toShort, 200.toShort); // iron:   0400
-            TOOLDURS.put(112.toShort, 200.toShort); // iron:   0400
-            TOOLDURS.put(113.toShort, 200.toShort); // silver: 0550
-            TOOLDURS.put(114.toShort, 200.toShort); // silver: 0550
-            TOOLDURS.put(115.toShort, 200.toShort); // silver: 0550
-            TOOLDURS.put(116.toShort, 200.toShort); // silver: 0550
-            TOOLDURS.put(117.toShort, 200.toShort); // gold:   0700
-            TOOLDURS.put(118.toShort, 200.toShort); // gold:   0700
-            TOOLDURS.put(119.toShort, 200.toShort); // gold:   0700
-            TOOLDURS.put(120.toShort, 200.toShort); // gold:   0700
-            TOOLDURS.put(121.toShort, 200.toShort); // zinc:   0875
-            TOOLDURS.put(122.toShort, 200.toShort); // zinc:   0875
-            TOOLDURS.put(123.toShort, 200.toShort); // zinc:   0875
-            TOOLDURS.put(124.toShort, 200.toShort); // zinc:   0875
-            TOOLDURS.put(125.toShort, 200.toShort); // rhyme:  1000
-            TOOLDURS.put(126.toShort, 200.toShort); // rhyme:  1000
-            TOOLDURS.put(127.toShort, 200.toShort); // rhyme:  1000
-            TOOLDURS.put(128.toShort, 200.toShort); // rhyme:  1000
-            TOOLDURS.put(129.toShort, 200.toShort); // obdur:  1400
-            TOOLDURS.put(130.toShort, 200.toShort); // obdur:  1400
-            TOOLDURS.put(131.toShort, 200.toShort); // obdur:  1400
-            TOOLDURS.put(132.toShort, 200.toShort); // obdur:  1400
-            TOOLDURS.put(133.toShort, 200.toShort); // alumin: 0150
-            TOOLDURS.put(134.toShort, 200.toShort); // alumin: 0150
-            TOOLDURS.put(135.toShort, 200.toShort); // alumin: 0150
-            TOOLDURS.put(136.toShort, 200.toShort); // alumin: 0150
-            TOOLDURS.put(137.toShort, 200.toShort); // lead:   2000
-            TOOLDURS.put(138.toShort, 200.toShort); // lead:   2000
-            TOOLDURS.put(139.toShort, 200.toShort); // lead:   2000
-            TOOLDURS.put(140.toShort, 200.toShort); // lead:   2000
+            toolDursTemp.put(105.toShort, 200.toShort); // copper: 0300
+            toolDursTemp.put(106.toShort, 200.toShort); // copper: 0300
+            toolDursTemp.put(107.toShort, 200.toShort); // copper: 0300
+            toolDursTemp.put(108.toShort, 200.toShort); // copper: 0300
+            toolDursTemp.put(109.toShort, 200.toShort); // iron:   0400
+            toolDursTemp.put(110.toShort, 200.toShort); // iron:   0400
+            toolDursTemp.put(111.toShort, 200.toShort); // iron:   0400
+            toolDursTemp.put(112.toShort, 200.toShort); // iron:   0400
+            toolDursTemp.put(113.toShort, 200.toShort); // silver: 0550
+            toolDursTemp.put(114.toShort, 200.toShort); // silver: 0550
+            toolDursTemp.put(115.toShort, 200.toShort); // silver: 0550
+            toolDursTemp.put(116.toShort, 200.toShort); // silver: 0550
+            toolDursTemp.put(117.toShort, 200.toShort); // gold:   0700
+            toolDursTemp.put(118.toShort, 200.toShort); // gold:   0700
+            toolDursTemp.put(119.toShort, 200.toShort); // gold:   0700
+            toolDursTemp.put(120.toShort, 200.toShort); // gold:   0700
+            toolDursTemp.put(121.toShort, 200.toShort); // zinc:   0875
+            toolDursTemp.put(122.toShort, 200.toShort); // zinc:   0875
+            toolDursTemp.put(123.toShort, 200.toShort); // zinc:   0875
+            toolDursTemp.put(124.toShort, 200.toShort); // zinc:   0875
+            toolDursTemp.put(125.toShort, 200.toShort); // rhyme:  1000
+            toolDursTemp.put(126.toShort, 200.toShort); // rhyme:  1000
+            toolDursTemp.put(127.toShort, 200.toShort); // rhyme:  1000
+            toolDursTemp.put(128.toShort, 200.toShort); // rhyme:  1000
+            toolDursTemp.put(129.toShort, 200.toShort); // obdur:  1400
+            toolDursTemp.put(130.toShort, 200.toShort); // obdur:  1400
+            toolDursTemp.put(131.toShort, 200.toShort); // obdur:  1400
+            toolDursTemp.put(132.toShort, 200.toShort); // obdur:  1400
+            toolDursTemp.put(133.toShort, 200.toShort); // alumin: 0150
+            toolDursTemp.put(134.toShort, 200.toShort); // alumin: 0150
+            toolDursTemp.put(135.toShort, 200.toShort); // alumin: 0150
+            toolDursTemp.put(136.toShort, 200.toShort); // alumin: 0150
+            toolDursTemp.put(137.toShort, 200.toShort); // lead:   2000
+            toolDursTemp.put(138.toShort, 200.toShort); // lead:   2000
+            toolDursTemp.put(139.toShort, 200.toShort); // lead:   2000
+            toolDursTemp.put(140.toShort, 200.toShort); // lead:   2000
 
-            FUELS = new HashMap[Short,Double]();
+            TOOLDURS = toolDursTemp.asScala.toMap
+            
+            
+            val fuelsTemp = new jul.HashMap[Short,Double]();
 
-            FUELS.put(15.toShort, 0.01);
-            FUELS.put(28.toShort, 0.001);
-            FUELS.put(160.toShort, 0.02);
-            FUELS.put(168.toShort, 0.01);
-            FUELS.put(179.toShort, 0.0035);
-            FUELS.put(20.toShort, 0.0025);
-            FUELS.put(21.toShort, 0.00125);
-            FUELS.put(35.toShort, 0.02);
-            FUELS.put(36.toShort, 0.011);
-            FUELS.put(77.toShort, 0.02);
-            FUELS.put(79.toShort, 0.02);
-            FUELS.put(81.toShort, 0.02);
-            FUELS.put(83.toShort, 0.02);
-            FUELS.put(85.toShort, 0.02);
-            FUELS.put(87.toShort, 0.02);
-            FUELS.put(89.toShort, 0.0035);
-            FUELS.put(91.toShort, 0.02);
-            FUELS.put(95.toShort, 0.02);
-            FUELS.put(78.toShort, 0.01);
-            FUELS.put(80.toShort, 0.01);
-            FUELS.put(82.toShort, 0.01);
-            FUELS.put(84.toShort, 0.01);
-            FUELS.put(86.toShort, 0.01);
-            FUELS.put(88.toShort, 0.01);
-            FUELS.put(90.toShort, 0.01);
-            FUELS.put(92.toShort, 0.01);
-            FUELS.put(96.toShort, 0.01);
+            fuelsTemp.put(15.toShort, 0.01);
+            fuelsTemp.put(28.toShort, 0.001);
+            fuelsTemp.put(160.toShort, 0.02);
+            fuelsTemp.put(168.toShort, 0.01);
+            fuelsTemp.put(179.toShort, 0.0035);
+            fuelsTemp.put(20.toShort, 0.0025);
+            fuelsTemp.put(21.toShort, 0.00125);
+            fuelsTemp.put(35.toShort, 0.02);
+            fuelsTemp.put(36.toShort, 0.011);
+            fuelsTemp.put(77.toShort, 0.02);
+            fuelsTemp.put(79.toShort, 0.02);
+            fuelsTemp.put(81.toShort, 0.02);
+            fuelsTemp.put(83.toShort, 0.02);
+            fuelsTemp.put(85.toShort, 0.02);
+            fuelsTemp.put(87.toShort, 0.02);
+            fuelsTemp.put(89.toShort, 0.0035);
+            fuelsTemp.put(91.toShort, 0.02);
+            fuelsTemp.put(95.toShort, 0.02);
+            fuelsTemp.put(78.toShort, 0.01);
+            fuelsTemp.put(80.toShort, 0.01);
+            fuelsTemp.put(82.toShort, 0.01);
+            fuelsTemp.put(84.toShort, 0.01);
+            fuelsTemp.put(86.toShort, 0.01);
+            fuelsTemp.put(88.toShort, 0.01);
+            fuelsTemp.put(90.toShort, 0.01);
+            fuelsTemp.put(92.toShort, 0.01);
+            fuelsTemp.put(96.toShort, 0.01);
             (97 until 103).foreach { i =>
-                FUELS.put(i.toShort, 0.0035);
+                fuelsTemp.put(i.toShort, 0.0035);
             }
-            FUELS.put(154.toShort, 0.002);
-            FUELS.put(155.toShort, 0.002);
-            FUELS.put(156.toShort, 0.00333);
+            fuelsTemp.put(154.toShort, 0.002);
+            fuelsTemp.put(155.toShort, 0.002);
+            fuelsTemp.put(156.toShort, 0.00333);
+            
+            FUELS = fuelsTemp.asScala.toMap
+            
 
-            WIREP = new HashMap[Int,Int]();
+            val wirepTemp = new jul.HashMap[Int,Int]();
 
-            WIREP.put(0, 94);
-            WIREP.put(1, 95);
-            WIREP.put(2, 96);
-            WIREP.put(3, 97);
-            WIREP.put(4, 98);
-            WIREP.put(5, 99);
+            wirepTemp.put(0, 94);
+            wirepTemp.put(1, 95);
+            wirepTemp.put(2, 96);
+            wirepTemp.put(3, 97);
+            wirepTemp.put(4, 98);
+            wirepTemp.put(5, 99);
 
-            TORCHESL = new HashMap[Int,Int]();
+            WIREP = wirepTemp.asScala.toMap
+            
+            
+            val torcheslTemp = new jul.HashMap[Int,Int]();
 
-            TORCHESL.put(20, 24);
-            TORCHESL.put(21, 26);
-            TORCHESL.put(22, 28);
-            TORCHESL.put(100, 101);
-            TORCHESL.put(105, 107);
-            TORCHESL.put(106, 108);
-            TORCHESL.put(127, 127);
-            TORCHESL.put(128, 128);
+            torcheslTemp.put(20, 24);
+            torcheslTemp.put(21, 26);
+            torcheslTemp.put(22, 28);
+            torcheslTemp.put(100, 101);
+            torcheslTemp.put(105, 107);
+            torcheslTemp.put(106, 108);
+            torcheslTemp.put(127, 127);
+            torcheslTemp.put(128, 128);
+            
+            TORCHESL = torcheslTemp.asScala.toMap
+            
 
-            TORCHESR = new HashMap[Int,Int]();
+            var torchesrTemp = new jul.HashMap[Int,Int]();
 
-            TORCHESR.put(20, 25);
-            TORCHESR.put(21, 27);
-            TORCHESR.put(22, 29);
-            TORCHESR.put(100, 102);
-            TORCHESR.put(105, 109);
-            TORCHESR.put(106, 110);
-            TORCHESR.put(127, 129);
+            torchesrTemp.put(20, 25);
+            torchesrTemp.put(21, 27);
+            torchesrTemp.put(22, 29);
+            torchesrTemp.put(100, 102);
+            torchesrTemp.put(105, 109);
+            torchesrTemp.put(106, 110);
+            torchesrTemp.put(127, 129);
 
-            TORCHESB = new HashMap[Int,Boolean]();
+            TORCHESR = torchesrTemp.asScala.toMap
+            
+            
+            val torchesbTemp = new jul.HashMap[Int,Boolean](blocknames.length);
 
             (0 until blocknames.length).foreach { i =>
-                TORCHESB.put(i, false);
+                torchesbTemp.put(i, false);
             }
 
-            TORCHESB.put(20, true);
-            TORCHESB.put(21, true);
-            TORCHESB.put(22, true);
-            TORCHESB.put(100, true);
-            TORCHESB.put(24, true);
-            TORCHESB.put(26, true);
-            TORCHESB.put(28, true);
-            TORCHESB.put(101, true);
-            TORCHESB.put(25, true);
-            TORCHESB.put(27, true);
-            TORCHESB.put(29, true);
-            TORCHESB.put(102, true);
-            TORCHESB.put(105, true);
-            TORCHESB.put(106, true);
-            TORCHESB.put(107, true);
-            TORCHESB.put(108, true);
-            TORCHESB.put(109, true);
-            TORCHESB.put(110, true);
-            TORCHESB.put(127, true);
-            TORCHESB.put(128, true);
-            TORCHESB.put(129, true);
-            TORCHESB.put(130, true);
+            torchesbTemp.put(20, true);
+            torchesbTemp.put(21, true);
+            torchesbTemp.put(22, true);
+            torchesbTemp.put(100, true);
+            torchesbTemp.put(24, true);
+            torchesbTemp.put(26, true);
+            torchesbTemp.put(28, true);
+            torchesbTemp.put(101, true);
+            torchesbTemp.put(25, true);
+            torchesbTemp.put(27, true);
+            torchesbTemp.put(29, true);
+            torchesbTemp.put(102, true);
+            torchesbTemp.put(105, true);
+            torchesbTemp.put(106, true);
+            torchesbTemp.put(107, true);
+            torchesbTemp.put(108, true);
+            torchesbTemp.put(109, true);
+            torchesbTemp.put(110, true);
+            torchesbTemp.put(127, true);
+            torchesbTemp.put(128, true);
+            torchesbTemp.put(129, true);
+            torchesbTemp.put(130, true);
 
-            GSUPPORT = new HashMap[Int,Boolean]();
+            TORCHESB = torchesbTemp.asScala.toMap
+            
+            
+            val gsupportTemp = new jul.HashMap[Int,Boolean](blocknames.length);
 
             (0 until blocknames.length).foreach { i =>
-                GSUPPORT.put(i, false);
+                gsupportTemp.put(i, false);
             }
 
-            GSUPPORT.put(15, true);
-            GSUPPORT.put(83, true);
-            GSUPPORT.put(20, true);
-            GSUPPORT.put(21, true);
-            GSUPPORT.put(22, true);
-            GSUPPORT.put(77, true);
-            GSUPPORT.put(78, true);
-            GSUPPORT.put(100, true);
-            GSUPPORT.put(105, true);
-            GSUPPORT.put(106, true);
-            GSUPPORT.put(131, true);
-            GSUPPORT.put(132, true);
-            GSUPPORT.put(133, true);
-            GSUPPORT.put(134, true);
-            GSUPPORT.put(135, true);
-            GSUPPORT.put(136, true);
+            gsupportTemp.put(15, true);
+            gsupportTemp.put(83, true);
+            gsupportTemp.put(20, true);
+            gsupportTemp.put(21, true);
+            gsupportTemp.put(22, true);
+            gsupportTemp.put(77, true);
+            gsupportTemp.put(78, true);
+            gsupportTemp.put(100, true);
+            gsupportTemp.put(105, true);
+            gsupportTemp.put(106, true);
+            gsupportTemp.put(131, true);
+            gsupportTemp.put(132, true);
+            gsupportTemp.put(133, true);
+            gsupportTemp.put(134, true);
+            gsupportTemp.put(135, true);
+            gsupportTemp.put(136, true);
 
             (48 until 73).foreach { i =>
-                GSUPPORT.put(i, true);
+                gsupportTemp.put(i, true);
             }
+            
+            GSUPPORT = gsupportTemp.asScala.toMap
+            
 
-            FSPEED = new HashMap[Short,Double]();
+            val fspeedTemp = new jul.HashMap[Short,Double](blocknames.length);
 
             (0 until blocknames.length).foreach { i =>
-                FSPEED.put(i.toShort, 0.001);
+                fspeedTemp.put(i.toShort, 0.001);
             }
 
-            FSPEED.put(85.toShort, -0.001);
-            FSPEED.put(86.toShort, -0.001);
+            fspeedTemp.put(85.toShort, -0.001);
+            fspeedTemp.put(86.toShort, -0.001);
+            
+            FSPEED = fspeedTemp.asScala.toMap
+            
 
-            DDELAY = new HashMap[Int,Int]();
+            val ddelayTemp = new jul.HashMap[Int,Int](169);
 
             (137 until 145).foreach { i =>
-                DDELAY.put(i, 10);
+                ddelayTemp.put(i, 10);
             }
             (145 until 153).foreach { i =>
-                DDELAY.put(i, 20);
+                ddelayTemp.put(i, 20);
             }
             (153 until 161).foreach { i =>
-                DDELAY.put(i, 40);
+                ddelayTemp.put(i, 40);
             }
             (161 until 169).foreach { i =>
-                DDELAY.put(i, 80);
+                ddelayTemp.put(i, 80);
             }
+            
+            DDELAY = ddelayTemp.asScala.toMap 
+            
 
             sun = loadImage("environment/sun.png");
             moon = loadImage("environment/moon.png");
-            FRI1 = new ArrayList[Short](0);
-            FRN1 = new ArrayList[Short](0);
-            FRI2 = new ArrayList[Short](0);
-            FRN2 = new ArrayList[Short](0);
+            val fri1Temp = new jul.ArrayList[Short](180);
+            val frn1Temp = new jul.ArrayList[Short](180);
+            val fri2Temp = new jul.ArrayList[Short](180);
+            val frn2Temp = new jul.ArrayList[Short](180);
 
-            FRI1.add(3.toShort); FRN1.add(4.toShort); FRI2.add(29.toShort); FRN2.add(1.toShort);
-            FRI1.add(4.toShort); FRN1.add(4.toShort); FRI2.add(30.toShort); FRN2.add(1.toShort);
-            FRI1.add(5.toShort); FRN1.add(4.toShort); FRI2.add(31.toShort); FRN2.add(1.toShort);
-            FRI1.add(6.toShort); FRN1.add(4.toShort); FRI2.add(32.toShort); FRN2.add(1.toShort);
-            FRI1.add(38.toShort); FRN1.add(4.toShort); FRI2.add(60.toShort); FRN2.add(1.toShort);
-            FRI1.add(39.toShort); FRN1.add(4.toShort); FRI2.add(61.toShort); FRN2.add(1.toShort);
-            FRI1.add(40.toShort); FRN1.add(4.toShort); FRI2.add(62.toShort); FRN2.add(1.toShort);
-            FRI1.add(41.toShort); FRN1.add(4.toShort); FRI2.add(63.toShort); FRN2.add(1.toShort);
-            FRI1.add(42.toShort); FRN1.add(4.toShort); FRI2.add(64.toShort); FRN2.add(1.toShort);
-            FRI1.add(43.toShort); FRN1.add(4.toShort); FRI2.add(65.toShort); FRN2.add(1.toShort);
-            FRI1.add(44.toShort); FRN1.add(4.toShort); FRI2.add(67.toShort); FRN2.add(1.toShort);
-            FRI1.add(45.toShort); FRN1.add(4.toShort); FRI2.add(68.toShort); FRN2.add(1.toShort);
-            FRI1.add(46.toShort); FRN1.add(4.toShort); FRI2.add(69.toShort); FRN2.add(1.toShort);
-            FRI1.add(47.toShort); FRN1.add(4.toShort); FRI2.add(70.toShort); FRN2.add(1.toShort);
-            FRI1.add(48.toShort); FRN1.add(4.toShort); FRI2.add(71.toShort); FRN2.add(1.toShort);
-            FRI1.add(49.toShort); FRN1.add(4.toShort); FRI2.add(72.toShort); FRN2.add(1.toShort);
-            FRI1.add(50.toShort); FRN1.add(4.toShort); FRI2.add(73.toShort); FRN2.add(1.toShort);
+            fri1Temp.add(3.toShort); frn1Temp.add(4.toShort); fri2Temp.add(29.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(4.toShort); frn1Temp.add(4.toShort); fri2Temp.add(30.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(5.toShort); frn1Temp.add(4.toShort); fri2Temp.add(31.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(6.toShort); frn1Temp.add(4.toShort); fri2Temp.add(32.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(38.toShort); frn1Temp.add(4.toShort); fri2Temp.add(60.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(39.toShort); frn1Temp.add(4.toShort); fri2Temp.add(61.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(40.toShort); frn1Temp.add(4.toShort); fri2Temp.add(62.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(41.toShort); frn1Temp.add(4.toShort); fri2Temp.add(63.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(42.toShort); frn1Temp.add(4.toShort); fri2Temp.add(64.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(43.toShort); frn1Temp.add(4.toShort); fri2Temp.add(65.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(44.toShort); frn1Temp.add(4.toShort); fri2Temp.add(67.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(45.toShort); frn1Temp.add(4.toShort); fri2Temp.add(68.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(46.toShort); frn1Temp.add(4.toShort); fri2Temp.add(69.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(47.toShort); frn1Temp.add(4.toShort); fri2Temp.add(70.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(48.toShort); frn1Temp.add(4.toShort); fri2Temp.add(71.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(49.toShort); frn1Temp.add(4.toShort); fri2Temp.add(72.toShort); frn2Temp.add(1.toShort);
+            fri1Temp.add(50.toShort); frn1Temp.add(4.toShort); fri2Temp.add(73.toShort); frn2Temp.add(1.toShort);
             (8 until(2, -1)).foreach { i =>
-                FRI1.add(74.toShort); FRN1.add(i.toShort); FRI2.add(76.toShort); FRN2.add(i.toShort);
-                FRI1.add(2.toShort); FRN1.add(i.toShort); FRI2.add(162.toShort); FRN2.add(i.toShort);
-                FRI1.add(161.toShort); FRN1.add(i.toShort); FRI2.add(163.toShort); FRN2.add(i.toShort);
-                FRI1.add(165.toShort); FRN1.add(i.toShort); FRI2.add(166.toShort); FRN2.add(i.toShort);
-                FRI1.add(15.toShort); FRN1.add(i.toShort); FRI2.add(179.toShort); FRN2.add(i.toShort);
+                fri1Temp.add(74.toShort); frn1Temp.add(i.toShort); fri2Temp.add(76.toShort); frn2Temp.add(i.toShort);
+                fri1Temp.add(2.toShort); frn1Temp.add(i.toShort); fri2Temp.add(162.toShort); frn2Temp.add(i.toShort);
+                fri1Temp.add(161.toShort); frn1Temp.add(i.toShort); fri2Temp.add(163.toShort); frn2Temp.add(i.toShort);
+                fri1Temp.add(165.toShort); frn1Temp.add(i.toShort); fri2Temp.add(166.toShort); frn2Temp.add(i.toShort);
+                fri1Temp.add(15.toShort); frn1Temp.add(i.toShort); fri2Temp.add(179.toShort); frn2Temp.add(i.toShort);
             }
             (97 until 103).foreach { j =>
-                FRI1.add(j.toShort); FRN1.add(1.toShort); FRI2.add(167.toShort); FRN2.add(8.toShort);
+                fri1Temp.add(j.toShort); frn1Temp.add(1.toShort); fri2Temp.add(167.toShort); frn2Temp.add(8.toShort);
             }
+            
+            FRI1 = fri1Temp.asScala.toList
+            FRN1 = frn1Temp.asScala.toList
+            FRI2 = fri2Temp.asScala.toList
+            FRN2 = frn2Temp.asScala.toList
 
             bg = CYANISH;
             state = "title_screen";
@@ -1993,7 +2084,7 @@ class TerraFrame extends JApplet
                                             if (ou != uNew || ov != vNew) {
                                                 ou = uNew;
                                                 ov = vNew;
-                                                var chunkTemp: ArrayList[Chunk] = new ArrayList[Chunk](0);
+                                                val chunkTemp = new jul.ArrayList[Chunk](2 * 2);
                                                 (0 until 2).foreach { twy =>
                                                     (0 until 2).foreach { twx =>
                                                         if (chunkMatrix(twy)(twx) != null) {
@@ -2027,7 +2118,6 @@ class TerraFrame extends JApplet
                                                 (0 until chunkTemp.size()).foreach { i =>
                                                     temporarySaveFile(twy)(twx) = chunkTemp.get(i);
                                                 }
-                                                chunkTemp = null;
                                                 (0 until 2).foreach { twy =>
                                                     (0 until 2).foreach { twx =>
                                                         (0 until CHUNKBLOCKS).foreach { y =>
@@ -2104,10 +2194,10 @@ class TerraFrame extends JApplet
                                                                                 }
                                                                             }
                                                                             if (blockbgs(ty)(tx) != 0) {
-                                                                                wg2.drawImage(backgroundImgs.get(blockbgs(ty)(tx)),
-                                                                                    tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
+                                                                                backgroundImgs.get(blockbgs(ty)(tx)).foreach(img =>
+                                                                                    wg2.drawImage(img, tx*BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE - twy*CHUNKSIZE, tx*BLOCKSIZE + BLOCKSIZE - twx*CHUNKSIZE, ty*BLOCKSIZE + BLOCKSIZE - twy*CHUNKSIZE,
                                                                                     0, 0, IMAGESIZE, IMAGESIZE,
-                                                                                    null);
+                                                                                    null))
                                                                             }
                                                                             (0 until 3).foreach { l => 
                                                                                 if (blocks(l)(ty)(tx) != 0) {
@@ -2416,6 +2506,7 @@ class TerraFrame extends JApplet
     }
 
     def codeTooLarge(): Unit = {
+        
         val M: Int = Int.MaxValue;
         //                     DirStoCopIroSilGolWooWor                  TreLeaFurCoaLum         Fur                     ZinRhyObdAluLeaUraZytZytSilIrrNulMelSkyMagSanSnoGla                                                                        GraJGrSGrMudSSt                  TreCobCStCCoSBrClaCBrVWoTDiTMaTGrZyW
         val durList: Array2D[Int] = Array(Array(0, 2, 4, 4, 4, 4, M, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 4, 3, M, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 0, M, M, M, 4, M, M, M, M, M, M, M, M, M, M, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 1, 1, 1, 2, 2, 2, 0, 4, 4, 4, 4, 2, 4, 0, 2, M, 2, 1, 1, 1, 1, 1, 1), // Copper Pick
@@ -2473,24 +2564,28 @@ class TerraFrame extends JApplet
                            Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), // Irradium Pick
                            Array(1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));// Irradium Axe
 
+        val durabilityTemp = new jul.HashMap[Short,Map[Int,Int]](toolList.length * toolList.length);
+        
         (0 until toolList.length).foreach { i =>
-            dur = new HashMap[Int,Int]();
+            val dur = new java.util.HashMap[Int,Int](durList(i).length * durLis2(i).length);
             (0 until durList(i).length).foreach { j =>
                 dur.put(j, durList(i)(j));
             }
             (0 until durLis2(i).length).foreach { j =>
-                dur.put(j+100, durList(i)(j));
+                dur.put(j+100, durLis2(i)(j));
             }
-            DURABILITY.put(toolList(i).toShort, dur);
+            durabilityTemp.put(toolList(i), dur.asScala.toMap);
         }
+
+        DURABILITY = durabilityTemp.asScala.toMap
     }
 
     def findWorlds(): Unit = {
         folder = new File("worlds");
         folder.mkdir();
         files = folder.listFiles();
-        worldFiles = new ArrayList[String]();
-        worldNames = new ArrayList[String]();
+        worldFiles = new List[String]();
+        worldNames = new List[String]();
         (0 until files.length).foreach { i =>
             if (files(i).isFile() && files(i).getName().endsWith(".dat")) {
                 worldFiles.add(files(i).getName());
@@ -2631,15 +2726,15 @@ class TerraFrame extends JApplet
         mx = 0; my = 0;
         moveItem = 0; moveNum = 0; moveDur = 0;
 
-        entities = new ArrayList[Entity](0);
+        entities = new List[Entity](0);
 
-        cloudsx = new ArrayList[Double](0);
-        cloudsy = new ArrayList[Double](0);
-        cloudsv = new ArrayList[Double](0);
-        cloudsn = new ArrayList[Int](0);
+        cloudsx = new List[Double](0);
+        cloudsy = new List[Double](0);
+        cloudsv = new List[Double](0);
+        cloudsn = new List[Int](0);
 
-        machinesx = new ArrayList[Int](0);
-        machinesy = new ArrayList[Int](0);
+        machinesx = new List[Int](0);
+        machinesy = new List[Int](0);
 
         icmatrix = Array.ofDim(3,HEIGHT,WIDTH);
 
@@ -2647,23 +2742,23 @@ class TerraFrame extends JApplet
         fworlds = Array.ofDim(2,2);
         kworlds = Array.ofDim(2,2);
 
-        pqx = new ArrayList[Int]();
-        pqy = new ArrayList[Int]();
+        pqx = new List[Int]();
+        pqy = new List[Int]();
 
         pmsg("-> Adding light sources...");
 
-        lqx = new ArrayList[Int]();
-        lqy = new ArrayList[Int]();
-        zqx = new ArrayList[Int]();
-        zqy = new ArrayList[Int]();
-        pqx = new ArrayList[Int]();
-        pqy = new ArrayList[Int]();
-        pzqx = new ArrayList[Int]();
-        pzqy = new ArrayList[Int]();
-        updatex = new ArrayList[Int]();
-        updatey = new ArrayList[Int]();
-        updatet = new ArrayList[Int]();
-        updatel = new ArrayList[Int]();
+        lqx = new List[Int]();
+        lqy = new List[Int]();
+        zqx = new List[Int]();
+        zqy = new List[Int]();
+        pqx = new List[Int]();
+        pqy = new List[Int]();
+        pzqx = new List[Int]();
+        pzqy = new List[Int]();
+        updatex = new List[Int]();
+        updatey = new List[Int]();
+        updatet = new List[Int]();
+        updatel = new List[Int]();
 
         (0 until WIDTH).foreach { x =>
 //            addSunLighting(x, 0);
@@ -2716,8 +2811,8 @@ class TerraFrame extends JApplet
             rgnc1 -= 1;
         }
 
-        (0 until machinesx.size()).foreach { j =>
-            x = machinesx.get(j); y = machinesy.get(j);
+        (0 until machinesx.length).foreach { j =>
+            x = machinesx(j); y = machinesy(j);
             (0 until 3).foreach { l =>
                 if (icmatrix(l)(y)(x) != null && icmatrix(l)(y)(x).`type`.equals("furnace")) {
                     if (icmatrix(l)(y)(x).F_ON) {
@@ -2734,23 +2829,27 @@ class TerraFrame extends JApplet
                                 rdrawn(y)(x) = false;
                             }
                         }
-                        if (FUELS.get(icmatrix(l)(y)(x).ids(1)) != null) {
-                            icmatrix(l)(y)(x).FUELP -= FUELS.get(icmatrix(l)(y)(x).ids(1));
+                        for {
+                            fuel <- FUELS.get(icmatrix(l)(y)(x).ids(1))
+                        } yield {
+                            icmatrix(l)(y)(x).FUELP -= fuel;
                             if (icmatrix(l)(y)(x).FUELP < 0) {
                                 icmatrix(l)(y)(x).FUELP = 0;
                                 inventory.removeLocationIC(icmatrix(l)(y)(x), 1, icmatrix(l)(y)(x).nums(1));
                             }
                             import scala.util.control.Breaks._
                             breakable {
-                                (0 until FRI1.size()).foreach { i =>
-                                    if (icmatrix(l)(y)(x).ids(0) == FRI1.get(i) && icmatrix(l)(y)(x).nums(0) >= FRN1.get(i)) {
-                                        icmatrix(l)(y)(x).SMELTP += FSPEED.get(icmatrix(l)(y)(x).ids(1));
-                                        if (icmatrix(l)(y)(x).SMELTP > 1) {
-                                            icmatrix(l)(y)(x).SMELTP = 0;
-                                            inventory.removeLocationIC(icmatrix(l)(y)(x), 0, FRN1.get(i));
-                                            inventory.addLocationIC(icmatrix(l)(y)(x), 3, FRI2.get(i), FRN2.get(i));
+                                (0 until FRI1.length).foreach { i =>
+                                    FSPEED.get(icmatrix(l)(y)(x).ids(1)).foreach { fspeed =>
+                                        if (icmatrix(l)(y)(x).ids(0) == FRI1(i) && icmatrix(l)(y)(x).nums(0) >= FRN1(i)) {
+                                            icmatrix(l)(y)(x).SMELTP += fspeed;
+                                            if (icmatrix(l)(y)(x).SMELTP > 1) {
+                                                icmatrix(l)(y)(x).SMELTP = 0;
+                                                inventory.removeLocationIC(icmatrix(l)(y)(x), 0, FRN1(i));
+                                                inventory.addLocationIC(icmatrix(l)(y)(x), 3, FRI2(i), FRN2(i));
+                                            }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
@@ -2781,23 +2880,25 @@ class TerraFrame extends JApplet
                         rdrawn(icy)(icx) = false;
                     }
                 }
-                if (FUELS.get(ic.ids(1)) != null) {
-                    ic.FUELP -= FUELS.get(ic.ids(1));
+                FUELS.get(ic.ids(1)).foreach { fuels =>
+                    ic.FUELP -= fuels;
                     if (ic.FUELP < 0) {
                         ic.FUELP = 0;
                         inventory.removeLocationIC(ic, 1, ic.nums(1));
                     }
                     import scala.util.control.Breaks._
                     breakable {
-                        (0 until FRI1.size()).foreach { i =>
-                            if (ic.ids(0) == FRI1.get(i) && ic.nums(0) >= FRN1.get(i)) {
-                                ic.SMELTP += FSPEED.get(ic.ids(1));
-                                if (ic.SMELTP > 1) {
-                                    ic.SMELTP = 0;
-                                    inventory.removeLocationIC(ic, 0, FRN1.get(i));
-                                    inventory.addLocationIC(ic, 3, FRI2.get(i), FRN2.get(i));
+                        (0 until FRI1.length).foreach { i =>
+                            FSPEED.get(ic.ids(1)).foreach { fspeed =>
+                                if (ic.ids(0) == FRI1(i) && ic.nums(0) >= FRN1(i)) {
+                                    ic.SMELTP += fspeed;
+                                    if (ic.SMELTP > 1) {
+                                        ic.SMELTP = 0;
+                                        inventory.removeLocationIC(ic, 0, FRN1(i));
+                                        inventory.addLocationIC(ic, 3, FRI2(i), FRN2(i));
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
@@ -3220,15 +3321,19 @@ class TerraFrame extends JApplet
                     mousePos(1) >= 20+52 && mousePos(1) < 20+92) {
                     checkBlocks = false;
                     if (mouseClicked) {
-                        if (moveItem == cic.ids(4) && moveNum + cic.nums(4) <= MAXSTACKS.get(cic.ids(4))) {
-                            moveNum = (moveNum + cic.nums(4)).toShort;
-                            inventory.useRecipeCIC(cic);
+                        if (moveItem == cic.ids(4)) {
+                            MAXSTACKS.get(cic.ids(4)).foreach { maxstacks =>
+                                if(moveNum + cic.nums(4) <= maxstacks) {
+                                    moveNum = (moveNum + cic.nums(4)).toShort;
+                                    inventory.useRecipeCIC(cic);
+                                }
+                            }
                         }
                         if (moveItem == 0) {
                             moveItem = cic.ids(4);
                             moveNum = cic.nums(4);
-                            if (TOOLDURS.get(moveItem) != null) {
-                                moveDur = TOOLDURS.get(moveItem);
+                            TOOLDURS.get(moveItem).foreach { t =>
+                                moveDur = t
                             }
                             inventory.useRecipeCIC(cic);
                         }
@@ -3269,15 +3374,18 @@ class TerraFrame extends JApplet
                             mousePos(1) < 1*40+inventory.image.getHeight()+86) {
                             checkBlocks = false;
                             if (mouseClicked) {
-                                if (moveItem == ic.ids(9) && moveNum + ic.nums(9) <= MAXSTACKS.get(ic.ids(9))) {
-                                    moveNum = (moveNum + ic.nums(9)).toShort;
-                                    inventory.useRecipeWorkbench(ic);
+                                MAXSTACKS.get(ic.ids(9)).foreach { maxstacks =>
+                                    if (moveItem == ic.ids(9) && moveNum + ic.nums(9) <= maxstacks) {
+                                        moveNum = (moveNum + ic.nums(9)).toShort;
+                                        inventory.useRecipeWorkbench(ic);
+                                    }
                                 }
+
                                 if (moveItem == 0) {
                                     moveItem = ic.ids(9);
                                     moveNum = ic.nums(9);
-                                    if (TOOLDURS.get(moveItem) != null) {
-                                        moveDur = TOOLDURS.get(moveItem);
+                                    TOOLDURS.get(moveItem).foreach { tooldur =>
+                                        moveDur = tooldur
                                     }
                                     inventory.useRecipeWorkbench(ic);
                                 }
@@ -3382,9 +3490,11 @@ class TerraFrame extends JApplet
                                 else if (moveItem == ic.ids(3)) {
                                     moveNum = (moveNum + ic.nums(3)).toShort;
                                     inventory.removeLocationIC(ic, 3, ic.nums(3));
-                                    if (moveNum > MAXSTACKS.get(moveItem)) {
-                                        inventory.addLocationIC(ic, 3, moveItem, (moveNum - MAXSTACKS.get(moveItem)).toShort, moveDur);
-                                        moveNum = MAXSTACKS.get(moveItem);
+                                    MAXSTACKS.get(moveItem).foreach { maxstacks =>
+                                        if (moveNum > maxstacks) {
+                                            inventory.addLocationIC(ic, 3, moveItem, (moveNum - maxstacks).toShort, moveDur);
+                                            moveNum = maxstacks;
+                                        }
                                     }
                                 }
                             }
@@ -3451,26 +3561,32 @@ class TerraFrame extends JApplet
             }
             if (checkBlocks) {
                 if (inventory.tool() != 0 && !showTool) {
-                    tool = itemImgs.get(inventory.tool());
+                    itemImgs.get(inventory.tool()).foreach { t =>
+                        tool = t
+                    }
                     (0 until entities.size()).foreach { i =>
                         entities.get(i).immune = false;
                     }
-                    toolSpeed = TOOLSPEED.get(inventory.tool());
+                    TOOLSPEED.get(inventory.tool()).foreach { ts =>
+                        toolSpeed = ts
+                    }
                     if (inventory.tool() == 169 || inventory.tool() == 170 || inventory.tool() == 171) {
-                        toolSpeed *= (inventory.durs(inventory.selection).toDouble/TOOLDURS.get(inventory.ids(inventory.selection))) * (-0.714) + 1;
+                        TOOLDURS.get(inventory.ids(inventory.selection)).foreach { tooldurs =>
+                            toolSpeed *= (inventory.durs(inventory.selection).toDouble/tooldurs) * (-0.714) + 1;
+                        }
                     }
                     showTool = true;
                     toolAngle = 4.7;
-                    ux = (mousePos2(0)/BLOCKSIZE).toInt;
-                    uy = (mousePos2(1)/BLOCKSIZE).toInt;
-                    ux2 = (mousePos2(0)/BLOCKSIZE).toInt;
-                    uy2 = (mousePos2(1)/BLOCKSIZE).toInt;
+                    ux = (mousePos2(0)/BLOCKSIZE);
+                    uy = (mousePos2(1)/BLOCKSIZE);
+                    ux2 = (mousePos2(0)/BLOCKSIZE);
+                    uy2 = (mousePos2(1)/BLOCKSIZE);
                     if (Math.sqrt(Math.pow(player.x+player.image.getWidth()-ux2*BLOCKSIZE+BLOCKSIZE/2, 2) + Math.pow(player.y+player.image.getHeight()-uy2*BLOCKSIZE+BLOCKSIZE/2, 2)) <= 160 ||
                         Math.sqrt(Math.pow(player.x+player.image.getWidth()-ux2*BLOCKSIZE+BLOCKSIZE/2+WIDTH*BLOCKSIZE, 2) + Math.pow(player.y+player.image.getHeight()-uy2*BLOCKSIZE+BLOCKSIZE/2, 2)) <= 160 || DEBUG_REACH) {
-                        ucx = ux - CHUNKBLOCKS * ((ux/CHUNKBLOCKS).toInt);
-                        ucy = uy - CHUNKBLOCKS * ((uy/CHUNKBLOCKS).toInt);
-                        if (Arrays.asList(toolList).contains(inventory.tool())) {
-                            if (blocks(layer)(uy)(ux) != 0 && Arrays.asList(BLOCKTOOLS.get(blocks(layer)(uy)(ux))).contains(inventory.tool())) {
+                        ucx = ux - CHUNKBLOCKS * ((ux/CHUNKBLOCKS));
+                        ucy = uy - CHUNKBLOCKS * ((uy/CHUNKBLOCKS));
+                        if (jul.Arrays.asList(toolList).contains(inventory.tool())) {
+                            if (blocks(layer)(uy)(ux) != 0 && jul.Arrays.asList(BLOCKTOOLS.get(blocks(layer)(uy)(ux))).contains(inventory.tool())) {
                                 blockdns(uy)(ux) = random.nextInt(5).toByte;
                                 drawn(uy)(ux) = false;
                                 if (ux == mx && uy == my && inventory.tool() == miningTool) {
@@ -3540,7 +3656,9 @@ class TerraFrame extends JApplet
                             }
                         }
                         else if (ITEMBLOCKS.get(inventory.tool()) != 0) {
-                            blockTemp = ITEMBLOCKS.get(inventory.tool());
+                            ITEMBLOCKS.get(inventory.tool()).foreach { t =>
+                                blockTemp = t
+                            };
                             if (uy >= 1 && (blocks(layer)(uy)(ux) == 0) &&
                                     (layer == 0 && (
                                     blocks(layer)(uy)(ux-1) != 0 || blocks(layer)(uy)(ux+1) != 0 ||
@@ -3562,16 +3680,20 @@ class TerraFrame extends JApplet
                                                       blockTemp == 63 && (blocks(layer)(uy+1)(ux) != 2) || // caveroot
                                                       blockTemp == 66 && (blocks(layer)(uy+1)(ux) != 1 && blocks(layer)(uy+1)(ux) != 72 && blocks(layer)(uy+1)(ux) != 73) || // skyblossom
                                                       blockTemp == 69 && (blocks(layer)(uy+1)(ux) != 2))) { // void_rot
-                                if (!(TORCHESL.get(blockTemp) != null) || uy < HEIGHT - 1 && (solid(blocks(layer)(uy+1)(ux)) && blockTemp != 127 || solid(blocks(layer)(uy)(ux+1)) || solid(blocks(layer)(uy)(ux-1)))) {
-                                    if (TORCHESL.get(blockTemp) != null) {
+                                if (TORCHESL.get(blockTemp).isEmpty || uy < HEIGHT - 1 && (solid(blocks(layer)(uy+1)(ux)) && blockTemp != 127 || solid(blocks(layer)(uy)(ux+1)) || solid(blocks(layer)(uy)(ux-1)))) {
+                                    if (TORCHESL.get(blockTemp).isDefined) {
                                         if (solid(blocks(layer)(uy+1)(ux)) && blockTemp != 127) {
                                             blockTemp = blockTemp;
                                         }
                                         else if (solid(blocks(layer)(uy)(ux-1))) {
-                                            blockTemp = TORCHESL.get(blockTemp);
+                                            TORCHESL.get(blockTemp).foreach { t =>
+                                                blockTemp = t
+                                            }
                                         }
                                         else if (solid(blocks(layer)(uy)(ux+1))) {
-                                            blockTemp = TORCHESR.get(blockTemp);
+                                            TORCHESR.get(blockTemp).foreach { t =>
+                                                blockTemp = t
+                                            }
                                         }
                                     }
                                     if (layer == 1 && !DEBUG_GPLACE && blockcds(blockTemp)) {
@@ -3649,12 +3771,16 @@ class TerraFrame extends JApplet
                                     moveNum = moveNumTemp;
                                     moveDur = moveDurTemp;
                                 }
-                                else if (moveItem == inventory.ids(uy*10+ux) && inventory.nums(uy*10+ux) < MAXSTACKS.get(inventory.ids(uy*10+ux))) {
-                                    inventory.addLocation(uy*10+ux, moveItem, 1.toShort, moveDur);
-                                    moveNum = (moveNum - 1).toShort;
-                                    if (moveNum == 0) {
-                                        moveItem = 0;
-                                        moveDur = 0;
+                                else if (moveItem == inventory.ids(uy*10+ux)) {
+                                    MAXSTACKS.get(inventory.ids(uy*10+ux)).foreach { maxstacks =>
+                                      if(inventory.nums(uy*10+ux) < maxstacks) {
+                                          inventory.addLocation(uy*10+ux, moveItem, 1.toShort, moveDur);
+                                          moveNum = (moveNum - 1).toShort;
+                                          if (moveNum == 0) {
+                                              moveItem = 0;
+                                              moveDur = 0;
+                                          }
+                                      }
                                     }
                                 }
                             }
@@ -3683,11 +3809,15 @@ class TerraFrame extends JApplet
                                     moveItem = moveItemTemp;
                                     moveNum = moveNumTemp;
                                 }
-                                else if (moveItem == cic.ids(uy*2+ux) && cic.nums(uy*2+ux) < MAXSTACKS.get(cic.ids(uy*2+ux))) {
-                                    inventory.addLocationIC(cic, uy*2+ux, moveItem, 1.toShort, moveDur);
-                                    moveNum = (moveNum - 1).toShort;
-                                    if (moveNum == 0) {
-                                        moveItem = 0;
+                                else if (moveItem == cic.ids(uy*2+ux)) {
+                                    MAXSTACKS.get(cic.ids(uy*2+ux)).foreach { maxstacks =>
+                                        if(cic.nums(uy*2+ux) < maxstacks) {
+                                            inventory.addLocationIC(cic, uy*2+ux, moveItem, 1.toShort, moveDur);
+                                            moveNum = (moveNum - 1).toShort;
+                                            if (moveNum == 0) {
+                                                moveItem = 0;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -3718,16 +3848,20 @@ class TerraFrame extends JApplet
                                             moveItem = moveItemTemp;
                                             moveNum = moveNumTemp;
                                         }
-                                        else if (moveItem == ic.ids(uy*3+ux) && ic.nums(uy*3+ux) < MAXSTACKS.get(ic.ids(uy*3+ux))) {
-                                            if (ic.ids(7) == 160 && ic.nums(7) == 51 && moveItem == 165 && uy*3+ux == 3 && ic.nums(8) == 0) {
-                                                inventory.addLocationIC(ic, 8, 154.toShort, 1.toShort);
-                                            }
-                                            else {
-                                                inventory.addLocationIC(ic, uy*3+ux, moveItem, 1.toShort, moveDur);
-                                                moveNum = (moveNum - 1).toShort;
-                                                if (moveNum == 0) {
-                                                    moveItem = 0;
-                                                }
+                                        else if (moveItem == ic.ids(uy*3+ux)) {
+                                            MAXSTACKS.get(ic.ids(uy*3+ux)).foreach { maxstacks =>
+                                              if(ic.nums(uy*3+ux) < maxstacks) {
+                                                  if (ic.ids(7) == 160 && ic.nums(7) == 51 && moveItem == 165 && uy*3+ux == 3 && ic.nums(8) == 0) {
+                                                      inventory.addLocationIC(ic, 8, 154.toShort, 1.toShort);
+                                                  }
+                                                  else {
+                                                      inventory.addLocationIC(ic, uy*3+ux, moveItem, 1.toShort, moveDur);
+                                                      moveNum = (moveNum - 1).toShort;
+                                                      if (moveNum == 0) {
+                                                          moveItem = 0;
+                                                      }
+                                                  }
+                                              }
                                             }
                                         }
                                     }
@@ -3770,12 +3904,17 @@ class TerraFrame extends JApplet
                                             moveItem = moveItemTemp;
                                             moveNum = moveNumTemp;
                                         }
-                                        else if (moveItem == ic.ids(uy*inventory.CX+ux) && ic.nums(uy*inventory.CX+ux) < MAXSTACKS.get(ic.ids(uy*inventory.CX+ux))) {
-                                            inventory.addLocationIC(ic, uy*inventory.CX+ux, moveItem, 1.toShort, moveDur);
-                                            moveNum = (moveNum - 1).toShort;
-                                            if (moveNum == 0) {
-                                                moveItem = 0;
+                                        else if (moveItem == ic.ids(uy*inventory.CX+ux)) {
+                                            MAXSTACKS.get(ic.ids(uy*inventory.CX+ux)).foreach { maxstacks =>
+                                              if(ic.nums(uy*inventory.CX+ux) < maxstacks) {
+                                                  inventory.addLocationIC(ic, uy*inventory.CX+ux, moveItem, 1.toShort, moveDur);
+                                                  moveNum = (moveNum - 1).toShort;
+                                                  if (moveNum == 0) {
+                                                      moveItem = 0;
+                                                  }
+                                              }
                                             }
+
                                         }
                                     }
                                 }
@@ -3803,11 +3942,15 @@ class TerraFrame extends JApplet
                                     moveItem = moveItemTemp;
                                     moveNum = moveNumTemp;
                                 }
-                                else if (moveItem == ic.ids(0) && ic.nums(0) < MAXSTACKS.get(ic.ids(0))) {
-                                    inventory.addLocationIC(ic, 0, moveItem, 1.toShort, moveDur);
-                                    moveNum = (moveNum - 1).toShort;
-                                    if (moveNum == 0) {
-                                        moveItem = 0;
+                                else if (moveItem == ic.ids(0)) {
+                                    MAXSTACKS.get(ic.ids(0)).foreach { maxstacks =>
+                                        if(ic.nums(0) < maxstacks) {
+                                            inventory.addLocationIC(ic, 0, moveItem, 1.toShort, moveDur);
+                                            moveNum = (moveNum - 1).toShort;
+                                            if (moveNum == 0) {
+                                                moveItem = 0;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -3832,11 +3975,15 @@ class TerraFrame extends JApplet
                                     moveItem = moveItemTemp;
                                     moveNum = moveNumTemp;
                                 }
-                                else if (moveItem == ic.ids(2) && ic.nums(2) < MAXSTACKS.get(ic.ids(2))) {
-                                    inventory.addLocationIC(ic, 2, moveItem, 1.toShort, moveDur);
-                                    moveNum = (moveNum - 1).toShort;
-                                    if (moveNum == 0) {
-                                        moveItem = 0;
+                                else if (moveItem == ic.ids(2)) {
+                                    MAXSTACKS.get(ic.ids(2)).foreach { maxstacks =>
+                                        if(ic.nums(2) < maxstacks) {
+                                            inventory.addLocationIC(ic, 2, moveItem, 1.toShort, moveDur);
+                                            moveNum = (moveNum - 1).toShort;
+                                            if (moveNum == 0) {
+                                                moveItem = 0;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -3862,11 +4009,11 @@ class TerraFrame extends JApplet
             if (checkBlocks) {
                 if (!(mousePos2(0) < 0 || mousePos2(0) >= WIDTH*BLOCKSIZE ||
                       mousePos2(1) < 0 || mousePos2(1) >= HEIGHT*BLOCKSIZE)) {
-                    ux = (mousePos2(0)/BLOCKSIZE).toInt;
-                    uy = (mousePos2(1)/BLOCKSIZE).toInt;
+                    ux = (mousePos2(0)/BLOCKSIZE);
+                    uy = (mousePos2(1)/BLOCKSIZE);
                     if (DEBUG_REACH || Math.sqrt(Math.pow(player.x+player.image.getWidth()-ux*BLOCKSIZE+BLOCKSIZE/2, 2) + Math.pow(player.y+player.image.getHeight()-uy*BLOCKSIZE+BLOCKSIZE/2, 2)) <= 160) {
-                        ucx = ux - CHUNKBLOCKS * ((ux/CHUNKBLOCKS).toInt);
-                        ucy = uy - CHUNKBLOCKS * ((uy/CHUNKBLOCKS).toInt);
+                        ucx = ux - CHUNKBLOCKS * ((ux/CHUNKBLOCKS));
+                        ucy = uy - CHUNKBLOCKS * ((uy/CHUNKBLOCKS));
                         if (blocks(layer)(uy)(ux) >= 8 && blocks(layer)(uy)(ux) <= 14 || blocks(layer)(uy)(ux) == 17 || blocks(layer)(uy)(ux) == 23 || blocks(layer)(uy)(ux) >= 80 && blocks(layer)(uy)(ux) <= 82) {
                             if (ic != null) {
                                 if (!ic.`type`.equals("workbench")) {
@@ -4324,15 +4471,15 @@ class TerraFrame extends JApplet
             }
             (entities.size()-1 to(0, -1)).foreach { i =>
                 if (entities.get(i).name != null && !entities.get(i).nohit && showTool && (entities.get(i).rect.contains(tp1) || entities.get(i).rect.contains(tp2) || entities.get(i).rect.contains(tp3) || entities.get(i).rect.contains(tp4) || entities.get(i).rect.contains(tp5)) && (!entities.get(i).name.equals("bee") || random.nextInt(4) == 0)) {
-                    if (entities.get(i).hit(TOOLDAMAGE.get(inventory.tool()), player)) {
-                        val dropList: ArrayList[Short] = entities.get(i).drops();
+                    if (TOOLDAMAGE.get(inventory.tool()).exists(t => entities.get(i).hit(t, player))) {
+                        val dropList: jul.List[Short] = entities.get(i).drops();
                         (0 until dropList.size()).foreach { j =>
                             s = dropList.get(j);
                             entities.add(new Entity(entities.get(i).x, entities.get(i).y, random.nextInt(4)-2, -1, s, 1.toShort));
                         }
                         entities.remove(i);
                     }
-                    if (!Arrays.asList(toolList).contains(inventory.ids(inventory.selection))) {
+                    if (!jul.Arrays.asList(toolList).contains(inventory.ids(inventory.selection))) {
                         inventory.durs(inventory.selection) = (inventory.durs(inventory.selection) - 1).toShort;
                     }
                     else {
@@ -4532,9 +4679,12 @@ class TerraFrame extends JApplet
                     }
                 }
             }
-            if (blocks(layer)(uy)(ux) != 0 && BLOCKDROPS.get(blocks(layer)(uy)(ux)) != 0) {
-                entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, BLOCKDROPS.get(blocks(layer)(uy)(ux)), 1.toShort));
+            BLOCKDROPS.get(blocks(layer)(uy)(ux)).foreach { blockdrops =>
+                if (blocks(layer)(uy)(ux) != 0 && blockdrops != 0) {
+                    entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, blockdrops, 1.toShort));
+                }
             }
+
             t = 0;
             blocks(layer)(uy)(ux) match {
                 case 48 => t = 77; n = random.nextInt(4)-2; 
@@ -4631,46 +4781,65 @@ class TerraFrame extends JApplet
             import scala.util.control.Breaks._
             breakable {
                 while (true) {
-                    if (TORCHESR.get(ITEMBLOCKS.get(BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)))) != null && TORCHESR.get(ITEMBLOCKS.get(BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)))) == blocks(layer)(uy)(ux - 1) || BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)) != null && (BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)) == 178 || BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)) == 182)) {
-                        entities.add(new Entity((ux - 1) * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)), 1.toShort));
-                        removeBlockLighting(ux - 1, uy);
-                        if (layer == 1) {
-                            addSunLighting(ux - 1, uy);
+                    BLOCKDROPS.get(blocks(layer)(uy)(ux - 1)).foreach { blockdrop =>
+                        val isTorch =  for {
+                            itemblock <- ITEMBLOCKS.get(blockdrop)
+                            torch <- TORCHESR.get(itemblock)
+                        } yield torch == blocks(layer)(uy)(ux - 1)
+                        if (isTorch.exists(identity) || blockdrop == 178 || blockdrop == 182) {
+                            entities.add(new Entity((ux - 1) * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, blockdrop, 1.toShort));
+                            removeBlockLighting(ux - 1, uy);
+                            if (layer == 1) {
+                                addSunLighting(ux - 1, uy);
+                            }
+                            blockTemp = blocks(layer)(uy)(ux - 1);
+                            blocks(layer)(uy)(ux - 1) = 0;
+                            if (blockTemp >= 94 && blockTemp <= 99) {
+                                redoBlockPower(ux, uy, layer);
+                            }
+                            if (powers(blockTemp)) {
+                                removeBlockPower(ux, uy, layer);
+                            }
+                            drawn(uy)(ux - 1) = false;
                         }
-                        blockTemp = blocks(layer)(uy)(ux - 1);
-                        blocks(layer)(uy)(ux - 1) = 0;
-                        if (blockTemp >= 94 && blockTemp <= 99) {
-                            redoBlockPower(ux, uy, layer);
-                        }
-                        if (powers(blockTemp)) {
-                            removeBlockPower(ux, uy, layer);
-                        }
-                        drawn(uy)(ux - 1) = false;
                     }
-                    if (TORCHESL.get(ITEMBLOCKS.get(BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)))) != null && TORCHESL.get(ITEMBLOCKS.get(BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)))) == blocks(layer)(uy)(ux + 1) || BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)) != null && (BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)) == 178 || BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)) == 182)) {
-                        entities.add(new Entity((ux + 1) * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)), 1.toShort));
-                        removeBlockLighting(ux + 1, uy);
-                        if (layer == 1) {
-                            addSunLighting(ux + 1, uy);
+
+                    BLOCKDROPS.get(blocks(layer)(uy)(ux + 1)).foreach { blockdrop =>
+                        val isTorch =  for {
+                            itemblock <- ITEMBLOCKS.get(blockdrop)
+                            torch <- TORCHESR.get(itemblock)
+                        } yield torch == blocks(layer)(uy)(ux + 1)
+
+                        if (isTorch.exists(identity) || blockdrop == 178 || blockdrop == 182) {
+                            entities.add(new Entity((ux + 1) * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, blockdrop, 1.toShort));
+                            removeBlockLighting(ux + 1, uy);
+                            if (layer == 1) {
+                                addSunLighting(ux + 1, uy);
+                            }
+                            blockTemp = blocks(layer)(uy)(ux + 1);
+                            blocks(layer)(uy)(ux + 1) = 0;
+                            if (blockTemp >= 94 && blockTemp <= 99) {
+                                redoBlockPower(ux, uy, layer);
+                            }
+                            if (powers(blockTemp)) {
+                                removeBlockPower(ux, uy, layer);
+                            }
+                            drawn(uy)(ux + 1) = false;
                         }
-                        blockTemp = blocks(layer)(uy)(ux + 1);
-                        blocks(layer)(uy)(ux + 1) = 0;
-                        if (blockTemp >= 94 && blockTemp <= 99) {
-                            redoBlockPower(ux, uy, layer);
-                        }
-                        if (powers(blockTemp)) {
-                            removeBlockPower(ux, uy, layer);
-                        }
-                        drawn(uy)(ux + 1) = false;
                     }
+
                     uy -= 1;
-                    if (uy == -1 || !GSUPPORT.get(blocks(layer)(uy)(ux))) {
+                    val notSupported = GSUPPORT.get(blocks(layer)(uy)(ux)).fold(false)( b => !b)
+                    if (uy == -1 || notSupported) {
                         addSunLighting(ux, uy);
                         break;
                     }
-                    if (BLOCKDROPS.get(blocks(layer)(uy)(ux)) != 0) {
-                        entities.add(new Entity(ux * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, BLOCKDROPS.get(blocks(layer)(uy)(ux)), 1.toShort));
+                    BLOCKDROPS.get(blocks(layer)(uy)(ux)).foreach { blockdrop =>
+                        if (blockdrop != 0) {
+                            entities.add(new Entity(ux * BLOCKSIZE, uy * BLOCKSIZE, random.nextDouble() * 4 - 2, -2, blockdrop, 1.toShort));
+                        }
                     }
+
                     t = 0;
                     blocks(layer)(uy)(ux) match {
                         case 48 => t = 77; n = random.nextInt(4) - 2;
@@ -4811,7 +4980,7 @@ class TerraFrame extends JApplet
                 println("Whaaat?");
                 updatex.add(ux);
                 updatey.add(uy);
-                updatet.add(DDELAY.get(blocks(1)(uy)(ux)));
+                DDELAY.get(blocks(1)(uy)(ux)).foreach(updatet.add)
                 updatel.add(1);
             }
             else {
@@ -4833,7 +5002,7 @@ class TerraFrame extends JApplet
                 println("Whaaat?");
                 updatex.add(ux);
                 updatey.add(uy);
-                updatet.add(DDELAY.get(blocks(0)(uy)(ux)));
+                DDELAY.get(blocks(0)(uy)(ux)).foreach(updatet.add)
                 updatel.add(0);
             }
             else {
@@ -4855,7 +5024,7 @@ class TerraFrame extends JApplet
                 println("Whaaat?");
                 updatex.add(ux);
                 updatey.add(uy);
-                updatet.add(DDELAY.get(blocks(2)(uy)(ux)));
+                DDELAY.get(blocks(2)(uy)(ux)).foreach(updatet.add)
                 updatel.add(2);
             }
             else {
@@ -5177,7 +5346,7 @@ class TerraFrame extends JApplet
             println("???");
             updatex.add(ux);
             updatey.add(uy);
-            updatet.add(DDELAY.get(blocks(lyr)(uy)(ux)));
+            DDELAY.get(blocks(lyr)(uy)(ux)).foreach(updatet.add)
             updatel.add(lyr);
         }
         if (!((blocks(lyr)(uy)(ux) >= 141 && blocks(lyr)(uy)(ux) <= 144 || blocks(lyr)(uy)(ux) >= 149 && blocks(lyr)(uy)(ux) <= 152 || blocks(lyr)(uy)(ux) >= 157 && blocks(lyr)(uy)(ux) <= 160 || blocks(lyr)(uy)(ux) >= 165 && blocks(lyr)(uy)(ux) <= 168) && turnOffDelayer)) {
@@ -5300,9 +5469,9 @@ class TerraFrame extends JApplet
 
     def findBlockLightSource(ux: Int, uy: Int): Int = {
         n = 0;
-        if (blocks(0)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(0)(uy)(ux)), n);
-        if (blocks(1)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(1)(uy)(ux)), n);
-        if (blocks(2)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(2)(uy)(ux)), n);
+        if (blocks(0)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(0)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
+        if (blocks(1)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(1)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
+        if (blocks(2)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(2)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
         return n;
     }
 
@@ -5312,9 +5481,9 @@ class TerraFrame extends JApplet
 
     def findNonLayeredBlockLightSource(ux: Int, uy: Int, layer: Int): Int = {
         n = 0;
-        if (blocks(0)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(0)(uy)(ux)), n);
-        if (blocks(1)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(1)(uy)(ux)), n);
-        if (blocks(2)(uy)(ux) != 0) n = Math.max(BLOCKLIGHTS.get(blocks(2)(uy)(ux)), n);
+        if (blocks(0)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(0)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
+        if (blocks(1)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(1)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
+        if (blocks(2)(uy)(ux) != 0) n = BLOCKLIGHTS.get(blocks(2)(uy)(ux)).map(Math.max(_, n)).getOrElse(0);
         return n;
     }
 
@@ -5479,7 +5648,7 @@ class TerraFrame extends JApplet
                                             println("(DEBUG1)");
                                             updatex.add(x2);
                                             updatey.add(y2);
-                                            updatet.add(DDELAY.get(blocks(l)(y2)(x2)));
+                                            DDELAY.get(blocks(l)(y2)(x2)).foreach(updatet.add);
                                             updatel.add(l);
                                         }
                                         else {
@@ -5557,7 +5726,9 @@ class TerraFrame extends JApplet
             (0 until 3).foreach { l =>
                 if (blocks(l)(y)(x) >= 94 && blocks(l)(y)(x) <= 99 && power(l)(y)(x).toInt != pzqn(l)(y)(x)) {
                     removeBlockLighting(x, y, 0);
-                    blocks(l)(y)(x) = WIREP.get(power(l)(y)(x).toInt);
+                    WIREP.get(power(l)(y)(x).toInt).foreach { w =>
+                        blocks(l)(y)(x) = w
+                    }
                     addBlockLighting(x, y);
                     rdrawn(y)(x) = false;
                 }
@@ -5757,12 +5928,14 @@ class TerraFrame extends JApplet
             }
 
             if (moveItem != 0) {
-                width = itemImgs.get(moveItem).getWidth();
-                height = itemImgs.get(moveItem).getHeight();
-                pg2.drawImage(itemImgs.get(moveItem),
-                    mousePos(0) + 12 + ((24 - 12.toDouble / max(width, height, 12) * width * 2) / 2).toInt, mousePos(1) + 12 + ((24 - 12.toDouble / max(width, height, 12) * height * 2) / 2).toInt, mousePos(0) + 36 - ((24 - 12.toDouble / max(width, height, 12) * width * 2) / 2).toInt, mousePos(1) + 36 - ((24 - 12.toDouble / max(width, height, 12) * height * 2) / 2).toInt,
-                    0, 0, width, height,
-                    null);
+                itemImgs.get(moveItem).foreach { i =>
+                    width = i.getWidth
+                    height = i.getHeight
+                    pg2.drawImage(i, mousePos(0) + 12 + ((24 - 12.toDouble / max(width, height, 12) * width * 2) / 2).toInt, mousePos(1) + 12 + ((24 - 12.toDouble / max(width, height, 12) * height * 2) / 2).toInt, mousePos(0) + 36 - ((24 - 12.toDouble / max(width, height, 12) * width * 2) / 2).toInt, mousePos(1) + 36 - ((24 - 12.toDouble / max(width, height, 12) * height * 2) / 2).toInt,
+                        0, 0, width, height,
+                        null);
+                }
+
                 if (moveNum > 1) {
                     pg2.setFont(font);
                     pg2.setColor(Color.WHITE);
@@ -5819,11 +5992,10 @@ class TerraFrame extends JApplet
                             mousePos(1) >= uy*40+52 && mousePos(1) < uy*40+92 && cic.ids(uy*2+ux) != 0) {
                             pg2.setFont(mobFont);
                             pg2.setColor(Color.WHITE);
-                            if (TOOLDURS.get(cic.ids(uy*2+ux).toShort) != null) {
-                                pg2.drawString(UIBLOCKS.get(items(cic.ids(uy*2+ux))) + " (" + (cic.durs(uy*2+ux).toDouble/TOOLDURS.get(cic.ids(uy*2+ux))*100).toInt + "%)", mousePos(0), mousePos(1));
-                            }
-                            else {
-                                pg2.drawString(UIBLOCKS.get(items(cic.ids(uy*2+ux))), mousePos(0), mousePos(1));
+                            TOOLDURS.get(cic.ids(uy*2+ux)).fold {
+                                UIBLOCKS.get(items(cic.ids(uy*2+ux))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                            } { t =>
+                                UIBLOCKS.get(items(cic.ids(uy*2+ux))).foreach( u => pg2.drawString(u + " (" + (cic.durs(uy*2+ux).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                             }
                         }
                     }
@@ -5833,24 +6005,25 @@ class TerraFrame extends JApplet
                     mousePos(1) >= 20+52 && mousePos(1) < 20+92 && cic.ids(4) != 0) {
                     pg2.setFont(mobFont);
                     pg2.setColor(Color.WHITE);
-                    if (TOOLDURS.get(cic.ids(4).toShort) != null) {
-                        pg2.drawString(UIBLOCKS.get(items(cic.ids(4))) + " (" + (cic.durs(4).toDouble/TOOLDURS.get(cic.ids(4))*100).toInt + "%)", mousePos(0), mousePos(1));
+                    TOOLDURS.get(cic.ids(4)).fold {
+                        UIBLOCKS.get(items(cic.ids(4))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                    } { t =>
+                        UIBLOCKS.get(items(cic.ids(4))).foreach( u => pg2.drawString(u + " (" + (cic.durs(4).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                     }
-                    else {
-                        pg2.drawString(UIBLOCKS.get(items(cic.ids(4))), mousePos(0), mousePos(1));
-                    }
+
                 }
                 (0 until 4).foreach { uy =>
                     if (mousePos(0) >= inventory.image.getWidth() + 6 && mousePos(0) < inventory.image.getWidth() + 6 + armor.image.getWidth() &&
                         mousePos(1) >= 6 + uy*46 && mousePos(1) < 6 + uy*46+46 && armor.ids(uy) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(armor.ids(uy).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(armor.ids(uy))) + " (" + (armor.durs(uy).toDouble/TOOLDURS.get(armor.ids(uy))*100).toInt + "%)", mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(armor.ids(uy)).fold {
+                            UIBLOCKS.get(items(armor.ids(uy))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(armor.ids(uy))).foreach( u => pg2.drawString(u + " (" + (armor.durs(uy).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                         }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(armor.ids(uy))), mousePos(0), mousePos(1));
-                        }
+
                     }
                 }
             }
@@ -5879,11 +6052,11 @@ class TerraFrame extends JApplet
                         ic.ids(9) != 0) {
                         pg2.setFont(mobFont);
                         pg2.setColor(Color.WHITE);
-                        if (TOOLDURS.get(ic.ids(9).toShort) != null) {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(9))) + " (" + (ic.durs(9).toDouble/TOOLDURS.get(ic.ids(9))*100).toInt + "%)", mousePos(0), mousePos(1));
-                        }
-                        else {
-                            pg2.drawString(UIBLOCKS.get(items(ic.ids(9))), mousePos(0), mousePos(1));
+
+                        TOOLDURS.get(ic.ids(9)).fold {
+                            UIBLOCKS.get(items(ic.ids(9))).foreach(pg2.drawString(_, mousePos(0), mousePos(1)));
+                        } { t =>
+                            UIBLOCKS.get(items(ic.ids(9))).foreach( u => pg2.drawString(u + " (" + (ic.durs(9).toDouble/t*100).toInt + "%)", mousePos(0), mousePos(1)));
                         }
                     }
                 }
