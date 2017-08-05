@@ -1918,7 +1918,7 @@ class TerraFrame extends JApplet
             TORCHESL = torcheslTemp.asScala.toMap
             
 
-            var torchesrTemp = new jul.HashMap[Int,Int]();
+            val torchesrTemp = new jul.HashMap[Int,Int]();
 
             torchesrTemp.put(20, 25);
             torchesrTemp.put(21, 27);
@@ -3680,7 +3680,7 @@ class TerraFrame extends JApplet
                                 }
                             }
                         }
-                        else if (ITEMBLOCKS.get(inventory.tool()) != 0) {
+                        else if (ITEMBLOCKS.get(inventory.tool()).exists(_ != 0)) {
                             ITEMBLOCKS.get(inventory.tool()).foreach { t =>
                                 blockTemp = t
                             };
@@ -4580,9 +4580,9 @@ class TerraFrame extends JApplet
     }
 
     def empty(x: Int, y: Int): Boolean = {
-        return ((blocks(0)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(0)(y)(x)) == 0) &&
-                (blocks(1)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(1)(y)(x)) == 0) &&
-                (blocks(2)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(2)(y)(x)) == 0));
+        return ((blocks(0)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(0)(y)(x)).fold(true)(_ == 0)) &&
+                (blocks(1)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(1)(y)(x)).fold(true)(_ == 0)) &&
+                (blocks(2)(y)(x) == 0 || BLOCKLIGHTS.get(blocks(2)(y)(x)).fold(true)(_ == 0)));
     }
 
     def checkBiome(x: Int, y: Int): String = {
@@ -5477,9 +5477,9 @@ class TerraFrame extends JApplet
     }
 
     def isBlockLightSource(ux: Int, uy: Int): Boolean = {
-        return (blocks(0)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(0)(uy)(ux)) != 0 ||
-                blocks(1)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(1)(uy)(ux)) != 0 ||
-                blocks(2)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(2)(uy)(ux)) != 0);
+        return (blocks(0)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(0)(uy)(ux)).exists(_ != 0) ||
+                blocks(1)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(1)(uy)(ux)).exists(_ != 0) ||
+                blocks(2)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(2)(uy)(ux)).exists(_ != 0));
     }
 
     def isNonLayeredBlockLightSource(ux: Int, uy: Int): Boolean = {
@@ -5487,9 +5487,9 @@ class TerraFrame extends JApplet
     }
 
     def isNonLayeredBlockLightSource(ux: Int, uy: Int, layer: Int): Boolean = {
-        return (layer != 0 && blocks(0)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(0)(uy)(ux)) != 0 ||
-                layer != 1 && blocks(1)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(1)(uy)(ux)) != 0 ||
-                layer != 2 && blocks(2)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(2)(uy)(ux)) != 0);
+        return (layer != 0 && blocks(0)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(0)(uy)(ux)).exists(_ != 0) ||
+                layer != 1 && blocks(1)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(1)(uy)(ux)).exists(_ != 0) ||
+                layer != 2 && blocks(2)(uy)(ux) != 0 && BLOCKLIGHTS.get(blocks(2)(uy)(ux)).exists(_ != 0));
     }
 
     def findBlockLightSource(ux: Int, uy: Int): Int = {
