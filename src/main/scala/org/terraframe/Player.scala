@@ -6,10 +6,10 @@ import java.io._
 import Images.loadImage
 
 object Player {
-    val BLOCKSIZE: Int = TerraFrame.getBLOCKSIZE()
+    val BLOCKSIZE: Int = TerraFrame.BLOCKSIZE
 
-    val width = TerraFrame.getPLAYERSIZEX()
-    val height = TerraFrame.getPLAYERSIZEY()
+    val width = TerraFrame.PLAYERSIZEX
+    val height = TerraFrame.PLAYERSIZEY
 
 }
 
@@ -56,8 +56,8 @@ case class Player(var x: Double, var y: Double) extends Serializable {
     //end constructor
 
     def update(blocks: Array2D[Int], queue: Array[Boolean], u: Int, v: Int): Unit = {
-        grounded = (onGround || onGroundDelay)
-        if (queue(0) == true) {
+        grounded = onGround || onGroundDelay
+        if (queue(0)) {
             if (vx > -4 || TerraFrame.DEBUG_SPEED) {
                 vx = vx - 0.5
             }
@@ -85,7 +85,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
                 imgDelay = imgDelay - 1
             }
         }
-        if (queue(1) == true) {
+        if (queue(1)) {
             if (vx < 4 || TerraFrame.DEBUG_SPEED) {
                 vx = vx + 0.5
             }
@@ -113,19 +113,19 @@ case class Player(var x: Double, var y: Double) extends Serializable {
                 imgDelay = imgDelay - 1
             }
         }
-        if (queue(2) == true) {
+        if (queue(2)) {
             if (TerraFrame.DEBUG_FLIGHT) {
                 vy -= 1
                 pvy -= 1
             }
             else {
-                if (onGround == true) {
+                if (onGround) {
                     vy = -7
                     pvy = -7
                 }
             }
         }
-        if (queue(6) == true) {
+        if (queue(6)) {
             if (TerraFrame.DEBUG_FLIGHT) {
                 vy += 1
                 pvy += 1
@@ -196,7 +196,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
                 (bx1 to bx2).foreach { i =>
                     (by1 to by2).foreach { j =>
-                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
+                        if (blocks(j+v)(i+u) != 0 && TerraFrame.BLOCKCD.get(blocks(j+v)(i+u)).exists(identity)) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldx <= i*16 - width && vx > 0) {
                                     x = i*16 - width
@@ -234,7 +234,7 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
                 (bx1 to bx2).foreach { i =>
                     (by1 to by2).foreach { j =>
-                        if (blocks(j+v)(i+u) != 0 && TerraFrame.getBLOCKCD().get(blocks(j+v)(i+u)).exists(identity)) {
+                        if (blocks(j+v)(i+u) != 0 && TerraFrame.BLOCKCD.get(blocks(j+v)(i+u)).exists(identity)) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldy <= j*16 - height && vy > 0) {
                                     y = j*16 - height
@@ -310,10 +310,10 @@ case class Player(var x: Double, var y: Double) extends Serializable {
 
     def sumArmor(): Int = {
         val s = for {
-            armor0 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(0))
-            armor1 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(1))
-            armor2 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(2))
-            armor3 <- TerraFrame.getARMOR().get(TerraFrame.armor.ids(3))
+            armor0 <- TerraFrame.ARMOR.get(TerraFrame.armor.ids(0))
+            armor1 <- TerraFrame.ARMOR.get(TerraFrame.armor.ids(1))
+            armor2 <- TerraFrame.ARMOR.get(TerraFrame.armor.ids(2))
+            armor3 <- TerraFrame.ARMOR.get(TerraFrame.armor.ids(3))
         } yield armor0 + armor1 + armor2 + armor3
         s.getOrElse(0)
     }

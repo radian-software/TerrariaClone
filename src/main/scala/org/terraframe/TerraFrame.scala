@@ -612,54 +612,6 @@ object TerraFrame {
           blocks(y + 1)(x + 1) == 0 || !blockcds(blocks(y + 1)(x + 1))
     }
 
-    def getBLOCKSIZE(): Int = {
-        return BLOCKSIZE
-    }
-
-    def getIMAGESIZE(): Int = {
-        return IMAGESIZE
-    }
-
-    def getPLAYERSIZEX(): Int = {
-        return PLAYERSIZEX
-    }
-
-    def getPLAYERSIZEY(): Int = {
-        return PLAYERSIZEY
-    }
-
-    def getBLOCKCDS(): Array[Boolean] = {
-        return blockcds
-    }
-
-    def getBLOCKCD() : Map[Int,Boolean] = {
-        return BLOCKCD
-    }
-
-    def getTOOLDURS(): Map[Short,Short] = {
-        return TOOLDURS
-    }
-
-    def getMAXSTACKS(): Map[Short,Short] = {
-        return MAXSTACKS
-    }
-
-    def getRandom(): jul.Random = {
-        return random
-    }
-
-    def getItemImgs(): Map[Short,BufferedImage] = {
-        return itemImgs
-    }
-
-    def getItems(): Array[String] = {
-        return items
-    }
-
-    def getARMOR(): Map[Short,Int] = {
-        return ARMOR
-    }
-
     def postError(e: Throwable): Unit = {
         val sb = new StringBuilder()
         sb.append("Exception in thread " + e.getClass().getName())

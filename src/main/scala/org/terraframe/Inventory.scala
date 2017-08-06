@@ -850,7 +850,7 @@ class Inventory extends Serializable {
 
     def addItem(item: Short, quantity: Short): Int = {
 
-        TerraFrame.getTOOLDURS().get(item).fold {
+        TerraFrame.TOOLDURS.get(item).fold {
             addItem(item, quantity, 0.toShort)
         } { t =>
             addItem(item, quantity, t)
@@ -860,14 +860,14 @@ class Inventory extends Serializable {
     def addItem(item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         (0 until 40).foreach { i =>
-            if (ids(i) == item && TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => nums(i) < maxstacks)) {
-                if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
+            if (ids(i) == item && TerraFrame.MAXSTACKS.get(ids(i)).exists(maxstacks => nums(i) < maxstacks)) {
+                if (TerraFrame.MAXSTACKS.get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
                     nums(i) = (nums(i) + updatedQuantity).toShort
                     update(i)
                     return 0
                 }
                 else {
-                    TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                    TerraFrame.MAXSTACKS.get(ids(i)).foreach { maxstacks =>
                         updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort
                         nums(i) = maxstacks
                     }
@@ -879,14 +879,14 @@ class Inventory extends Serializable {
         (0 until 40).foreach { i =>
             if (ids(i) == 0) {
                 ids(i) = item
-                if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
+                if (TerraFrame.MAXSTACKS.get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
                     nums(i) = updatedQuantity
                     durs(i) = durability
                     update(i)
                     return 0
                 }
                 else {
-                    TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                    TerraFrame.MAXSTACKS.get(ids(i)).foreach { maxstacks =>
                         nums(i) = maxstacks
                         updatedQuantity = (updatedQuantity - maxstacks).toShort
                     }
@@ -923,13 +923,13 @@ class Inventory extends Serializable {
     def addLocation(i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ids(i) == item) {
-            if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
+            if (TerraFrame.MAXSTACKS.get(ids(i)).exists(maxstacks => maxstacks - nums(i) >= updatedQuantity)) {
                 nums(i) = (nums(i) + updatedQuantity).toShort
                 update(i)
                 return 0
             }
             else {
-                TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                TerraFrame.MAXSTACKS.get(ids(i)).foreach { maxstacks =>
                     updatedQuantity = (updatedQuantity - maxstacks - nums(i)).toShort
                     nums(i) = maxstacks
                 }
@@ -938,7 +938,7 @@ class Inventory extends Serializable {
             }
         }
         else {
-            if (TerraFrame.getMAXSTACKS().get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks )) {
+            if (TerraFrame.MAXSTACKS.get(ids(i)).exists(maxstacks => updatedQuantity <= maxstacks )) {
                 ids(i) = item
                 nums(i) = updatedQuantity
                 durs(i) = durability
@@ -946,7 +946,7 @@ class Inventory extends Serializable {
                 return 0
             }
             else {
-                TerraFrame.getMAXSTACKS().get(ids(i)).foreach { maxstacks =>
+                TerraFrame.MAXSTACKS.get(ids(i)).foreach { maxstacks =>
                     updatedQuantity = (updatedQuantity - maxstacks).toShort
                 }
                 return updatedQuantity
@@ -1042,7 +1042,7 @@ class Inventory extends Serializable {
             }
         }
         if (ids(i) != 0) {
-            TerraFrame.getItemImgs().get(ids(i)).foreach { itemImg =>
+            TerraFrame.itemImgs.get(ids(i)).foreach { itemImg =>
                 width = itemImg.getWidth()
                 height = itemImg.getHeight()
                 g2.drawImage(itemImg,
@@ -1083,7 +1083,7 @@ class Inventory extends Serializable {
     }
 
     def tool(): Short = {
-        return ids(selection)
+        ids(selection)
     }
 
     def renderCollection(ic: ItemCollection): Unit = {
@@ -1214,13 +1214,13 @@ class Inventory extends Serializable {
     }
 
     def addLocationIC(ic: ItemCollection, i: Int, item: Short, quantity: Short): Int = {
-        return addLocationIC(ic, i, item, quantity, 0.toShort)
+        addLocationIC(ic, i, item, quantity, 0.toShort)
     }
 
     def addLocationIC(ic: ItemCollection, i: Int, item: Short, quantity: Short, durability: Short): Int = {
         var updatedQuantity: Short = quantity
         if (ic.ids(i) == item) {
-            if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => maxstacks - ic.nums(i) >= updatedQuantity)) {
+            if (TerraFrame.MAXSTACKS.get(ic.ids(i)).exists(maxstacks => maxstacks - ic.nums(i) >= updatedQuantity)) {
                 ic.nums(i) = (ic.nums(i) + updatedQuantity).toShort
                 if (ic.image != null) {
                     updateIC(ic, i)
@@ -1228,7 +1228,7 @@ class Inventory extends Serializable {
                 return 0
             }
             else {
-                TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
+                TerraFrame.MAXSTACKS.get(ic.ids(i)).foreach { maxstacks =>
                     updatedQuantity = (updatedQuantity - maxstacks - ic.nums(i)).toShort
                     ic.nums(i) = maxstacks
                 }
@@ -1239,7 +1239,7 @@ class Inventory extends Serializable {
             }
         }
         else {
-            if (TerraFrame.getMAXSTACKS().get(ic.ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
+            if (TerraFrame.MAXSTACKS.get(ic.ids(i)).exists(maxstacks => updatedQuantity <= maxstacks)) {
                 ic.ids(i) = item
                 ic.nums(i) = updatedQuantity
                 ic.durs(i) = durability
@@ -1249,13 +1249,12 @@ class Inventory extends Serializable {
                 return 0
             }
             else {
-                TerraFrame.getMAXSTACKS().get(ic.ids(i)).foreach { maxstacks =>
+                TerraFrame.MAXSTACKS.get(ic.ids(i)).foreach { maxstacks =>
                     updatedQuantity = (updatedQuantity - maxstacks).toShort
                 }
-                return updatedQuantity
             }
         }
-        return updatedQuantity
+        updatedQuantity
     }
 
     def removeLocationIC(ic: ItemCollection, i: Int, quantity: Short): Int = {
@@ -1278,7 +1277,7 @@ class Inventory extends Serializable {
                 updateIC(ic, i)
             }
         }
-        return updatedQuantity
+        updatedQuantity
     }
 
     def updateIC(ic: ItemCollection, i: Int): Unit = {
@@ -1296,7 +1295,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(i) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(i)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1311,7 +1310,6 @@ class Inventory extends Serializable {
                     g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34)
                 }
             }
-            ic.ids(4) = 0
             ic.ids(4) = 0
             import scala.util.control.Breaks._
             breakable {
@@ -1329,14 +1327,14 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(4) = r2(4)
                         ic.nums(4) = r2(5)
-                        TerraFrame.getTOOLDURS().get(r2(4)).foreach { d =>
+                        TerraFrame.TOOLDURS.get(r2(4)).foreach { d =>
                             ic.durs(4) = d
                         }
                         break
                     }
                 }
             }
-            val r3: ArrayList[Short] = new ArrayList[Short](6)
+            val r3 = new ArrayList[Short](6)
             breakable {
                 RECIPES.get("shapeless_cic").foreach { r2 =>
                     valid = true
@@ -1359,7 +1357,7 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(4) = r2(r2.length - 2)
                         ic.nums(4) = r2(r2.length - 1)
-                        TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
+                        TerraFrame.TOOLDURS.get(r2(r2.length - 2)).foreach { d =>
                             ic.durs(4) = d
                         }
 
@@ -1378,7 +1376,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(4) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(4)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(4)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1409,7 +1407,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(i) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(i)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1440,7 +1438,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(i) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(i)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1455,7 +1453,6 @@ class Inventory extends Serializable {
                     g2.drawString(ic.nums(i) + " ", px*40+9, py*40+34)
                 }
             }
-            ic.ids(9) = 0
             ic.ids(9) = 0
             import scala.util.control.Breaks._
             breakable {
@@ -1472,14 +1469,14 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(9) = r2(9)
                         ic.nums(9) = r2(10)
-                        TerraFrame.getTOOLDURS().get(r2(9)).foreach { d =>
+                        TerraFrame.TOOLDURS.get(r2(9)).foreach { d =>
                             ic.durs(9) = d
                         }
                         break
                     }
                 }
             }
-            val r3: ArrayList[Short] = new ArrayList[Short](11)
+            val r3 = new ArrayList[Short](11)
             breakable {
                 RECIPES.get("shapeless").foreach { r2 =>
                     valid = true
@@ -1502,7 +1499,7 @@ class Inventory extends Serializable {
                     if (valid) {
                         ic.ids(9) = r2(r2.length - 2)
                         ic.nums(9) = r2(r2.length - 1)
-                        TerraFrame.getTOOLDURS().get(r2(r2.length - 2)).foreach { d =>
+                        TerraFrame.TOOLDURS.get(r2(r2.length - 2)).foreach { d =>
                             ic.durs(9) = d
                         }
                         break
@@ -1520,7 +1517,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(9) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(9)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(9)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1542,7 +1539,7 @@ class Inventory extends Serializable {
             ic.`type`.equals("silver_chest") || ic.`type`.equals("gold_chest") ||
             ic.`type`.equals("zinc_chest") || ic.`type`.equals("rhymestone_chest") ||
             ic.`type`.equals("obdurite_chest")) {
-            py = (i/CX)
+            py = i / CX
             px = i-(py*CX)
             (px*46 until px*46+40).foreach { x =>
                 (py*46 until py*46+40).foreach { y =>
@@ -1555,7 +1552,7 @@ class Inventory extends Serializable {
                 0, 0, 40, 40,
                 null)
             if (ic.ids(i) != 0) {
-                TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                TerraFrame.itemImgs.get(ic.ids(i)).foreach { itemImg =>
                     width = itemImg.getWidth()
                     height = itemImg.getHeight()
                     g2.drawImage(itemImg,
@@ -1619,7 +1616,7 @@ class Inventory extends Serializable {
                     0, 0, 40, 40,
                     null)
                 if (ic.ids(i) != 0) {
-                    TerraFrame.getItemImgs().get(ic.ids(i)).foreach { itemImg =>
+                    TerraFrame.itemImgs.get(ic.ids(i)).foreach { itemImg =>
                         width = itemImg.getWidth()
                         height = itemImg.getHeight()
                         g2.drawImage(itemImg,
@@ -1658,7 +1655,7 @@ class Inventory extends Serializable {
                 }
             }
         }
-        val r3: ArrayList[Short] = new ArrayList[Short](11)
+        val r3 = new ArrayList[Short](11)
         import scala.util.control.Breaks._
         breakable {
             RECIPES.get("shapeless").foreach { r2 =>
@@ -1715,7 +1712,7 @@ class Inventory extends Serializable {
                 }
             }
         }
-        val r3: ArrayList[Short] = new ArrayList[Short](6)
+        val r3 = new ArrayList[Short](6)
         import scala.util.control.Breaks._
         breakable {
             RECIPES.get("shapeless_cic").foreach { r2 =>
