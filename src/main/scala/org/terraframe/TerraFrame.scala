@@ -16,11 +16,12 @@ import java.awt.event._
 import java.awt.image._
 import java.io._
 import java.{util => jul}
-import javax.imageio.ImageIO
 import javax.swing._
 import javax.swing.event._
 
 import scala.collection.JavaConverters._
+import Images.loadImage
+
 import scala.util.control.NonFatal
 
 /*
@@ -609,20 +610,6 @@ object TerraFrame {
           blocks(y + 1)(x - 1) == 0 || !blockcds(blocks(y + 1)(x - 1)) ||
           blocks(y + 1)(x) == 0 || !blockcds(blocks(y + 1)(x)) ||
           blocks(y + 1)(x + 1) == 0 || !blockcds(blocks(y + 1)(x + 1))
-    }
-
-
-    def loadImage(path: String): BufferedImage = {
-        val url: InputStream = getClass.getResourceAsStream(path)
-        var image: BufferedImage = null
-        try {
-            image = ImageIO.read(url)
-        }
-        catch  {
-            case NonFatal(_) =>
-        }
-        
-        image
     }
 
     def getBLOCKSIZE(): Int = {

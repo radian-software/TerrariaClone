@@ -2,11 +2,9 @@ package org.terraframe
 
 import java.awt.image._
 import java.io._
-import java.net.URL
 import java.util._
 import javax.imageio.ImageIO
-
-import scala.util.control.NonFatal
+import Images.loadImage
 
 object LightConverter {
 
@@ -25,7 +23,7 @@ object LightConverter {
     def main(args: Array[String]): Unit = {
         (0 until 17).foreach { i =>
             System.out.print("Generate new textures [" + i + "] for: ")
-            val name: String = (new Scanner(System.in)).nextLine()
+            val name: String = new Scanner(System.in).nextLine()
             val light: BufferedImage = loadImage("light/" + i + ".png")
             (1 until 9).foreach { j =>
                 val texture: BufferedImage = loadImage("blocks/" + name + "/texture" + j + ".png")
@@ -43,15 +41,4 @@ object LightConverter {
         }
     }
 
-    def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path)
-        var image: BufferedImage = null
-        try {
-            image = ImageIO.read(url)
-        }
-        catch {
-            case NonFatal(_) => println("Error: could not load image '" + path + "'.")
-        }
-        return image
-    }
 }

@@ -3,24 +3,10 @@ package org.terraframe
 import java.awt._
 import java.awt.image._
 import java.io.Serializable
-import java.net.URL
 import java.util._
-import javax.imageio.ImageIO
-
-import scala.util.control.NonFatal
+import Images.loadImage
 
 object Inventory {
-    def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path)
-        var image: BufferedImage = null
-        try {
-            image = ImageIO.read(url)
-        }
-        catch {
-            case NonFatal(_) => println("(ERROR) could not load image '" + path + "'.")
-        }
-        return image
-    }
 
     def f(x: Int): Int = {
         if (x == 9) {

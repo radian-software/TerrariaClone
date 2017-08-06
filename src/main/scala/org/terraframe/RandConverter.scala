@@ -2,11 +2,9 @@ package org.terraframe
 
 import java.awt.image._
 import java.io._
-import java.net.URL
 import java.util._
 import javax.imageio.ImageIO
-
-import scala.util.control.NonFatal
+import Images.loadImage
 
 object  RandConverter {
 
@@ -92,17 +90,5 @@ object  RandConverter {
                 }
             }
         }
-    }
-
-    def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path)
-        var image: BufferedImage = null
-        try {
-            image = ImageIO.read(url)
-        }
-        catch {
-            case NonFatal(_) => println("Error: could not load image '" + path + "'.")
-        }
-        return image
     }
 }

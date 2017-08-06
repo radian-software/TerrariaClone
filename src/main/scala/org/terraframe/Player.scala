@@ -3,10 +3,7 @@ package org.terraframe
 import java.awt._
 import java.awt.image._
 import java.io._
-import java.net.URL
-import javax.imageio.ImageIO
-
-import scala.util.control.NonFatal
+import Images.loadImage
 
 object Player {
     val BLOCKSIZE: Int = TerraFrame.getBLOCKSIZE()
@@ -14,21 +11,6 @@ object Player {
     val width = TerraFrame.getPLAYERSIZEX()
     val height = TerraFrame.getPLAYERSIZEY()
 
-    def loadImage(path: String): BufferedImage = {
-        val url: URL = getClass.getResource(path)
-        var image: BufferedImage = null
-        try {
-            image = ImageIO.read(url)
-        }
-        catch {
-            case NonFatal(e) => println("(ERROR) could not load image '" + path + "'.")
-        }
-        return image
-    }
-
-    def mod(a: Int, q: Int): Int = {
-        return TerraFrame.mod(a, q)
-    }
 }
 
 case class Player(var x: Double, var y: Double) extends Serializable {
