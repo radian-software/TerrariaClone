@@ -2149,7 +2149,7 @@ class TerraFrame extends JApplet
                                                                     chunkMatrix(twy)(twx) = temporarySaveFile(twy)(twx)
                                                                 }
                                                                 else {
-                                                                    chunkMatrix(twy)(twx) = new Chunk(twx + ou, twy + ov)
+                                                                    chunkMatrix(twy)(twx) = Chunk(twx + ou, twy + ov, random)
                                                                 }
                                                             }
                                                         }
