@@ -25,7 +25,7 @@ public class Player implements Serializable {
     int imgDelay;
     String imgState;
 
-    int BLOCKSIZE = TerraFrame.getBLOCKSIZE();
+    int BLOCKSIZE = TerrariaClone.getBLOCKSIZE();
 
     public Player(double x, double y) {
         oldx = this.x = x; oldy = this.y = y;
@@ -38,8 +38,8 @@ public class Player implements Serializable {
 
         image = loadImage("sprites/player/right_still.png");
 
-        width = TerraFrame.getPLAYERSIZEX();
-        height = TerraFrame.getPLAYERSIZEY();
+        width = TerrariaClone.getPLAYERSIZEX();
+        height = TerrariaClone.getPLAYERSIZEY();
 
         ix = (int)x;
         iy = (int)y;
@@ -59,7 +59,7 @@ public class Player implements Serializable {
     public void update(Integer[][] blocks, boolean[] queue, int u, int v) {
         grounded = (onGround || onGroundDelay);
         if (queue[0] == true) {
-            if (vx > -4 || TerraFrame.DEBUG_SPEED) {
+            if (vx > -4 || TerrariaClone.DEBUG_SPEED) {
                 vx = vx - 0.5;
             }
             if (imgState.equals("still left") || imgState.equals("still right") ||
@@ -87,7 +87,7 @@ public class Player implements Serializable {
             }
         }
         if (queue[1] == true) {
-            if (vx < 4 || TerraFrame.DEBUG_SPEED) {
+            if (vx < 4 || TerrariaClone.DEBUG_SPEED) {
                 vx = vx + 0.5;
             }
             if (imgState.equals("still left") || imgState.equals("still right") ||
@@ -115,7 +115,7 @@ public class Player implements Serializable {
             }
         }
         if (queue[2] == true) {
-            if (TerraFrame.DEBUG_FLIGHT) {
+            if (TerrariaClone.DEBUG_FLIGHT) {
                 vy -= 1;
                 pvy -= 1;
             }
@@ -127,7 +127,7 @@ public class Player implements Serializable {
             }
         }
         if (queue[6] == true) {
-            if (TerraFrame.DEBUG_FLIGHT) {
+            if (TerrariaClone.DEBUG_FLIGHT) {
                 vy += 1;
                 pvy += 1;
             }
@@ -135,7 +135,7 @@ public class Player implements Serializable {
         if (!onGround) {
             vy = vy + 0.3;
             pvy = pvy + 0.3;
-            if (vy > 7 && !TerraFrame.DEBUG_FLIGHT) {
+            if (vy > 7 && !TerrariaClone.DEBUG_FLIGHT) {
                 vy = 7;
             }
         }
@@ -180,7 +180,7 @@ public class Player implements Serializable {
 
         x = x + vx;
 
-        if (!TerraFrame.DEBUG_NOCLIP) {
+        if (!TerrariaClone.DEBUG_NOCLIP) {
             for (i=0; i<2; i++) {
                 ix = (int)x;
                 iy = (int)y;
@@ -194,7 +194,7 @@ public class Player implements Serializable {
 
                 for (i=bx1; i<=bx2; i++) {
                     for (j=by1; j<=by2; j++) {
-                        if (blocks[j+v][i+u] != 0 && TerraFrame.getBLOCKCD().get(blocks[j+v][i+u])) {
+                        if (blocks[j+v][i+u] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldx <= i*16 - width && vx > 0) {
                                     x = i*16 - width;
@@ -213,7 +213,7 @@ public class Player implements Serializable {
 
         y = y + vy;
         onGround = false;
-        if (!TerraFrame.DEBUG_NOCLIP) {
+        if (!TerrariaClone.DEBUG_NOCLIP) {
             for (i=0; i<2; i++) {
                 ix = (int)x;
                 iy = (int)y;
@@ -230,11 +230,11 @@ public class Player implements Serializable {
 
                 for (i=bx1; i<=bx2; i++) {
                     for (j=by1; j<=by2; j++) {
-                        if (blocks[j+v][i+u] != 0 && TerraFrame.getBLOCKCD().get(blocks[j+v][i+u])) {
+                        if (blocks[j+v][i+u] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
                             if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                 if (oldy <= j*16 - height && vy > 0) {
                                     y = j*16 - height;
-                                    if (pvy >= 10 && !TerraFrame.DEBUG_INVINCIBLE) {
+                                    if (pvy >= 10 && !TerrariaClone.DEBUG_INVINCIBLE) {
                                         hp -= (int)((pvy - 12.5))*2;
                                     }
                                     onGround = true;
@@ -292,9 +292,9 @@ public class Player implements Serializable {
         if (useArmor) {
             fd -= sumArmor();
             for (i=0; i<4; i++) {
-                TerraFrame.armor.durs[i] -= 1;
-                if (TerraFrame.armor.durs[i] <= 0) {
-                    inventory.removeLocationIC(TerraFrame.armor, i, TerraFrame.armor.nums[i]);
+                TerrariaClone.armor.durs[i] -= 1;
+                if (TerrariaClone.armor.durs[i] <= 0) {
+                    inventory.removeLocationIC(TerrariaClone.armor, i, TerrariaClone.armor.nums[i]);
                 }
             }
         }
@@ -305,14 +305,14 @@ public class Player implements Serializable {
     }
 
     public int sumArmor() {
-        return (TerraFrame.getARMOR().get(TerraFrame.armor.ids[0]) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids[1]) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids[2]) +
-                TerraFrame.getARMOR().get(TerraFrame.armor.ids[3]));
+        return (TerrariaClone.getARMOR().get(TerrariaClone.armor.ids[0]) +
+                TerrariaClone.getARMOR().get(TerrariaClone.armor.ids[1]) +
+                TerrariaClone.getARMOR().get(TerrariaClone.armor.ids[2]) +
+                TerrariaClone.getARMOR().get(TerrariaClone.armor.ids[3]));
     }
 
     private static BufferedImage loadImage(String path) {
-        URL url = TerraFrame.class.getResource(path);
+        URL url = TerrariaClone.class.getResource(path);
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);
@@ -324,7 +324,7 @@ public class Player implements Serializable {
     }
 
     public static int mod(int a, int q) {
-        return TerraFrame.mod(a, q);
+        return TerrariaClone.mod(a, q);
     }
 
     public static void print(String text) {

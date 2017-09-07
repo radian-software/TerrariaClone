@@ -15,7 +15,7 @@ public class World {
     static boolean[][] coordlist2;
 
     public static Object[] generateChunk(int cx, int cy, Random random) {
-        int size = TerraFrame.CHUNKBLOCKS;
+        int size = TerrariaClone.CHUNKBLOCKS;
         Integer[][][] blocks = new Integer[3][size][size];
         Byte[][][] blockds = new Byte[3][size][size];
         Byte[][] blockdns = new Byte[size][size];
@@ -65,9 +65,9 @@ public class World {
         return World.generate2(blocks, false);
     }
 
-/*    public static Object[] generate(int width, int height, int sealevel, int stonelevel, TerraFrame inst) {
+/*    public static Object[] generate(int width, int height, int sealevel, int stonelevel, TerrariaClone inst) {
         pmsg("Generating new world...");
-        random = TerraFrame.getRandom();
+        random = TerrariaClone.getRandom();
         pmsg("-> Creating blocks...");
         Integer[][] blocks = new Integer[height][width];
         for (y=0; y<height; y++) {
@@ -529,7 +529,7 @@ public class World {
         }
         for (y=0; y<height; y++) {
             for (x=0; x<width; x++) {
-                if (blocks[y][x] == 91 && TerraFrame.hasOpenSpace(x, y, blocks)) {
+                if (blocks[y][x] == 91 && TerrariaClone.hasOpenSpace(x, y, blocks)) {
                     blocks[y][x] = 93; // grass_trans
                 }
             }
@@ -549,13 +549,13 @@ public class World {
             x = random.nextInt(width);
             y = random.nextInt(height);
             if (x >= 1 && x < width-1 && y >= 1 && y < height-1) {
-                if (blocks[y][x] == 1 && TerraFrame.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 72) {
+                if (blocks[y][x] == 1 && TerrariaClone.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 72) {
                     blocks[y][x] = 72;
                 }
-                if (blocks[y][x] == 1 && TerraFrame.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 73) {
+                if (blocks[y][x] == 1 && TerrariaClone.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 73) {
                     blocks[y][x] = 73;
                 }
-                if (blocks[y][x] == 75 && TerraFrame.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 74) {
+                if (blocks[y][x] == 75 && TerrariaClone.hasOpenSpace(x, y, blocks) && blocks[y+random.nextInt(3)-1][x+random.nextInt(3)-1] == 74) {
                     blocks[y][x] = 74;
                 }
             }
@@ -1103,7 +1103,7 @@ public class World {
             b2 == 75 && b1 == 74 ||
             b1 == 91 && b2 == 93 ||
             b2 == 91 && b1 == 93 ||
-            b2 >= 94 && b2 <= 99 && TerraFrame.wirec[b1] ||
+            b2 >= 94 && b2 <= 99 && TerrariaClone.wirec[b1] ||
             b1 == 103 && b2 == 104 ||
             b2 == 103 && b1 == 104 ||
             b1 == 15 && b2 == 83 ||
@@ -1114,7 +1114,7 @@ public class World {
         return y1 > 0 && y1 < blocks.length-1 && connect(blocks[y1][mod(x1,blocks[0].length)], blocks[y2][mod(x2,blocks[0].length)]);
 /*        int WIDTH = blocks[0].length;
         int HEIGHT = blocks.length;
-        boolean[] blockcds = TerraFrame.getBLOCKCDS();
+        boolean[] blockcds = TerrariaClone.getBLOCKCDS();
         short b1 = blocks[y1][x1];
         short b2 = blocks[y2][x2];
         if (b1 == b2) return true;
@@ -1131,7 +1131,7 @@ public class World {
             b2 == 75 && b1 == 74 && (blocks[2*y1-y2][2*x1-x2] == 0 || !blockcds[blocks[2*y1-y2][2*x1-x2]] || blocks[2*y1-y2][2*x1-x2] == 74));
 */    }
 
-    public static Byte[][] generate3(Integer[][] blocks, double[] terrain, double[] stonelayer, TerraFrame inst) {
+    public static Byte[][] generate3(Integer[][] blocks, double[] terrain, double[] stonelayer, TerrariaClone inst) {
         int x, y;
         pmsg("-> Creating background...");
         int width = blocks[0].length;
@@ -1352,11 +1352,11 @@ public class World {
     }
 
     public static void pmsg(String msg) {
-        TerraFrame.pmsg(msg);
+        TerrariaClone.pmsg(msg);
     }
 
     public static int mod(int a, int q) {
-        return TerraFrame.mod(a, q);
+        return TerrariaClone.mod(a, q);
     }
 
     public static void print(String text) {

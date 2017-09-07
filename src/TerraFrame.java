@@ -1,6 +1,6 @@
 /**
 
-TerraFrame (working title) [Pre-alpha 1.3]
+TerrariaClone (working title) [Pre-alpha 1.3]
 
 developed by Radon Rosborough
 
@@ -442,7 +442,7 @@ import javax.swing.event.*;
 
 */
 
-public class TerraFrame extends JApplet implements ChangeListener, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
+public class TerrariaClone extends JApplet implements ChangeListener, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     static GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
     BufferedImage screen;
@@ -846,11 +846,11 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
     static BufferedWriter log;
 
     public static void main(String[] args) {
-        JFrame f = new JFrame("TerraFrame: Infinite worlds!");
+        JFrame f = new JFrame("TerrariaClone: Infinite worlds!");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
 
-        JApplet ap = new TerraFrame();
+        JApplet ap = new TerrariaClone();
         ap.setFocusable(true);
         f.add("Center", ap);
         f.pack();
@@ -5963,7 +5963,7 @@ public class TerraFrame extends JApplet implements ChangeListener, KeyListener, 
     }
 
     public static BufferedImage loadImage(String path) {
-        InputStream url = TerraFrame.class.getResourceAsStream(path);
+        InputStream url = TerrariaClone.class.getResourceAsStream(path);
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);

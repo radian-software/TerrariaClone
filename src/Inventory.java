@@ -832,8 +832,8 @@ public class Inventory implements Serializable {
     }
 
     public int addItem(short item, short quantity) {
-        if (TerraFrame.getTOOLDURS().get(item) != null) {
-            return addItem(item, quantity, TerraFrame.getTOOLDURS().get(item));
+        if (TerrariaClone.getTOOLDURS().get(item) != null) {
+            return addItem(item, quantity, TerrariaClone.getTOOLDURS().get(item));
         }
         else {
             return addItem(item, quantity, (short)0);
@@ -842,15 +842,15 @@ public class Inventory implements Serializable {
 
     public int addItem(short item, short quantity, short durability) {
         for (i=0; i<40; i++) {
-            if (ids[i] == item && nums[i] < TerraFrame.getMAXSTACKS().get(ids[i])) {
-                if (TerraFrame.getMAXSTACKS().get(ids[i]) - nums[i] >= quantity) {
+            if (ids[i] == item && nums[i] < TerrariaClone.getMAXSTACKS().get(ids[i])) {
+                if (TerrariaClone.getMAXSTACKS().get(ids[i]) - nums[i] >= quantity) {
                     nums[i] += quantity;
                     update(i);
                     return 0;
                 }
                 else {
-                    quantity -= TerraFrame.getMAXSTACKS().get(ids[i]) - nums[i];
-                    nums[i] = TerraFrame.getMAXSTACKS().get(ids[i]);
+                    quantity -= TerrariaClone.getMAXSTACKS().get(ids[i]) - nums[i];
+                    nums[i] = TerrariaClone.getMAXSTACKS().get(ids[i]);
                     update(i);
                 }
             }
@@ -858,16 +858,16 @@ public class Inventory implements Serializable {
         for (i=0; i<40; i++) {
             if (ids[i] == 0) {
                 ids[i] = item;
-                if (quantity <= TerraFrame.getMAXSTACKS().get(ids[i])) {
+                if (quantity <= TerrariaClone.getMAXSTACKS().get(ids[i])) {
                     nums[i] = quantity;
                     durs[i] = durability;
                     update(i);
                     return 0;
                 }
                 else {
-                    nums[i] = TerraFrame.getMAXSTACKS().get(ids[i]);
+                    nums[i] = TerrariaClone.getMAXSTACKS().get(ids[i]);
                     durs[i] = durability;
-                    quantity -= TerraFrame.getMAXSTACKS().get(ids[i]);
+                    quantity -= TerrariaClone.getMAXSTACKS().get(ids[i]);
                 }
             }
         }
@@ -898,19 +898,19 @@ public class Inventory implements Serializable {
 
     public int addLocation(int i, short item, short quantity, short durability) {
         if (ids[i] == item) {
-            if (TerraFrame.getMAXSTACKS().get(ids[i]) - nums[i] >= quantity) {
+            if (TerrariaClone.getMAXSTACKS().get(ids[i]) - nums[i] >= quantity) {
                 nums[i] += quantity;
                 update(i);
                 return 0;
             }
             else {
-                quantity -= TerraFrame.getMAXSTACKS().get(ids[i]) - nums[i];
-                nums[i] = TerraFrame.getMAXSTACKS().get(ids[i]);
+                quantity -= TerrariaClone.getMAXSTACKS().get(ids[i]) - nums[i];
+                nums[i] = TerrariaClone.getMAXSTACKS().get(ids[i]);
                 update(i);
             }
         }
         else {
-            if (quantity <= TerraFrame.getMAXSTACKS().get(ids[i])) {
+            if (quantity <= TerrariaClone.getMAXSTACKS().get(ids[i])) {
                 ids[i] = item;
                 nums[i] = quantity;
                 durs[i] = durability;
@@ -918,7 +918,7 @@ public class Inventory implements Serializable {
                 return 0;
             }
             else {
-                quantity -= TerraFrame.getMAXSTACKS().get(ids[i]);
+                quantity -= TerrariaClone.getMAXSTACKS().get(ids[i]);
                 return quantity;
             }
         }
@@ -1011,9 +1011,9 @@ public class Inventory implements Serializable {
             }
         }
         if (ids[i] != 0) {
-            width = TerraFrame.getItemImgs().get(ids[i]).getWidth();
-            height = TerraFrame.getItemImgs().get(ids[i]).getHeight();
-            g2.drawImage(TerraFrame.getItemImgs().get(ids[i]),
+            width = TerrariaClone.getItemImgs().get(ids[i]).getWidth();
+            height = TerrariaClone.getItemImgs().get(ids[i]).getHeight();
+            g2.drawImage(TerrariaClone.getItemImgs().get(ids[i]),
                 px*46+14+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+14+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+38-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+38-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                 0, 0, width, height,
                 null);
@@ -1185,7 +1185,7 @@ public class Inventory implements Serializable {
 
     public int addLocationIC(ItemCollection ic, int i, short item, short quantity, short durability) {
         if (ic.ids[i] == item) {
-            if (TerraFrame.getMAXSTACKS().get(ic.ids[i]) - ic.nums[i] >= quantity) {
+            if (TerrariaClone.getMAXSTACKS().get(ic.ids[i]) - ic.nums[i] >= quantity) {
                 ic.nums[i] += quantity;
                 if (ic.image != null) {
                     updateIC(ic, i);
@@ -1193,15 +1193,15 @@ public class Inventory implements Serializable {
                 return 0;
             }
             else {
-                quantity -= TerraFrame.getMAXSTACKS().get(ic.ids[i]) - ic.nums[i];
-                ic.nums[i] = TerraFrame.getMAXSTACKS().get(ic.ids[i]);
+                quantity -= TerrariaClone.getMAXSTACKS().get(ic.ids[i]) - ic.nums[i];
+                ic.nums[i] = TerrariaClone.getMAXSTACKS().get(ic.ids[i]);
                 if (ic.image != null) {
                     updateIC(ic, i);
                 }
             }
         }
         else {
-            if (quantity <= TerraFrame.getMAXSTACKS().get(ic.ids[i])) {
+            if (quantity <= TerrariaClone.getMAXSTACKS().get(ic.ids[i])) {
                 ic.ids[i] = item;
                 ic.nums[i] = quantity;
                 ic.durs[i] = durability;
@@ -1211,7 +1211,7 @@ public class Inventory implements Serializable {
                 return 0;
             }
             else {
-                quantity -= TerraFrame.getMAXSTACKS().get(ic.ids[i]);
+                quantity -= TerrariaClone.getMAXSTACKS().get(ic.ids[i]);
                 return quantity;
             }
         }
@@ -1255,9 +1255,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[i] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[i]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[i]).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[i]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
+                g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
                     px*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
@@ -1280,8 +1280,8 @@ public class Inventory implements Serializable {
                 if (valid) {
                     ic.ids[4] = r2[4];
                     ic.nums[4] = r2[5];
-                    if (TerraFrame.getTOOLDURS().get(r2[4]) != null)
-                        ic.durs[4] = TerraFrame.getTOOLDURS().get(r2[4]);
+                    if (TerrariaClone.getTOOLDURS().get(r2[4]) != null)
+                        ic.durs[4] = TerrariaClone.getTOOLDURS().get(r2[4]);
                     break;
                 }
             }
@@ -1305,8 +1305,8 @@ public class Inventory implements Serializable {
                 if (valid) {
                     ic.ids[4] = r2[r2.length-2];
                     ic.nums[4] = r2[r2.length-1];
-                    if (TerraFrame.getTOOLDURS().get(r2[r2.length-2]) != null)
-                        ic.durs[4] = TerraFrame.getTOOLDURS().get(r2[r2.length-2]);
+                    if (TerrariaClone.getTOOLDURS().get(r2[r2.length-2]) != null)
+                        ic.durs[4] = TerrariaClone.getTOOLDURS().get(r2[r2.length-2]);
                     break;
                 }
             }
@@ -1321,9 +1321,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[4] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[4]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[4]).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[4]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[4]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[4]).getHeight();
+                g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[4]),
                     3*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 20+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), 3*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 20+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
@@ -1349,9 +1349,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[i] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[i]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[i]).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[i]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
+                g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
                     px*46+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
@@ -1377,9 +1377,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[i] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[i]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[i]).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[i]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
+                g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
                     px*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
@@ -1402,8 +1402,8 @@ public class Inventory implements Serializable {
                 if (valid) {
                     ic.ids[9] = r2[9];
                     ic.nums[9] = r2[10];
-                    if (TerraFrame.getTOOLDURS().get(r2[9]) != null)
-                        ic.durs[9] = TerraFrame.getTOOLDURS().get(r2[9]);
+                    if (TerrariaClone.getTOOLDURS().get(r2[9]) != null)
+                        ic.durs[9] = TerrariaClone.getTOOLDURS().get(r2[9]);
                     break;
                 }
             }
@@ -1427,8 +1427,8 @@ public class Inventory implements Serializable {
                 if (valid) {
                     ic.ids[9] = r2[r2.length-2];
                     ic.nums[9] = r2[r2.length-1];
-                    if (TerraFrame.getTOOLDURS().get(r2[r2.length-2]) != null)
-                        ic.durs[9] = TerraFrame.getTOOLDURS().get(r2.length-2);
+                    if (TerrariaClone.getTOOLDURS().get(r2[r2.length-2]) != null)
+                        ic.durs[9] = TerrariaClone.getTOOLDURS().get(r2.length-2);
                     break;
                 }
             }
@@ -1443,9 +1443,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[9] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[9]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[9]).getHeight();
-                    g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[9]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[9]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[9]).getHeight();
+                    g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[9]),
                         4*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 1*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), 4*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 1*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                         0, 0, width, height,
                         null);
@@ -1475,9 +1475,9 @@ public class Inventory implements Serializable {
                 0, 0, 40, 40,
                 null);
             if (ic.ids[i] != 0) {
-                width = TerraFrame.getItemImgs().get(ic.ids[i]).getWidth();
-                height = TerraFrame.getItemImgs().get(ic.ids[i]).getHeight();
-                g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[i]),
+                width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
+                height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
+                g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
                     px*46+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
@@ -1536,9 +1536,9 @@ public class Inventory implements Serializable {
                     0, 0, 40, 40,
                     null);
                 if (ic.ids[i] != 0) {
-                    width = TerraFrame.getItemImgs().get(ic.ids[i]).getWidth();
-                    height = TerraFrame.getItemImgs().get(ic.ids[i]).getHeight();
-                    g2.drawImage(TerraFrame.getItemImgs().get(ic.ids[i]),
+                    width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
+                    height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
+                    g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
                         (int)(fpx*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2)), (int)(fpy*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2)), (int)(fpx*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2)), (int)(fpy*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2)),
                         0, 0, width, height,
                         null);
@@ -1652,7 +1652,7 @@ public class Inventory implements Serializable {
     }
 
     private static BufferedImage loadImage(String path) {
-        URL url = TerraFrame.class.getResource(path);
+        URL url = TerrariaClone.class.getResource(path);
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);

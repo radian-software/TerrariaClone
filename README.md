@@ -1,4 +1,4 @@
-# TerraFrame
+# TerrariaClone
 
 Back when I was first learning to program in Java, I decided to try to
 make a clone of the excellent PC game [Terraria]. Of course, I was
@@ -13,22 +13,22 @@ learned, in my case!) Here are some of the highlights:
 
 * Blocks and items, among many other things, are represented by magic
   numbers instead of enums. There are 417 lines of block comments at
-  the top of `TerraFrame.java` that serve as manual translation
+  the top of `TerrariaClone.java` that serve as manual translation
   tables.
 * There are no access modifiers. Everything is package-private.
 * So as to avoid needing to declare local variables and loop indices,
   all of the variables for everything are declared globally at the
   class level. Here is one of the several hundred lines of
-  declarations in `TerraFrame.java`:
+  declarations in `TerrariaClone.java`:
 
     ```
     int x, y, i, j, k, t, wx, wy, lx, ly, tx, ty, twx, twy, tlx, tly, ux, uy, ux2, uy2, uwx, uwy, uwx2, ulx, uly, ulx2, uly2, ucx, ucy, uclx, ucly, pwx, pwy, icx, icy, n, m, dx, dy, dx2, dy2, mx, my, lsx, lsy, lsn, ax, ay, axl, ayl, nl, vc, xpos, ypos, xpos2, ypos2, x2, y2, rnum, mining, immune, width, height, xmin, xmax, ymin, ymax, intpercent, ground;
     ```
 
 * Although there are a few other classes, the bulk of the code is in
-  the God Class `TerraFrame`, which spans over 6,500 lines of code.
+  the God Class `TerrariaClone`, which spans over 6,500 lines of code.
 
-* The `TerraFrame.init()` method, which is over 1,300 lines long,
+* The `TerrariaClone.init()` method, which is over 1,300 lines long,
   actually grew so large that the Java compiler started *running out
   of memory* trying to compile it! The solution? Copy half of the
   `init()` code into a new method, called `codeTooLarge()`, and call
@@ -86,5 +86,17 @@ issues. Unfortunately, it's only working in the academic sense, since
 it's so slow that you only get about 0.03 FPS and it crashes when you
 click the mouse button. But, somewhere in there is a working game. You
 know, sort of.
+
+#### TerraFrame?
+
+This project was originally called TerraFrame (back when I created it
+in 2011). I believe the reasoning was that it was a *Terra*ria clone,
+and it was in a J*Frame*. Yes, it's stupid, much like every other part
+of this project. Meanwhile, there is a completely unrelated company
+called TerraFrame. This led to an unfortunate misunderstanding wherein
+somebody thought that this garbage heap of a codebase was associated
+in some way with TerraFrame, the company. After receiving a very
+polite email pointing out the issue, I've changed the name to
+something that makes more sense (TerrariaClone).
 
 [terraria]: https://terraria.org/

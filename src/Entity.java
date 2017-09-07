@@ -10,7 +10,7 @@ public class Entity implements Serializable {
     double x, y, vx, vy, oldx, oldy, n;
     int ix, iy, ivx, ivy, width, height, bx1, bx2, by1, by2, bcount;
     int i, j, k;
-    int BLOCKSIZE = TerraFrame.getBLOCKSIZE();
+    int BLOCKSIZE = TerrariaClone.getBLOCKSIZE();
     double mdelay = 0;
 
     int thp, hp, ap, atk;
@@ -118,7 +118,7 @@ public class Entity implements Serializable {
 
         dframes = 0;
 
-        image = TerraFrame.getItemImgs().get(id);
+        image = TerrariaClone.getItemImgs().get(id);
 
         width = image.getWidth()*2; height = image.getHeight()*2;
     }
@@ -391,7 +391,7 @@ public class Entity implements Serializable {
 
             for (i=bx1; i<=bx2; i++) {
                 for (j=by1; j<=by2; j++) {
-                    if (blocks[j][i] != 0 && TerraFrame.getBLOCKCD().get(blocks[j+v][i+u])) {
+                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
                         if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                             if (oldx <= i*16 - width && (vx > 0 || AI == "shooting_star")) {
                                 x = i*16 - width;
@@ -456,7 +456,7 @@ public class Entity implements Serializable {
 
             for (i=bx1; i<=bx2; i++) {
                 for (j=by1; j<=by2; j++) {
-                    if (blocks[j][i] != 0 && TerraFrame.getBLOCKCD().get(blocks[j+v][i+u])) {
+                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
                         if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                             if (oldy <= j*16 - height && (vy > 0 || AI == "shooting_star")) {
                                 y = j*16 - height;
@@ -522,7 +522,7 @@ public class Entity implements Serializable {
 
     public ArrayList<Short> drops() {
         ArrayList<Short> dropList = new ArrayList<Short>();
-        Random random = TerraFrame.getRandom();
+        Random random = TerrariaClone.getRandom();
         if (name == "blue_bubble") {
             for (i=0; i<random.nextInt(3); i++) {
                 dropList.add(new Short((short)97));
@@ -609,7 +609,7 @@ public class Entity implements Serializable {
     }
 
     public static BufferedImage loadImage(String path) {
-        URL url = TerraFrame.class.getResource(path);
+        URL url = TerrariaClone.class.getResource(path);
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);

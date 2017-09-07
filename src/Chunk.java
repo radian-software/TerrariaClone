@@ -20,7 +20,7 @@ public class Chunk {
         this.cx = cx;
         this.cy = cy;
 
-        Object[] rv = World.generateChunk(cx, cy, TerraFrame.getRandom());
+        Object[] rv = World.generateChunk(cx, cy, TerrariaClone.getRandom());
         blocks = (Integer[][][])rv[0];
         blockds = (Byte[][][])rv[1];
         blockdns = (Byte[][])rv[2];
