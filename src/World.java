@@ -1,4 +1,3 @@
-import java.io.*;
 import java.lang.Math;
 import java.util.Random;
 
@@ -734,7 +733,7 @@ public class World {
             pmsg("-> Creating outlines...");
         }
         Byte[][] blockds = new Byte[height][width];
-        Byte[][] blockdns = new Byte[height][width];
+//        Byte[][] blockdns = new Byte[height][width];
         boolean left, right, up, down, upleft, upright, downleft, downright;
         for (y=0; y<height; y++) {
             for (x2=0; x2<width; x2++) {

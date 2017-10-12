@@ -106,7 +106,6 @@ public class Entity implements Serializable {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.name = name;
         this.id = id;
         this.num = num;
         this.dur = dur;

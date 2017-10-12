@@ -1,8 +1,11 @@
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 
 public class RandConverter {
@@ -21,10 +24,12 @@ public class RandConverter {
 
     public static void main(String[] args) {
         System.out.print("[D]uplicate, [R]andomize, or [O]utline? ");
-        char option = new Scanner(System.in).next().charAt(0);
+       
+        Scanner scanner = new Scanner(System.in); 
+        char option = scanner.next().charAt(0);
         while (true) {
             System.out.print("Generate new textures for: ");
-            String name = (new Scanner(System.in)).nextLine();
+            String name = scanner.nextLine();
             if (name.equals("exit")) {
                 break;
             }
@@ -92,6 +97,8 @@ public class RandConverter {
                 }
             }
         }
+
+        scanner.close();
     }
 
     private static BufferedImage loadImage(String path) {
