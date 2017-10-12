@@ -49,8 +49,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -472,7 +472,7 @@ import javax.swing.event.ChangeListener;
 
 */
 
-public class TerrariaClone extends JApplet
+public class TerrariaClone extends JPanel
 		implements ChangeListener, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
 	static GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
@@ -892,11 +892,12 @@ public class TerrariaClone extends JApplet
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
-		JApplet ap = new TerrariaClone();
+		TerrariaClone ap = new TerrariaClone();
 		ap.setFocusable(true);
-		f.add("Center", ap);
+		f.setLayout(new BorderLayout());
+		f.add(ap, BorderLayout.CENTER);
 		f.pack();
-
+		
 		ap.init();
 	}
 
@@ -905,6 +906,9 @@ public class TerrariaClone extends JApplet
 			setLayout(new BorderLayout());
 			bg = Color.BLACK;
 
+			setFocusable(true);
+			requestFocusInWindow();
+			
 			addKeyListener(this);
 			addMouseListener(this);
 			addMouseMotionListener(this);
