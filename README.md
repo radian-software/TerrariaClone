@@ -87,6 +87,17 @@ it's so slow that you only get about 0.03 FPS and it crashes when you
 click the mouse button. But, somewhere in there is a working game. You
 know, sort of.
 
+#### Build and run
+
+```
+$ mkdir -p out
+$ javac -d out src/*.java
+$ java -cp out:textures TerrariaClone
+```
+
+As mentioned previously, although it runs, it fails to run very well.
+See [this pull request][fix-bugs].
+
 #### TerraFrame?
 
 This project was originally called TerraFrame (back when I created it
@@ -99,4 +110,5 @@ in some way with TerraFrame, the company. After receiving a very
 polite email pointing out the issue, I've changed the name to
 something that makes more sense (TerrariaClone).
 
+[fix-bugs]: https://github.com/raxod502/TerrariaClone/pull/12
 [terraria]: https://terraria.org/
