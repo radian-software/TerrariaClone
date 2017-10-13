@@ -1652,6 +1652,7 @@ public class Inventory implements Serializable {
     }
 
     private static BufferedImage loadImage(String path) {
+        path = "textures/" + path;
         URL url = TerrariaClone.class.getResource(path);
         BufferedImage image = null;
         try {
@@ -1659,6 +1660,7 @@ public class Inventory implements Serializable {
         }
         catch (Exception e) {
             System.out.println("[ERROR] could not load image '" + path + "'.");
+            e.printStackTrace();
         }
         return image;
     }

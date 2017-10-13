@@ -5963,13 +5963,16 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
     }
 
     public static BufferedImage loadImage(String path) {
-        InputStream url = TerrariaClone.class.getResourceAsStream(path);
+        path = "textures/" + path;
+        InputStream url = TerrariaClone.class.getClassLoader().getResourceAsStream(path);
         BufferedImage image = null;
         try {
             image = ImageIO.read(url);
         }
         catch (Exception e) {
-            //
+            System.out.println("path " + path);
+            System.out.println("url " + url);
+            e.printStackTrace();
         }
         return image;
     }
@@ -6484,26 +6487,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
     }
 */
     public static void postError(Exception e) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Exception in thread " + e.getClass().getName());
-        if (e.getMessage() != null) {
-            sb.append(": ");
-            sb.append(e.getMessage());
-        }
-        for (StackTraceElement ste : e.getStackTrace()) {
-            sb.append("\n        at " + ste.toString());
-        }
-        try {
-            log = new BufferedWriter(new FileWriter("log.txt"));
-            log.write(sb.toString());
-            log.close();
-        }
-        catch (IOException e2) {
-            //
-        }
-        finally {
-            System.out.println(sb.toString());
-        }
+        e.printStackTrace();
     }
 
     public static int max(int a, int b, int c) {
