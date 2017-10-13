@@ -312,6 +312,7 @@ public class Player implements Serializable {
     }
 
     private static BufferedImage loadImage(String path) {
+        path = "textures/" + path;
         URL url = TerrariaClone.class.getResource(path);
         BufferedImage image = null;
         try {

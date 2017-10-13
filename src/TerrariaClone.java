@@ -3289,29 +3289,31 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                         ucx = ux - CHUNKBLOCKS * ((int)(ux/CHUNKBLOCKS));
                         ucy = uy - CHUNKBLOCKS * ((int)(uy/CHUNKBLOCKS));
                         if (Arrays.asList(toolList).contains(inventory.tool())) {
-                            if (blocks[layer][uy][ux] != 0 && Arrays.asList(BLOCKTOOLS.get(blocks[layer][uy][ux])).contains(inventory.tool())) {
-                                blockdns[uy][ux] = (byte)random.nextInt(5);
-                                drawn[uy][ux] = false;
-                                if (ux == mx && uy == my && inventory.tool() == miningTool) {
-                                    mining += 1;
-                                    inventory.durs[inventory.selection] -= 1;
-                                    breakCurrentBlock();
-                                    if (inventory.durs[inventory.selection] <= 0) {
-                                        inventory.removeLocation(inventory.selection, inventory.nums[inventory.selection]);
+                            if (blocks.length > layer && blocks[0].length > uy && blocks[0][0].length > ux) {
+                                if (blocks[layer][uy][ux] != 0 && Arrays.asList(BLOCKTOOLS.get(blocks[layer][uy][ux])).contains(inventory.tool())) {
+                                    blockdns[uy][ux] = (byte)random.nextInt(5);
+                                    drawn[uy][ux] = false;
+                                    if (ux == mx && uy == my && inventory.tool() == miningTool) {
+                                        mining += 1;
+                                        inventory.durs[inventory.selection] -= 1;
+                                        breakCurrentBlock();
+                                        if (inventory.durs[inventory.selection] <= 0) {
+                                            inventory.removeLocation(inventory.selection, inventory.nums[inventory.selection]);
+                                        }
                                     }
-                                }
-                                else {
-                                    mining = 1;
-                                    miningTool = inventory.tool();
-                                    inventory.durs[inventory.selection] -= 1;
-                                    breakCurrentBlock();
-                                    mx = ux;
-                                    my = uy;
-                                    if (inventory.durs[inventory.selection] <= 0) {
-                                        inventory.removeLocation(inventory.selection, inventory.nums[inventory.selection]);
+                                    else {
+                                        mining = 1;
+                                        miningTool = inventory.tool();
+                                        inventory.durs[inventory.selection] -= 1;
+                                        breakCurrentBlock();
+                                        mx = ux;
+                                        my = uy;
+                                        if (inventory.durs[inventory.selection] <= 0) {
+                                            inventory.removeLocation(inventory.selection, inventory.nums[inventory.selection]);
+                                        }
                                     }
+                                    ug2 = null;
                                 }
-                                ug2 = null;
                             }
                         }
                         else if (inventory.tool() == 33) {
