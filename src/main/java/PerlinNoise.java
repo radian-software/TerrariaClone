@@ -1,11 +1,9 @@
-import java.lang.Math;
-
 public class PerlinNoise {
     public static double perlinNoise(double x, double p, int n) {
         double total = 0;
         int i;
         double freq, ampl;
-        for (i=0; i<n+1; i++) {
+        for (i = 0; i < n + 1; i++) {
             freq = Math.pow(2, i);
             ampl = Math.pow(p, i);
             total = total + interpolateNoise(x * freq) * ampl;
@@ -14,7 +12,7 @@ public class PerlinNoise {
     }
 
     private static double interpolateNoise(double x) {
-        int ix = (int)x;
+        int ix = (int) x;
         double fx = x - ix;
         double v1 = smoothNoise(ix);
         double v2 = smoothNoise(ix + 1);
@@ -22,7 +20,7 @@ public class PerlinNoise {
     }
 
     private static double smoothNoise(int x) {
-        return noise(x)/2 + noise(x-1)/4 + noise(x+1)/4;
+        return noise(x) / 2 + noise(x - 1) / 4 + noise(x + 1) / 4;
     }
 
     private static double noise(int x) {
