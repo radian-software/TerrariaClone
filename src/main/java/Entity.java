@@ -1,9 +1,10 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.*;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Entity implements Serializable {
 
@@ -37,25 +38,104 @@ public class Entity implements Serializable {
         this.name = name;
         oldx = x;
         oldy = y;
-        ix = (int)x;
-        iy = (int)y;
+        ix = (int) x;
+        iy = (int) y;
         nohit = false;
 
-        if (name.equals("blue_bubble")) { thp = 18; ap = 0; atk = 2; AI = "bubble"; }
-        if (name.equals("green_bubble")) { thp = 25; ap = 0; atk = 4; AI = "bubble"; }
-        if (name.equals("red_bubble")) { thp = 40; ap = 0; atk = 6; AI = "bubble"; }
-        if (name.equals("yellow_bubble")) { thp = 65; ap = 1; atk = 9; AI = "bubble"; }
-        if (name.equals("black_bubble")) { thp = 100; ap = 3; atk = 14; AI = "bubble"; }
-        if (name.equals("white_bubble")) { thp = 70; ap = 2; atk = 11; AI = "fast_bubble"; }
-        if (name.equals("zombie")) { thp = 35; ap = 0; atk = 5; AI = "zombie"; }
-        if (name.equals("armored_zombie")) { thp = 45; ap = 2; atk = 7; AI = "zombie"; }
-        if (name.equals("shooting_star")) { thp = 25; ap = 0; atk = 5; AI = "shooting_star"; }
-        if (name.equals("sandbot")) { thp = 50; ap = 2; atk = 3; AI = "sandbot"; }
-        if (name.equals("sandbot_bullet")) { thp = 1; ap = 0; atk = 7; AI = "bullet"; nohit = false; }
-        if (name.equals("snowman")) { thp = 40; ap = 0; atk = 6; AI = "zombie"; }
-        if (name.equals("bat")) { thp = 15; ap = 0; atk = 5; AI = "bat"; };
-        if (name.equals("bee")) { thp = 1; ap = 0; atk = 5; AI = "bee"; };
-        if (name.equals("skeleton")) { thp = 50; ap = 1; atk = 7; AI = "zombie"; };
+        if (name.equals("blue_bubble")) {
+            thp = 18;
+            ap = 0;
+            atk = 2;
+            AI = "bubble";
+        }
+        if (name.equals("green_bubble")) {
+            thp = 25;
+            ap = 0;
+            atk = 4;
+            AI = "bubble";
+        }
+        if (name.equals("red_bubble")) {
+            thp = 40;
+            ap = 0;
+            atk = 6;
+            AI = "bubble";
+        }
+        if (name.equals("yellow_bubble")) {
+            thp = 65;
+            ap = 1;
+            atk = 9;
+            AI = "bubble";
+        }
+        if (name.equals("black_bubble")) {
+            thp = 100;
+            ap = 3;
+            atk = 14;
+            AI = "bubble";
+        }
+        if (name.equals("white_bubble")) {
+            thp = 70;
+            ap = 2;
+            atk = 11;
+            AI = "fast_bubble";
+        }
+        if (name.equals("zombie")) {
+            thp = 35;
+            ap = 0;
+            atk = 5;
+            AI = "zombie";
+        }
+        if (name.equals("armored_zombie")) {
+            thp = 45;
+            ap = 2;
+            atk = 7;
+            AI = "zombie";
+        }
+        if (name.equals("shooting_star")) {
+            thp = 25;
+            ap = 0;
+            atk = 5;
+            AI = "shooting_star";
+        }
+        if (name.equals("sandbot")) {
+            thp = 50;
+            ap = 2;
+            atk = 3;
+            AI = "sandbot";
+        }
+        if (name.equals("sandbot_bullet")) {
+            thp = 1;
+            ap = 0;
+            atk = 7;
+            AI = "bullet";
+            nohit = false;
+        }
+        if (name.equals("snowman")) {
+            thp = 40;
+            ap = 0;
+            atk = 6;
+            AI = "zombie";
+        }
+        if (name.equals("bat")) {
+            thp = 15;
+            ap = 0;
+            atk = 5;
+            AI = "bat";
+        }
+        ;
+        if (name.equals("bee")) {
+            thp = 1;
+            ap = 0;
+            atk = 5;
+            AI = "bee";
+        }
+        ;
+        if (name.equals("skeleton")) {
+            thp = 50;
+            ap = 1;
+            atk = 7;
+            AI = "zombie";
+        }
+        ;
 
         if (AI == "bubble" || AI == "fast_bubble" || AI == "shooting_star" || AI == "sandbot" || AI == "bullet" || AI == "bee") {
             image = loadImage("sprites/monsters/" + name + "/normal.png");
@@ -67,22 +147,22 @@ public class Entity implements Serializable {
             image = loadImage("sprites/monsters/" + name + "/normal_right.png");
         }
 
-        width = image.getWidth()*2; height = image.getHeight()*2;
+        width = image.getWidth() * 2;
+        height = image.getHeight() * 2;
 
-        ix = (int)x;
-        iy = (int)y;
-        ivx = (int)vx;
-        ivy = (int)vy;
+        ix = (int) x;
+        iy = (int) y;
+        ivx = (int) vx;
+        ivy = (int) vy;
 
-        rect = new Rectangle(ix-1, iy, width+2, height);
+        rect = new Rectangle(ix - 1, iy, width + 2, height);
 
         imgDelay = 0;
         bcount = 0;
         if (AI == "bat") {
             imgState = "normal right";
             this.vx = 3;
-        }
-        else {
+        } else {
             imgState = "still right";
         }
 
@@ -90,11 +170,11 @@ public class Entity implements Serializable {
     }
 
     public Entity(double x, double y, double vx, double vy, short id, short num) {
-        this(x, y, vx, vy, id, num, (short)0, 0);
+        this(x, y, vx, vy, id, num, (short) 0, 0);
     }
 
     public Entity(double x, double y, double vx, double vy, short id, short num, int mdelay) {
-        this(x, y, vx, vy, id, num, (short)0, mdelay);
+        this(x, y, vx, vy, id, num, (short) 0, mdelay);
     }
 
     public Entity(double x, double y, double vx, double vy, short id, short num, short dur) {
@@ -113,14 +193,50 @@ public class Entity implements Serializable {
         this.mdelay = mdelay;
         oldx = x;
         oldy = y;
-        ix = (int)x;
-        iy = (int)y;
+        ix = (int) x;
+        iy = (int) y;
 
         dframes = 0;
 
         image = TerrariaClone.getItemImgs().get(id);
 
-        width = image.getWidth()*2; height = image.getHeight()*2;
+        width = image.getWidth() * 2;
+        height = image.getHeight() * 2;
+    }
+
+    public static BufferedImage loadImage(String path) {
+        URL url = TerrariaClone.class.getResource("/textures/" + path);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(url);
+        } catch (Exception e) {
+           System.out.println("[ERROR] could not load image '" + path + "'.");
+        }
+        return image;
+    }
+
+    public static void print(String text) {
+        System.out.println(text);
+    }
+
+    public static void print(int text) {
+        System.out.println(text);
+    }
+
+    public static void print(double text) {
+        System.out.println(text);
+    }
+
+    public static void print(short text) {
+        System.out.println(text);
+    }
+
+    public static void print(boolean text) {
+        System.out.println(text);
+    }
+
+    public static void print(Object text) {
+        System.out.println(text);
     }
 
     public boolean update(Integer[][] blocks, Player player, int u, int v) {
@@ -134,11 +250,9 @@ public class Entity implements Serializable {
             }
             if (vx < -0.15) {
                 vx = vx + 0.15;
-            }
-            else if (vx > 0.15) {
+            } else if (vx > 0.15) {
                 vx = vx - 0.15;
-            }
-            else {
+            } else {
                 vx = 0;
             }
             collide(blocks, player, u, v);
@@ -159,7 +273,7 @@ public class Entity implements Serializable {
             if (x > player.x) {
                 vx = Math.max(vx - 0.1, -1.2);
                 if (imgState == "still left" || imgState == "still right" ||
-                    imgState == "walk right 1" || imgState == "walk right 2") {
+                        imgState == "walk right 1" || imgState == "walk right 2") {
                     imgDelay = 10;
                     imgState = "walk left 2";
                     image = loadImage("sprites/monsters/" + name + "/left_walk.png");
@@ -169,23 +283,20 @@ public class Entity implements Serializable {
                         imgDelay = 10;
                         imgState = "walk left 2";
                         image = loadImage("sprites/monsters/" + name + "/left_walk.png");
-                    }
-                    else {
+                    } else {
                         if (imgState == "walk left 2") {
                             imgDelay = 10;
                             imgState = "walk left 1";
                             image = loadImage("sprites/monsters/" + name + "/left_still.png");
                         }
                     }
-                }
-                else {
+                } else {
                     imgDelay = imgDelay - 1;
                 }
-            }
-            else {
+            } else {
                 vx = Math.min(vx + 0.1, 1.2);
                 if (imgState == "still left" || imgState == "still right" ||
-                    imgState == "walk left 1" || imgState == "walk left 2") {
+                        imgState == "walk left 1" || imgState == "walk left 2") {
                     imgDelay = 10;
                     imgState = "walk right 2";
                     image = loadImage("sprites/monsters/" + name + "/right_walk.png");
@@ -195,26 +306,24 @@ public class Entity implements Serializable {
                         imgDelay = 10;
                         imgState = "walk right 2";
                         image = loadImage("sprites/monsters/" + name + "/right_walk.png");
-                    }
-                    else {
+                    } else {
                         if (imgState == "walk right 2") {
                             imgDelay = 10;
                             imgState = "walk right 1";
                             image = loadImage("sprites/monsters/" + name + "/right_still.png");
                         }
                     }
-                }
-                else {
+                } else {
                     imgDelay = imgDelay - 1;
                 }
             }
             if (!grounded) {
                 if (imgState == "still left" || imgState == "walk left 1" ||
-                    imgState == "walk left 2") {
+                        imgState == "walk left 2") {
                     image = loadImage("sprites/monsters/" + name + "/left_jump.png");
                 }
                 if (imgState == "still right" || imgState == "walk right 1" ||
-                    imgState == "walk right 2") {
+                        imgState == "walk right 2") {
                     image = loadImage("sprites/monsters/" + name + "/right_jump.png");
                 }
             }
@@ -223,14 +332,12 @@ public class Entity implements Serializable {
         if (AI == "bubble") {
             if (x > player.x) {
                 vx = Math.max(vx - 0.1, -1.2);
-            }
-            else {
+            } else {
                 vx = Math.min(vx + 0.1, 1.2);
             }
             if (y > player.y) {
                 vy = Math.max(vy - 0.1, -1.2);
-            }
-            else {
+            } else {
                 vy = Math.min(vy + 0.1, 1.2);
             }
             collide(blocks, player, u, v);
@@ -238,22 +345,20 @@ public class Entity implements Serializable {
         if (AI == "fast_bubble") {
             if (x > player.x) {
                 vx = Math.max(vx - 0.2, -2.4);
-            }
-            else {
+            } else {
                 vx = Math.min(vx + 0.2, 2.4);
             }
             if (y > player.y) {
                 vy = Math.max(vy - 0.2, -2.4);
-            }
-            else {
+            } else {
                 vy = Math.min(vy + 0.2, 2.4);
             }
             collide(blocks, player, u, v);
         }
         if (AI == "shooting_star") {
             n = Math.atan2(player.y - y, player.x - x);
-            vx += Math.cos(n)/10;
-            vy += Math.sin(n)/10;
+            vx += Math.cos(n) / 10;
+            vy += Math.sin(n) / 10;
             if (vx < -5) vx = -5;
             if (vx > 5) vx = 5;
             if (vy < -5) vy = -5;
@@ -264,28 +369,23 @@ public class Entity implements Serializable {
             if (Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) > 160) {
                 if (x > player.x) {
                     vx = Math.max(vx - 0.1, -1.2);
-                }
-                else {
+                } else {
                     vx = Math.min(vx + 0.1, 1.2);
                 }
                 if (y > player.y) {
                     vy = Math.max(vy - 0.1, -1.2);
-                }
-                else {
+                } else {
                     vy = Math.min(vy + 0.1, 1.2);
                 }
-            }
-            else {
+            } else {
                 if (x < player.x) {
                     vx = Math.max(vx - 0.1, -1.2);
-                }
-                else {
+                } else {
                     vx = Math.min(vx + 0.1, 1.2);
                 }
                 if (y < player.y) {
                     vy = Math.max(vy - 0.1, -1.2);
-                }
-                else {
+                } else {
                     vy = Math.min(vy + 0.1, 1.2);
                 }
             }
@@ -298,7 +398,7 @@ public class Entity implements Serializable {
             }
             if (bcount == 150) {
                 double theta = Math.atan2(player.y - y, player.x - x);
-                newMob = new Entity(x, y, Math.cos(theta)*3.5, Math.sin(theta)*3.5, name + "_bullet");
+                newMob = new Entity(x, y, Math.cos(theta) * 3.5, Math.sin(theta) * 3.5, name + "_bullet");
             }
             if (bcount == 170) {
                 image = loadImage("sprites/monsters/" + name + "/ready1.png");
@@ -318,8 +418,7 @@ public class Entity implements Serializable {
             }
             if (y > player.y) {
                 vy = Math.max(vy - 0.05, -2.0);
-            }
-            else {
+            } else {
                 vy = Math.min(vy + 0.05, 2.0);
             }
             imgDelay -= 1;
@@ -357,8 +456,8 @@ public class Entity implements Serializable {
         }
         if (AI == "bee") {
             double theta = Math.atan2(player.y - y, player.x - x);
-            vx = Math.cos(theta)*2.5;
-            vy = Math.sin(theta)*2.5;
+            vx = Math.cos(theta) * 2.5;
+            vy = Math.sin(theta) * 2.5;
             collide(blocks, player, u, v);
         }
         return false;
@@ -371,62 +470,61 @@ public class Entity implements Serializable {
 
         onGroundDelay = onGround;
 
-        oldx = x; oldy = y;
+        oldx = x;
+        oldy = y;
 
         x = x + vx;
 
-        for (i=0; i<2; i++) {
-            ix = (int)x;
-            iy = (int)y;
-            ivx = (int)vx;
-            ivy = (int)vy;
+        for (i = 0; i < 2; i++) {
+            ix = (int) x;
+            iy = (int) y;
+            ivx = (int) vx;
+            ivy = (int) vy;
 
-            rect = new Rectangle(ix-1, iy, width+2, height);
+            rect = new Rectangle(ix - 1, iy, width + 2, height);
 
-            bx1 = (int)x/BLOCKSIZE; by1 = (int)y/BLOCKSIZE;
-            bx2 = (int)(x+width)/BLOCKSIZE; by2 = (int)(y+height)/BLOCKSIZE;
+            bx1 = (int) x / BLOCKSIZE;
+            by1 = (int) y / BLOCKSIZE;
+            bx2 = (int) (x + width) / BLOCKSIZE;
+            by2 = (int) (y + height) / BLOCKSIZE;
 
-            bx1 = Math.max(0, bx1); by1 = Math.max(0, by1);
-            bx2 = Math.min(blocks[0].length - 1, bx2); by2 = Math.min(blocks.length - 1, by2);
+            bx1 = Math.max(0, bx1);
+            by1 = Math.max(0, by1);
+            bx2 = Math.min(blocks[0].length - 1, bx2);
+            by2 = Math.min(blocks.length - 1, by2);
 
-            for (i=bx1; i<=bx2; i++) {
-                for (j=by1; j<=by2; j++) {
-                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
-                        if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
-                            if (oldx <= i*16 - width && (vx > 0 || AI == "shooting_star")) {
-                                x = i*16 - width;
+            for (i = bx1; i <= bx2; i++) {
+                for (j = by1; j <= by2; j++) {
+                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j + v][i + u])) {
+                        if (rect.intersects(new Rectangle(i * BLOCKSIZE, j * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
+                            if (oldx <= i * 16 - width && (vx > 0 || AI == "shooting_star")) {
+                                x = i * 16 - width;
                                 if (AI == "bubble") {
                                     vx = -vx;
-                                }
-                                else if (AI == "zombie") {
+                                } else if (AI == "zombie") {
                                     vx = 0;
                                     if (onGround && player.x > x) {
                                         vy = -7;
                                     }
-                                }
-                                else if (AI == "bat") {
+                                } else if (AI == "bat") {
                                     vx = -vx;
-                                }
-                                else {
+                                } else {
                                     vx = 0; // right
                                 }
                                 rv = true;
                             }
-                            if (oldx >= i*16 + BLOCKSIZE && (vx < 0 || AI == "shooting_star")) {
-                                x = i*16 + BLOCKSIZE;
+                            if (oldx >= i * 16 + BLOCKSIZE && (vx < 0 || AI == "shooting_star")) {
+                                x = i * 16 + BLOCKSIZE;
                                 if (AI == "bubble") {
                                     vx = -vx;
-                                }
-                                else if (AI == "zombie") {
+                                } else if (AI == "zombie") {
                                     vx = 0;
                                     if (onGround && player.x < x) {
                                         vy = -7;
                                     }
-                                }
-                                else if (AI == "bat") {
+                                } else if (AI == "bat") {
                                     vx = -vx;
-                                }
-                                else {
+                                } else {
                                     vx = 0; // left
                                 }
                                 rv = true;
@@ -440,41 +538,43 @@ public class Entity implements Serializable {
         y = y + vy;
         onGround = false;
 
-        for (i=0; i<2; i++) {
-            ix = (int)x;
-            iy = (int)y;
-            ivx = (int)vx;
-            ivy = (int)vy;
+        for (i = 0; i < 2; i++) {
+            ix = (int) x;
+            iy = (int) y;
+            ivx = (int) vx;
+            ivy = (int) vy;
 
-            rect = new Rectangle(ix, iy-1, width, height+2);
+            rect = new Rectangle(ix, iy - 1, width, height + 2);
 
-            bx1 = (int)x/BLOCKSIZE; by1 = (int)y/BLOCKSIZE;
-            bx2 = (int)(x+width)/BLOCKSIZE; by2 = (int)(y+height)/BLOCKSIZE;
+            bx1 = (int) x / BLOCKSIZE;
+            by1 = (int) y / BLOCKSIZE;
+            bx2 = (int) (x + width) / BLOCKSIZE;
+            by2 = (int) (y + height) / BLOCKSIZE;
 
-            bx1 = Math.max(0, bx1); by1 = Math.max(0, by1);
-            bx2 = Math.min(blocks[0].length - 1, bx2); by2 = Math.min(blocks.length - 1, by2);
+            bx1 = Math.max(0, bx1);
+            by1 = Math.max(0, by1);
+            bx2 = Math.min(blocks[0].length - 1, bx2);
+            by2 = Math.min(blocks.length - 1, by2);
 
-            for (i=bx1; i<=bx2; i++) {
-                for (j=by1; j<=by2; j++) {
-                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j+v][i+u])) {
-                        if (rect.intersects(new Rectangle(i*BLOCKSIZE, j*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
-                            if (oldy <= j*16 - height && (vy > 0 || AI == "shooting_star")) {
-                                y = j*16 - height;
+            for (i = bx1; i <= bx2; i++) {
+                for (j = by1; j <= by2; j++) {
+                    if (blocks[j][i] != 0 && TerrariaClone.getBLOCKCD().get(blocks[j + v][i + u])) {
+                        if (rect.intersects(new Rectangle(i * BLOCKSIZE, j * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
+                            if (oldy <= j * 16 - height && (vy > 0 || AI == "shooting_star")) {
+                                y = j * 16 - height;
                                 onGround = true;
                                 if (AI == "bubble") {
                                     vy = -vy;
-                                }
-                                else {
+                                } else {
                                     vy = 0; // down
                                 }
                                 rv = true;
                             }
-                            if (oldy >= j*16 + BLOCKSIZE && (vy < 0 || AI == "shooting_star")) {
-                                y = j*16 + BLOCKSIZE;
+                            if (oldy >= j * 16 + BLOCKSIZE && (vy < 0 || AI == "shooting_star")) {
+                                y = j * 16 + BLOCKSIZE;
                                 if (AI == "bubble") {
                                     vy = -vy;
-                                }
-                                else {
+                                } else {
                                     vy = 0; // up
                                 }
                                 rv = true;
@@ -485,12 +585,12 @@ public class Entity implements Serializable {
             }
         }
 
-        ix = (int)x;
-        iy = (int)y;
-        ivx = (int)vx;
-        ivy = (int)vy;
+        ix = (int) x;
+        iy = (int) y;
+        ivx = (int) vx;
+        ivy = (int) vy;
 
-        rect = new Rectangle(ix-1, iy-1, width+2, height+2);
+        rect = new Rectangle(ix - 1, iy - 1, width + 2, height + 2);
 
         return rv;
     }
@@ -500,18 +600,15 @@ public class Entity implements Serializable {
             hp -= Math.max(1, damage - ap);
             immune = true;
             if (AI == "shooting_star") {
-                if (player.x + player.width/2 < x + width/2) {
+                if (player.x + player.width / 2 < x + width / 2) {
                     vx = 4;
-                }
-                else {
+                } else {
                     vx = -4;
                 }
-            }
-            else {
-                if (player.x + player.width/2 < x + width/2) {
+            } else {
+                if (player.x + player.width / 2 < x + width / 2) {
                     vx += 4;
-                }
-                else {
+                } else {
                     vx -= 4;
                 }
                 vy -= 1.2;
@@ -524,76 +621,76 @@ public class Entity implements Serializable {
         ArrayList<Short> dropList = new ArrayList<Short>();
         Random random = TerrariaClone.getRandom();
         if (name == "blue_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)97));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 97));
             }
         }
         if (name == "green_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)98));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 98));
             }
         }
         if (name == "red_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)99));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 99));
             }
         }
         if (name == "yellow_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)100));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 100));
             }
         }
         if (name == "black_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)101));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 101));
             }
         }
         if (name == "white_bubble") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)102));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 102));
             }
         }
         if (name == "shooting_star") {
-            for (i=0; i<random.nextInt(2); i++) {
-                dropList.add(new Short((short)103));
+            for (i = 0; i < random.nextInt(2); i++) {
+                dropList.add(new Short((short) 103));
             }
         }
         if (name == "zombie") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)104));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 104));
             }
         }
         if (name == "armored_zombie") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)104));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 104));
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)109));
+                dropList.add(new Short((short) 109));
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)110));
+                dropList.add(new Short((short) 110));
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)111));
+                dropList.add(new Short((short) 111));
             }
             if (random.nextInt(15) == 0) {
-                dropList.add(new Short((short)112));
+                dropList.add(new Short((short) 112));
             }
         }
         if (name == "sandbot") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)74));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 74));
             }
             if (random.nextInt(2) == 0) {
-                dropList.add(new Short((short)44));
+                dropList.add(new Short((short) 44));
             }
             if (random.nextInt(6) == 0) {
-                dropList.add(new Short((short)45));
+                dropList.add(new Short((short) 45));
             }
         }
         if (name == "snowman") {
-            for (i=0; i<random.nextInt(3); i++) {
-                dropList.add(new Short((short)75));
+            for (i = 0; i < random.nextInt(3); i++) {
+                dropList.add(new Short((short) 75));
             }
         }
         return dropList;
@@ -606,41 +703,5 @@ public class Entity implements Serializable {
         if (AI.equals("zombie")) {
             image = loadImage("sprites/monsters/" + name + "/right_still.png");
         }
-    }
-
-    public static BufferedImage loadImage(String path) {
-        URL url = TerrariaClone.class.getResource(path);
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(url);
-        }
-        catch (Exception e) {
-//            System.out.println("[ERROR] could not load image '" + path + "'.");
-        }
-        return image;
-    }
-
-    public static void print(String text) {
-        System.out.println(text);
-    }
-
-    public static void print(int text) {
-        System.out.println(text);
-    }
-
-    public static void print(double text) {
-        System.out.println(text);
-    }
-
-    public static void print(short text) {
-        System.out.println(text);
-    }
-
-    public static void print(boolean text) {
-        System.out.println(text);
-    }
-
-    public static void print(Object text) {
-        System.out.println(text);
     }
 }
