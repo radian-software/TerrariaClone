@@ -1,5 +1,11 @@
 # TerrariaClone
 
+*Discussed on: [Hacker
+News](https://news.ycombinator.com/item?id=15460851),
+[/r/programming](https://www.reddit.com/r/programming/comments/760kqv/terrariaclone_an_incomprehensible_hellscape_of/),
+[/r/programminghorror](https://www.reddit.com/r/programminghorror/comments/7hhe9h/a_clone_of_terraria_defined_by_the_author_as_an/),
+[/r/shittyprogramming](https://www.reddit.com/r/shittyprogramming/comments/761gbr/terrariaclone_an_incomprehensible_hellscape_of/).*
+
 Back when I was first learning to program in Java, I decided to try to
 make a clone of the excellent PC game [Terraria]. Of course, I was
 convinced that my version would have many more features than the
