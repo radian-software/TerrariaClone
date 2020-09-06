@@ -35,10 +35,10 @@ learned, in my case!) Here are some of the highlights:
   the God Class `TerrariaClone`, which spans over 6,500 lines of code.
 
 * The `TerrariaClone.init()` method, which is over 1,300 lines long,
-  actually grew so large that the Java compiler started *running out
-  of memory* trying to compile it! The solution? Copy half of the
-  `init()` code into a new method, called `codeTooLarge()`, and call
-  that from `init()`.
+  actually grew so large that it hit the limit hardcoded into the Java
+  compiler for the maximum memory that can be taken up by a single
+  function! The solution? Copy half of the `init()` code into a new
+  method, called `codeTooLarge()`, and call that from `init()`.
 
 * Frankly horrifying inline data tables:
 
