@@ -116,5 +116,13 @@ in some way with TerraFrame, the company. After receiving a very
 polite email pointing out the issue, I've changed the name to
 something that makes more sense (TerrariaClone).
 
+#### Python?
+
+You may notice a subdirectory named `python`. What is this, you ask?
+Why, nothing other than the *original* version of TerrariaClone, from
+before I rewrote it into Java! And yes, it's even more primitive,
+although I at least had a bit more understanding of idiomatic
+programming in Python than in Java.
+
 [fix-bugs]: https://github.com/raxod502/TerrariaClone/pull/12
 [terraria]: https://terraria.org/
