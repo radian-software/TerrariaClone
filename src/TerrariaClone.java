@@ -2,7 +2,7 @@
 
 TerrariaClone (working title) [Pre-alpha 1.3]
 
-developed by Radon Rosborough
+developed by Radon Rosborough and maintained by Radian LLC
 
 Project mission: To program a 2D sandbox game similar to, but with many more
                  features than, Terraria.

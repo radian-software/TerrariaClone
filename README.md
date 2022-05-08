@@ -124,5 +124,5 @@ before I rewrote it into Java! And yes, it's even more primitive,
 although I at least had a bit more understanding of idiomatic
 programming in Python than in Java.
 
-[fix-bugs]: https://github.com/raxod502/TerrariaClone/pull/12
+[fix-bugs]: https://github.com/radian-software/TerrariaClone/pull/12
 [terraria]: https://terraria.org/
