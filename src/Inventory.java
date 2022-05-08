@@ -1014,7 +1014,7 @@ public class Inventory implements Serializable {
             width = TerrariaClone.getItemImgs().get(ids[i]).getWidth();
             height = TerrariaClone.getItemImgs().get(ids[i]).getHeight();
             g2.drawImage(TerrariaClone.getItemImgs().get(ids[i]),
-                px*46+14+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+14+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+38-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+38-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                px*46+14+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+14+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), px*46+38-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+38-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                 0, 0, width, height,
                 null);
 
@@ -1240,7 +1240,8 @@ public class Inventory implements Serializable {
         return quantity;
     }
 
-    public void updateIC(ItemCollection ic, int i) {
+	@SuppressWarnings("unlikely-arg-type")
+	public void updateIC(ItemCollection ic, int i) {
         if (ic.type.equals("cic")) {
             py = (int)(i/2);
             px = i-(py*2);
@@ -1258,7 +1259,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
                 g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
-                    px*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                    px*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
                 if (ic.nums[i] > 1) {
@@ -1324,7 +1325,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[4]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[4]).getHeight();
                 g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[4]),
-                    3*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 20+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), 3*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 20+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                    3*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), 20+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), 3*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), 20+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
 
@@ -1352,7 +1353,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
                 g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
-                    px*46+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                    px*46+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
 
@@ -1380,7 +1381,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
                 g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
-                    px*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                    px*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), px*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
                 if (ic.nums[i] > 1) {
@@ -1446,7 +1447,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[9]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[9]).getHeight();
                     g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[9]),
-                        4*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 1*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), 4*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), 1*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                        4*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), 1*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), 4*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), 1*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                         0, 0, width, height,
                         null);
 
@@ -1478,7 +1479,7 @@ public class Inventory implements Serializable {
                 width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
                 height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
                 g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
-                    px*46+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2),
+                    px*46+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2), px*46+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2), py*46+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2),
                     0, 0, width, height,
                     null);
 
@@ -1539,7 +1540,7 @@ public class Inventory implements Serializable {
                     width = TerrariaClone.getItemImgs().get(ic.ids[i]).getWidth();
                     height = TerrariaClone.getItemImgs().get(ic.ids[i]).getHeight();
                     g2.drawImage(TerrariaClone.getItemImgs().get(ic.ids[i]),
-                        (int)(fpx*40+8+((int)(24-(double)12/this.max(width, height, 12)*width*2)/2)), (int)(fpy*40+8+((int)(24-(double)12/this.max(width, height, 12)*height*2)/2)), (int)(fpx*40+32-((int)(24-(double)12/this.max(width, height, 12)*width*2)/2)), (int)(fpy*40+32-((int)(24-(double)12/this.max(width, height, 12)*height*2)/2)),
+                        (int)(fpx*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2)), (int)(fpy*40+8+((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2)), (int)(fpx*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*width*2)/2)), (int)(fpy*40+32-((int)(24-(double)12/Inventory.max(width, height, 12)*height*2)/2)),
                         0, 0, width, height,
                         null);
 
@@ -1672,10 +1673,6 @@ public class Inventory implements Serializable {
 
     public static int max(int a, int b, int c) {
         return Math.max(Math.max(a, b), c);
-    }
-
-    public static void print(String text) {
-        System.out.println(text);
     }
 
     public static void print(int text) {

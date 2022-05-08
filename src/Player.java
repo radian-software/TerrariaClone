@@ -1,15 +1,9 @@
-import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import java.io.*;
 import java.lang.Math;
 import java.net.URL;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.event.*;
 
 public class Player implements Serializable {
     transient BufferedImage image;
